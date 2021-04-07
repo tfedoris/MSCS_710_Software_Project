@@ -25,9 +25,10 @@ if __name__ == "__main__":
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))
     all_metrics = {}
+    all_statics = {}
     metrics_meta = settings.get("all_metrics")
     for metrics in metrics_meta:
-        all_metrics[metrics] = metrics_meta.get(metrics)
+        all_metrics[metrics] = metrics_meta[metrics].get("metrics")
     metrics_collector = MetricsCollector(logger, all_metrics)
     while True:
         metrics_collector.collect_metrics()

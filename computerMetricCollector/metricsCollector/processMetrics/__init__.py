@@ -21,10 +21,11 @@ class ProcessMetricCollector:
                     non_private_mem = 0
                 p_io_info = process.io_counters()
                 metrics_rec = {
-                    "pid": pid,
+                    "pid": process.pid,
                     "name": process.name(),
-                    "status": process.status(),
                     "startTime": process.create_time(),
+                    "user": process.username(),
+                    "status": process.status(),
                     "cpuUserTime": cpu_times.user,
                     "cpuKernelTime": cpu_times.system,
                     "cpuPercent": process.cpu_percent(cpu_collect_int),
@@ -40,7 +41,6 @@ class ProcessMetricCollector:
                     "ioWriteBytes": p_io_info.write_bytes,
                     "threadNum": process.num_threads()
                 }
-                print(metrics_rec)
                 self.metrics_df.append(metrics_rec, ignore_index=True)
             except psutil.AccessDenied as ad:
                 self.logger.error("Access denied to fetch information for {}".format(pid))

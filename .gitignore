@@ -1,3 +1,3 @@
 /src/log/*.log
-/src/config/__pycache__/*
-/src/metricsCollector/__pycache__/*
+/computerMetricCollector/config/__pycache__/*
+/computerMetricCollector/metricsCollector/__pycache__/*
