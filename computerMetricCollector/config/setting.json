@@ -6,28 +6,114 @@
   "date_time_format": "yyyy-mm-dd HH:MM:SS",
   "sleep_time_sec": 60,
   "db_uri": "",
-  "all_metrics": {
-    "process": {
+  "collectors": {
+    "ComputerMetrics": {
       "sql": "",
       "metrics": [
-        "pid", "name", "status", "startTime", "cpuUserTime", "cpuKernelTime",
-        "cpuPercent", "memoryPercentUsedByte", "memoryPhysicalUsedByte",
-        "memoryVirtualUsedByte", "memoryUniqueUsedByte", "memoryNonPrivateByte",
-        "memoryPageFault", "ioReadCnt", "ioReadBytes", "ioWriteCnt",
-        "ioWriteBytes", "threadNum"
+        "MachineID",
+        "MachineName",
+        "System",
+        "Version",
+        "MachineType"
       ]
     },
-    "memory": {
+    "CPUMetrics": {
       "sql": "",
       "metrics": [
-        "entry_datetime", "mem_total", "mem_available", "mem_used", "swap_total",
+        "MachineId",
+        "EntryDatetime",
+        "Brand",
+        "Vendor",
+        "Arch",
+        "Bits",
+        "HZAdvertise",
+        "HZActual",
+        "Count"
       ]
     },
-    "cpu": {
+    "DiskMetrics": {
       "sql": "",
       "metrics": [
-        "entry_datetime", "brand", "vendor", "arch", "bits", "hz_advertise",
-        "hz_actual", "count"
+        "MachineID",
+        "DiskName",
+        "EntryDatetime",
+        "Total",
+        "Free",
+        "Used",
+        "Percent"
+      ]
+    },
+    "DiskIOMetrics": {
+      "sql": "",
+      "metrics": [
+        "MachineId",
+        "DiskName",
+        "EntryDatetime",
+        "CountRead",
+        "CountWrite",
+        "BytesRead",
+        "BytesWrite",
+        "TimeReadInMilli",
+        "TimeWriteInMilli"
+      ]
+    },
+    "MemoryMetrics": {
+      "sql": "",
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "MemoryTotal",
+        "MemoryAvailable",
+        "MemoryUsed",
+        "MemoryUsedPercent",
+        "SwapTotal",
+        "SwapFree",
+        "SwapUsed",
+        "SwapPercent",
+        "SwapBytesIn",
+        "SwapBytesOut"
+      ]
+    },
+    "NetworkMetrics": {
+      "sql": "",
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "NetworkInterface",
+        "ByteSend",
+        "ByteReceived",
+        "ErrorByteReceived",
+        "ErrorByteSend",
+        "PacketSend",
+        "PacketReceived",
+        "PacketReceivedDrop",
+        "PacketSendDrop"
+      ]
+    },
+    "ProcessMetrics": {
+      "sql": "",
+      "metrics": [
+        "MachineId",
+        "Pid",
+        "Name",
+        "StartTime",
+        "User",
+        "EntryDatetime",
+        "Status",
+        "CPUUserTime",
+        "CPUKernelTime",
+        "CPUPercent",
+        "MemoryPercentUsedByte",
+        "MemoryPhysicalUsedByte",
+        "MemoryVirtualUsedByte",
+        "MemoryUniqueUsedByte",
+        "MemoryNonPrivateByte",
+        "MemoryPageFault",
+        "IOReadCnt",
+        "IOReadBytes",
+        "IOWriteCnt",
+        "IOWriteBytes",
+        "ThreadNum"
       ]
     }
   }

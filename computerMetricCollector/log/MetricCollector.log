@@ -1,0 +1,514 @@
+2021-04-09 00:30:43,879 - __init__.py - WARNING - Permission denied to get disk data
+2021-04-09 00:30:43,879 - __init__.py - WARNING - [WinError 21] The device is not ready: 'V'
+2021-04-09 00:30:44,338 - __init__.py - ERROR - Access denied to fetch information for 96
+2021-04-09 00:30:44,338 - __init__.py - ERROR - psutil.AccessDenied (pid=96, name='svchost.exe')
+2021-04-09 00:30:44,371 - __init__.py - ERROR - Access denied to fetch information for 120
+2021-04-09 00:30:44,371 - __init__.py - ERROR - psutil.AccessDenied (pid=120, name='Registry')
+2021-04-09 00:30:44,406 - __init__.py - ERROR - Access denied to fetch information for 436
+2021-04-09 00:30:44,410 - __init__.py - ERROR - psutil.AccessDenied (pid=436, name='smss.exe')
+2021-04-09 00:30:44,448 - __init__.py - ERROR - Access denied to fetch information for 468
+2021-04-09 00:30:44,449 - __init__.py - ERROR - psutil.AccessDenied (pid=468, name='svchost.exe')
+2021-04-09 00:30:44,483 - __init__.py - ERROR - Access denied to fetch information for 664
+2021-04-09 00:30:44,483 - __init__.py - ERROR - psutil.AccessDenied (pid=664, name='WUDFHost.exe')
+2021-04-09 00:30:44,517 - __init__.py - ERROR - Access denied to fetch information for 680
+2021-04-09 00:30:44,517 - __init__.py - ERROR - psutil.AccessDenied (pid=680, name='fontdrvhost.exe')
+2021-04-09 00:30:44,550 - __init__.py - ERROR - Access denied to fetch information for 724
+2021-04-09 00:30:44,550 - __init__.py - ERROR - psutil.AccessDenied (pid=724, name='csrss.exe')
+2021-04-09 00:30:44,584 - __init__.py - ERROR - Access denied to fetch information for 828
+2021-04-09 00:30:44,585 - __init__.py - ERROR - psutil.AccessDenied (pid=828, name='wininit.exe')
+2021-04-09 00:30:44,619 - __init__.py - ERROR - Access denied to fetch information for 836
+2021-04-09 00:30:44,619 - __init__.py - ERROR - psutil.AccessDenied (pid=836, name='csrss.exe')
+2021-04-09 00:30:44,652 - __init__.py - ERROR - Access denied to fetch information for 900
+2021-04-09 00:30:44,652 - __init__.py - ERROR - psutil.AccessDenied (pid=900, name='services.exe')
+2021-04-09 00:30:44,686 - __init__.py - ERROR - Access denied to fetch information for 908
+2021-04-09 00:30:44,686 - __init__.py - ERROR - psutil.AccessDenied (pid=908, name='lsass.exe')
+2021-04-09 00:30:44,720 - __init__.py - ERROR - Access denied to fetch information for 1072
+2021-04-09 00:30:44,720 - __init__.py - ERROR - psutil.AccessDenied (pid=1072, name='svchost.exe')
+2021-04-09 00:30:44,754 - __init__.py - ERROR - Access denied to fetch information for 1124
+2021-04-09 00:30:44,754 - __init__.py - ERROR - psutil.AccessDenied (pid=1124, name='svchost.exe')
+2021-04-09 00:30:44,788 - __init__.py - ERROR - Access denied to fetch information for 1188
+2021-04-09 00:30:44,788 - __init__.py - ERROR - psutil.AccessDenied (pid=1188, name='svchost.exe')
+2021-04-09 00:30:44,822 - __init__.py - ERROR - Access denied to fetch information for 1216
+2021-04-09 00:30:44,822 - __init__.py - ERROR - psutil.AccessDenied (pid=1216, name='winlogon.exe')
+2021-04-09 00:30:44,857 - __init__.py - ERROR - Access denied to fetch information for 1268
+2021-04-09 00:30:44,857 - __init__.py - ERROR - psutil.AccessDenied (pid=1268, name='fontdrvhost.exe')
+2021-04-09 00:30:45,014 - __init__.py - ERROR - Access denied to fetch information for 1464
+2021-04-09 00:30:45,014 - __init__.py - ERROR - psutil.AccessDenied (pid=1464, name='svchost.exe')
+2021-04-09 00:30:45,049 - __init__.py - ERROR - Access denied to fetch information for 1472
+2021-04-09 00:30:45,049 - __init__.py - ERROR - psutil.AccessDenied (pid=1472, name='svchost.exe')
+2021-04-09 00:30:45,084 - __init__.py - ERROR - Access denied to fetch information for 1504
+2021-04-09 00:30:45,084 - __init__.py - ERROR - psutil.AccessDenied (pid=1504, name='svchost.exe')
+2021-04-09 00:30:45,117 - __init__.py - ERROR - Access denied to fetch information for 1576
+2021-04-09 00:30:45,117 - __init__.py - ERROR - psutil.AccessDenied (pid=1576, name='svchost.exe')
+2021-04-09 00:30:45,151 - __init__.py - ERROR - Access denied to fetch information for 1596
+2021-04-09 00:30:45,151 - __init__.py - ERROR - psutil.AccessDenied (pid=1596, name='svchost.exe')
+2021-04-09 00:30:45,186 - __init__.py - ERROR - Access denied to fetch information for 1636
+2021-04-09 00:30:45,186 - __init__.py - ERROR - psutil.AccessDenied (pid=1636, name='svchost.exe')
+2021-04-09 00:30:45,220 - __init__.py - ERROR - Access denied to fetch information for 1672
+2021-04-09 00:30:45,220 - __init__.py - ERROR - psutil.AccessDenied (pid=1672, name='svchost.exe')
+2021-04-09 00:30:45,378 - __init__.py - ERROR - Access denied to fetch information for 1788
+2021-04-09 00:30:45,378 - __init__.py - ERROR - psutil.AccessDenied (pid=1788, name='svchost.exe')
+2021-04-09 00:30:45,412 - __init__.py - ERROR - Access denied to fetch information for 1864
+2021-04-09 00:30:45,412 - __init__.py - ERROR - psutil.AccessDenied (pid=1864, name='igfxCUIService.exe')
+2021-04-09 00:30:45,450 - __init__.py - ERROR - Access denied to fetch information for 1908
+2021-04-09 00:30:45,450 - __init__.py - ERROR - psutil.AccessDenied (pid=1908, name='svchost.exe')
+2021-04-09 00:30:45,520 - __init__.py - ERROR - Access denied to fetch information for 1952
+2021-04-09 00:30:45,520 - __init__.py - ERROR - psutil.AccessDenied (pid=1952, name='svchost.exe')
+2021-04-09 00:30:45,557 - __init__.py - ERROR - Access denied to fetch information for 1956
+2021-04-09 00:30:45,557 - __init__.py - ERROR - psutil.AccessDenied (pid=1956, name='svchost.exe')
+2021-04-09 00:30:45,595 - __init__.py - ERROR - Access denied to fetch information for 1968
+2021-04-09 00:30:45,595 - __init__.py - ERROR - psutil.AccessDenied (pid=1968, name='svchost.exe')
+2021-04-09 00:30:45,633 - __init__.py - ERROR - Access denied to fetch information for 1988
+2021-04-09 00:30:45,633 - __init__.py - ERROR - psutil.AccessDenied (pid=1988, name='svchost.exe')
+2021-04-09 00:30:45,666 - __init__.py - ERROR - Access denied to fetch information for 2148
+2021-04-09 00:30:45,666 - __init__.py - ERROR - psutil.AccessDenied (pid=2148, name='NVDisplay.Container.exe')
+2021-04-09 00:30:45,701 - __init__.py - ERROR - Access denied to fetch information for 2164
+2021-04-09 00:30:45,701 - __init__.py - ERROR - psutil.AccessDenied (pid=2164, name='svchost.exe')
+2021-04-09 00:30:45,735 - __init__.py - ERROR - Access denied to fetch information for 2232
+2021-04-09 00:30:45,735 - __init__.py - ERROR - psutil.AccessDenied (pid=2232, name='svchost.exe')
+2021-04-09 00:30:45,770 - __init__.py - ERROR - Access denied to fetch information for 2268
+2021-04-09 00:30:45,770 - __init__.py - ERROR - psutil.AccessDenied (pid=2268, name='svchost.exe')
+2021-04-09 00:30:45,804 - __init__.py - ERROR - Access denied to fetch information for 2368
+2021-04-09 00:30:45,804 - __init__.py - ERROR - psutil.AccessDenied (pid=2368, name='svchost.exe')
+2021-04-09 00:30:45,840 - __init__.py - ERROR - Access denied to fetch information for 2376
+2021-04-09 00:30:45,840 - __init__.py - ERROR - psutil.AccessDenied (pid=2376, name='svchost.exe')
+2021-04-09 00:30:45,874 - __init__.py - ERROR - Access denied to fetch information for 2388
+2021-04-09 00:30:45,874 - __init__.py - ERROR - psutil.AccessDenied (pid=2388, name='svchost.exe')
+2021-04-09 00:30:45,908 - __init__.py - ERROR - Access denied to fetch information for 2396
+2021-04-09 00:30:45,908 - __init__.py - ERROR - psutil.AccessDenied (pid=2396, name='svchost.exe')
+2021-04-09 00:30:45,943 - __init__.py - ERROR - Access denied to fetch information for 2448
+2021-04-09 00:30:45,943 - __init__.py - ERROR - psutil.AccessDenied (pid=2448, name='svchost.exe')
+2021-04-09 00:30:45,976 - __init__.py - ERROR - Access denied to fetch information for 2480
+2021-04-09 00:30:45,976 - __init__.py - ERROR - psutil.AccessDenied (pid=2480, name='svchost.exe')
+2021-04-09 00:30:46,009 - __init__.py - ERROR - Access denied to fetch information for 2528
+2021-04-09 00:30:46,009 - __init__.py - ERROR - psutil.AccessDenied (pid=2528, name='svchost.exe')
+2021-04-09 00:30:46,042 - __init__.py - ERROR - Access denied to fetch information for 2536
+2021-04-09 00:30:46,042 - __init__.py - ERROR - psutil.AccessDenied (pid=2536, name='svchost.exe')
+2021-04-09 00:30:46,076 - __init__.py - ERROR - Access denied to fetch information for 2564
+2021-04-09 00:30:46,076 - __init__.py - ERROR - psutil.AccessDenied (pid=2564, name='MemCompression')
+2021-04-09 00:30:46,110 - __init__.py - ERROR - Access denied to fetch information for 2620
+2021-04-09 00:30:46,110 - __init__.py - ERROR - psutil.AccessDenied (pid=2620, name='svchost.exe')
+2021-04-09 00:30:46,144 - __init__.py - ERROR - Access denied to fetch information for 2724
+2021-04-09 00:30:46,145 - __init__.py - ERROR - psutil.AccessDenied (pid=2724, name='WmiPrvSE.exe')
+2021-04-09 00:30:46,178 - __init__.py - ERROR - Access denied to fetch information for 2820
+2021-04-09 00:30:46,178 - __init__.py - ERROR - psutil.AccessDenied (pid=2820, name='svchost.exe')
+2021-04-09 00:30:46,212 - __init__.py - ERROR - Access denied to fetch information for 2932
+2021-04-09 00:30:46,212 - __init__.py - ERROR - psutil.AccessDenied (pid=2932, name='svchost.exe')
+2021-04-09 00:30:46,382 - __init__.py - ERROR - Access denied to fetch information for 2992
+2021-04-09 00:30:46,382 - __init__.py - ERROR - psutil.AccessDenied (pid=2992, name='svchost.exe')
+2021-04-09 00:30:46,416 - __init__.py - ERROR - Access denied to fetch information for 3076
+2021-04-09 00:30:46,416 - __init__.py - ERROR - psutil.AccessDenied (pid=3076, name='vpnagent.exe')
+2021-04-09 00:30:46,458 - __init__.py - ERROR - Access denied to fetch information for 3084
+2021-04-09 00:30:46,458 - __init__.py - ERROR - psutil.AccessDenied (pid=3084, name='ZhuDongFangYu.exe')
+2021-04-09 00:30:46,492 - __init__.py - ERROR - Access denied to fetch information for 3104
+2021-04-09 00:30:46,492 - __init__.py - ERROR - psutil.AccessDenied (pid=3104, name='svchost.exe')
+2021-04-09 00:30:46,527 - __init__.py - ERROR - Access denied to fetch information for 3248
+2021-04-09 00:30:46,527 - __init__.py - ERROR - psutil.AccessDenied (pid=3248, name='NVDisplay.Container.exe')
+2021-04-09 00:30:46,687 - __init__.py - ERROR - Access denied to fetch information for 3312
+2021-04-09 00:30:46,687 - __init__.py - ERROR - psutil.AccessDenied (pid=3312, name='svchost.exe')
+2021-04-09 00:30:46,720 - __init__.py - ERROR - Access denied to fetch information for 3528
+2021-04-09 00:30:46,720 - __init__.py - ERROR - psutil.AccessDenied (pid=3528, name='svchost.exe')
+2021-04-09 00:30:46,755 - __init__.py - ERROR - Access denied to fetch information for 3536
+2021-04-09 00:30:46,755 - __init__.py - ERROR - psutil.AccessDenied (pid=3536, name='AsLdrSrv.exe')
+2021-04-09 00:30:46,787 - __init__.py - ERROR - Access denied to fetch information for 3608
+2021-04-09 00:30:46,788 - __init__.py - ERROR - psutil.AccessDenied (pid=3608, name='HControl.exe')
+2021-04-09 00:30:46,822 - __init__.py - ERROR - Access denied to fetch information for 3676
+2021-04-09 00:30:46,822 - __init__.py - ERROR - psutil.AccessDenied (pid=3676, name='spoolsv.exe')
+2021-04-09 00:30:46,855 - __init__.py - ERROR - Access denied to fetch information for 3856
+2021-04-09 00:30:46,855 - __init__.py - ERROR - psutil.AccessDenied (pid=3856, name='svchost.exe')
+2021-04-09 00:30:46,889 - __init__.py - ERROR - Access denied to fetch information for 3888
+2021-04-09 00:30:46,889 - __init__.py - ERROR - psutil.AccessDenied (pid=3888, name='svchost.exe')
+2021-04-09 00:30:47,171 - __init__.py - ERROR - Access denied to fetch information for 3980
+2021-04-09 00:30:47,171 - __init__.py - ERROR - psutil.AccessDenied (pid=3980, name='svchost.exe')
+2021-04-09 00:30:47,698 - __init__.py - ERROR - Access denied to fetch information for 4204
+2021-04-09 00:30:47,698 - __init__.py - ERROR - psutil.AccessDenied (pid=4204, name='svchost.exe')
+2021-04-09 00:30:48,100 - __init__.py - ERROR - Access denied to fetch information for 4424
+2021-04-09 00:30:48,101 - __init__.py - ERROR - psutil.AccessDenied (pid=4424, name='svchost.exe')
+2021-04-09 00:30:48,259 - __init__.py - ERROR - Access denied to fetch information for 4552
+2021-04-09 00:30:48,260 - __init__.py - ERROR - psutil.AccessDenied (pid=4552, name='svchost.exe')
+2021-04-09 00:30:48,293 - __init__.py - ERROR - Access denied to fetch information for 4568
+2021-04-09 00:30:48,294 - __init__.py - ERROR - psutil.AccessDenied (pid=4568, name='svchost.exe')
+2021-04-09 00:30:48,340 - __init__.py - ERROR - Access denied to fetch information for 4584
+2021-04-09 00:30:48,340 - __init__.py - ERROR - psutil.AccessDenied (pid=4584, name='svchost.exe')
+2021-04-09 00:30:48,375 - __init__.py - ERROR - Access denied to fetch information for 4596
+2021-04-09 00:30:48,375 - __init__.py - ERROR - psutil.AccessDenied (pid=4596, name='svchost.exe')
+2021-04-09 00:30:48,410 - __init__.py - ERROR - Access denied to fetch information for 4604
+2021-04-09 00:30:48,410 - __init__.py - ERROR - psutil.AccessDenied (pid=4604, name='svchost.exe')
+2021-04-09 00:30:48,444 - __init__.py - ERROR - Access denied to fetch information for 4616
+2021-04-09 00:30:48,445 - __init__.py - ERROR - psutil.AccessDenied (pid=4616, name='svchost.exe')
+2021-04-09 00:30:48,480 - __init__.py - ERROR - Access denied to fetch information for 4624
+2021-04-09 00:30:48,480 - __init__.py - ERROR - psutil.AccessDenied (pid=4624, name='IntelCpHDCPSvc.exe')
+2021-04-09 00:30:48,515 - __init__.py - ERROR - Access denied to fetch information for 4632
+2021-04-09 00:30:48,515 - __init__.py - ERROR - psutil.AccessDenied (pid=4632, name='AsBhcSrv.exe')
+2021-04-09 00:30:48,549 - __init__.py - ERROR - Access denied to fetch information for 4652
+2021-04-09 00:30:48,549 - __init__.py - ERROR - psutil.AccessDenied (pid=4652, name='svchost.exe')
+2021-04-09 00:30:48,583 - __init__.py - ERROR - Access denied to fetch information for 4660
+2021-04-09 00:30:48,584 - __init__.py - ERROR - psutil.AccessDenied (pid=4660, name='esif_uf.exe')
+2021-04-09 00:30:48,618 - __init__.py - ERROR - Access denied to fetch information for 4668
+2021-04-09 00:30:48,618 - __init__.py - ERROR - psutil.AccessDenied (pid=4668, name='RtkBtManServ.exe')
+2021-04-09 00:30:48,652 - __init__.py - ERROR - Access denied to fetch information for 4676
+2021-04-09 00:30:48,652 - __init__.py - ERROR - psutil.AccessDenied (pid=4676, name='PEFService.exe')
+2021-04-09 00:30:48,688 - __init__.py - ERROR - Access denied to fetch information for 4712
+2021-04-09 00:30:48,688 - __init__.py - ERROR - psutil.AccessDenied (pid=4712, name='svchost.exe')
+2021-04-09 00:30:48,721 - __init__.py - ERROR - Access denied to fetch information for 4724
+2021-04-09 00:30:48,721 - __init__.py - ERROR - psutil.AccessDenied (pid=4724, name='svchost.exe')
+2021-04-09 00:30:48,755 - __init__.py - ERROR - Access denied to fetch information for 4736
+2021-04-09 00:30:48,755 - __init__.py - ERROR - psutil.AccessDenied (pid=4736, name='svchost.exe')
+2021-04-09 00:30:48,789 - __init__.py - ERROR - Access denied to fetch information for 4744
+2021-04-09 00:30:48,789 - __init__.py - ERROR - psutil.AccessDenied (pid=4744, name='svchost.exe')
+2021-04-09 00:30:48,822 - __init__.py - ERROR - Access denied to fetch information for 4760
+2021-04-09 00:30:48,822 - __init__.py - ERROR - psutil.AccessDenied (pid=4760, name='mysqld.exe')
+2021-04-09 00:30:48,856 - __init__.py - ERROR - Access denied to fetch information for 4868
+2021-04-09 00:30:48,857 - __init__.py - ERROR - psutil.AccessDenied (pid=4868, name='SearchIndexer.exe')
+2021-04-09 00:30:49,138 - __init__.py - ERROR - Access denied to fetch information for 4932
+2021-04-09 00:30:49,138 - __init__.py - ERROR - psutil.AccessDenied (pid=4932, name='svchost.exe')
+2021-04-09 00:30:49,421 - __init__.py - ERROR - Access denied to fetch information for 5256
+2021-04-09 00:30:49,421 - __init__.py - ERROR - psutil.AccessDenied (pid=5256, name='IntelCpHeciSvc.exe')
+2021-04-09 00:30:49,457 - __init__.py - ERROR - Access denied to fetch information for 5436
+2021-04-09 00:30:49,457 - __init__.py - ERROR - psutil.AccessDenied (pid=5436, name='dasHost.exe')
+2021-04-09 00:30:49,492 - __init__.py - ERROR - Access denied to fetch information for 5584
+2021-04-09 00:30:49,492 - __init__.py - ERROR - psutil.AccessDenied (pid=5584, name='svchost.exe')
+2021-04-09 00:30:49,527 - __init__.py - ERROR - Access denied to fetch information for 5736
+2021-04-09 00:30:49,527 - __init__.py - ERROR - psutil.AccessDenied (pid=5736, name='svchost.exe')
+2021-04-09 00:30:49,562 - __init__.py - ERROR - Access denied to fetch information for 5904
+2021-04-09 00:30:49,562 - __init__.py - ERROR - psutil.AccessDenied (pid=5904, name='svchost.exe')
+2021-04-09 00:30:49,594 - __init__.py - ERROR - Access denied to fetch information for 6312
+2021-04-09 00:30:49,594 - __init__.py - ERROR - psutil.AccessDenied (pid=6312, name='svchost.exe')
+2021-04-09 00:30:49,874 - __init__.py - ERROR - Access denied to fetch information for 6716
+2021-04-09 00:30:49,874 - __init__.py - ERROR - psutil.AccessDenied (pid=6716, name='svchost.exe')
+2021-04-09 00:30:50,030 - __init__.py - ERROR - Access denied to fetch information for 7128
+2021-04-09 00:30:50,030 - __init__.py - ERROR - psutil.AccessDenied (pid=7128, name='PresentationFontCache.exe')
+2021-04-09 00:30:50,064 - __init__.py - ERROR - Access denied to fetch information for 7152
+2021-04-09 00:30:50,064 - __init__.py - ERROR - psutil.AccessDenied (pid=7152, name='svchost.exe')
+2021-04-09 00:30:50,098 - __init__.py - ERROR - Access denied to fetch information for 7224
+2021-04-09 00:30:50,098 - __init__.py - ERROR - psutil.AccessDenied (pid=7224, name='svchost.exe')
+2021-04-09 00:30:50,132 - __init__.py - ERROR - Access denied to fetch information for 7244
+2021-04-09 00:30:50,132 - __init__.py - ERROR - psutil.AccessDenied (pid=7244, name='svchost.exe')
+2021-04-09 00:30:50,290 - __init__.py - ERROR - Access denied to fetch information for 8064
+2021-04-09 00:30:50,290 - __init__.py - ERROR - psutil.AccessDenied (pid=8064, name='dasHost.exe')
+2021-04-09 00:30:51,558 - __init__.py - ERROR - Access denied to fetch information for 9368
+2021-04-09 00:30:51,559 - __init__.py - ERROR - psutil.AccessDenied (pid=9368, name='svchost.exe')
+2021-04-09 00:30:51,592 - __init__.py - ERROR - Access denied to fetch information for 9620
+2021-04-09 00:30:51,592 - __init__.py - ERROR - psutil.AccessDenied (pid=9620, name='svchost.exe')
+2021-04-09 00:30:51,996 - __init__.py - ERROR - Access denied to fetch information for 10336
+2021-04-09 00:30:51,996 - __init__.py - ERROR - psutil.AccessDenied (pid=10336, name='svchost.exe')
+2021-04-09 00:30:52,647 - __init__.py - ERROR - Access denied to fetch information for 10616
+2021-04-09 00:30:52,647 - __init__.py - ERROR - psutil.AccessDenied (pid=10616, name='svchost.exe')
+2021-04-09 00:30:53,050 - __init__.py - ERROR - Access denied to fetch information for 11088
+2021-04-09 00:30:53,050 - __init__.py - ERROR - psutil.AccessDenied (pid=11088, name='dllhost.exe')
+2021-04-09 00:30:53,946 - __init__.py - ERROR - Access denied to fetch information for 11668
+2021-04-09 00:30:53,947 - __init__.py - ERROR - psutil.AccessDenied (pid=11668, name='svchost.exe')
+2021-04-09 00:30:54,103 - __init__.py - ERROR - Access denied to fetch information for 12136
+2021-04-09 00:30:54,103 - __init__.py - ERROR - psutil.AccessDenied (pid=12136, name='svchost.exe')
+2021-04-09 00:30:54,261 - __init__.py - ERROR - Access denied to fetch information for 12216
+2021-04-09 00:30:54,261 - __init__.py - ERROR - psutil.AccessDenied (pid=12216, name='SecurityHealthService.exe')
+2021-04-09 00:30:54,916 - __init__.py - ERROR - Access denied to fetch information for 12996
+2021-04-09 00:30:54,916 - __init__.py - ERROR - psutil.AccessDenied (pid=12996, name='BrYNSvc.exe')
+2021-04-09 00:30:55,073 - __init__.py - ERROR - Access denied to fetch information for 13164
+2021-04-09 00:30:55,073 - __init__.py - ERROR - psutil.AccessDenied (pid=13164, name='svchost.exe')
+2021-04-09 00:30:55,355 - __init__.py - ERROR - Access denied to fetch information for 13724
+2021-04-09 00:30:55,355 - __init__.py - ERROR - psutil.AccessDenied (pid=13724, name='svchost.exe')
+2021-04-09 00:30:56,874 - __init__.py - ERROR - Access denied to fetch information for 16524
+2021-04-09 00:30:56,874 - __init__.py - ERROR - psutil.AccessDenied (pid=16524, name='IAStorDataMgrSvc.exe')
+2021-04-09 00:30:56,908 - __init__.py - ERROR - Access denied to fetch information for 16604
+2021-04-09 00:30:56,908 - __init__.py - ERROR - psutil.AccessDenied (pid=16604, name='jhi_service.exe')
+2021-04-09 00:30:56,942 - __init__.py - ERROR - Access denied to fetch information for 16688
+2021-04-09 00:30:56,942 - __init__.py - ERROR - psutil.AccessDenied (pid=16688, name='SgrmBroker.exe')
+2021-04-09 00:30:57,098 - __init__.py - ERROR - Access denied to fetch information for 16788
+2021-04-09 00:30:57,098 - __init__.py - ERROR - psutil.AccessDenied (pid=16788, name='svchost.exe')
+2021-04-09 00:30:57,256 - __init__.py - ERROR - Access denied to fetch information for 16856
+2021-04-09 00:30:57,256 - __init__.py - ERROR - psutil.AccessDenied (pid=16856, name='svchost.exe')
+2021-04-09 00:30:57,912 - __init__.py - ERROR - Access denied to fetch information for 18800
+2021-04-09 00:30:57,912 - __init__.py - ERROR - psutil.AccessDenied (pid=18800, name='svchost.exe')
+2021-04-09 00:30:57,944 - __init__.py - ERROR - Access denied to fetch information for 18880
+2021-04-09 00:30:57,944 - __init__.py - ERROR - psutil.AccessDenied (pid=18880, name='svchost.exe')
+2021-04-09 00:30:58,224 - __init__.py - ERROR - Access denied to fetch information for 19952
+2021-04-09 00:30:58,224 - __init__.py - ERROR - psutil.AccessDenied (pid=19952, name='svchost.exe')
+2021-04-09 00:30:58,258 - __init__.py - ERROR - Access denied to fetch information for 20308
+2021-04-09 00:30:58,258 - __init__.py - ERROR - psutil.AccessDenied (pid=20308, name='svchost.exe')
+2021-04-09 00:30:58,293 - __init__.py - ERROR - Access denied to fetch information for 20800
+2021-04-09 00:30:58,293 - __init__.py - ERROR - psutil.AccessDenied (pid=20800, name='dwm.exe')
+2021-04-09 00:30:58,572 - __init__.py - ERROR - Access denied to fetch information for 21588
+2021-04-09 00:30:58,572 - __init__.py - ERROR - psutil.AccessDenied (pid=21588, name='svchost.exe')
+2021-04-09 00:30:59,224 - __init__.py - ERROR - Access denied to fetch information for 24140
+2021-04-09 00:30:59,224 - __init__.py - ERROR - psutil.AccessDenied (pid=24140, name='svchost.exe')
+2021-04-09 00:30:59,998 - __init__.py - ERROR - Access denied to fetch information for 29900
+2021-04-09 00:30:59,998 - __init__.py - ERROR - psutil.AccessDenied (pid=29900, name='svchost.exe')
+2021-04-09 00:31:00,037 - __init__.py - ERROR - Access denied to fetch information for 31240
+2021-04-09 00:31:00,037 - __init__.py - ERROR - psutil.AccessDenied (pid=31240, name='WmiPrvSE.exe')
+2021-04-09 00:31:02,027 - __init__.py - ERROR - Access denied to fetch information for 39248
+2021-04-09 00:31:02,027 - __init__.py - ERROR - psutil.AccessDenied (pid=39248, name='svchost.exe')
+2021-04-09 00:31:03,170 - __init__.py - ERROR - Access denied to fetch information for 42772
+2021-04-09 00:31:03,170 - __init__.py - ERROR - psutil.AccessDenied (pid=42772, name='SearchProtocolHost.exe')
+2021-04-09 00:31:03,204 - __init__.py - ERROR - Access denied to fetch information for 42780
+2021-04-09 00:31:03,204 - __init__.py - ERROR - psutil.AccessDenied (pid=42780, name='svchost.exe')
+2021-04-09 00:31:04,105 - __init__.py - ERROR - Access denied to fetch information for 43764
+2021-04-09 00:31:04,106 - __init__.py - ERROR - psutil.AccessDenied (pid=43764, name='svchost.exe')
+2021-04-09 00:31:04,645 - __init__.py - ERROR - Access denied to fetch information for 44228
+2021-04-09 00:31:04,645 - __init__.py - ERROR - psutil.AccessDenied (pid=44228, name='dllhost.exe')
+2021-04-09 00:31:04,682 - __init__.py - ERROR - Access denied to fetch information for 44448
+2021-04-09 00:31:04,682 - __init__.py - ERROR - psutil.AccessDenied (pid=44448, name='svchost.exe')
+2021-04-09 00:31:04,842 - __init__.py - ERROR - Access denied to fetch information for 45264
+2021-04-09 00:31:04,842 - __init__.py - ERROR - psutil.AccessDenied (pid=45264, name='AppVShNotify.exe')
+2021-04-09 00:31:06,996 - __init__.py - ERROR - Access denied to fetch information for 48592
+2021-04-09 00:31:06,996 - __init__.py - ERROR - psutil.AccessDenied (pid=48592, name='SearchFilterHost.exe')
+2021-04-09 00:31:07,901 - __init__.py - ERROR - Access denied to fetch information for 49252
+2021-04-09 00:31:07,901 - __init__.py - ERROR - psutil.AccessDenied (pid=49252, name='OfficeClickToRun.exe')
+2021-04-09 00:31:09,181 - __init__.py - ERROR - Access denied to fetch information for 50920
+2021-04-09 00:31:09,181 - __init__.py - ERROR - psutil.AccessDenied (pid=50920, name='svchost.exe')
+2021-04-09 00:31:49,659 - __init__.py - WARNING - Permission denied to get disk data
+2021-04-09 00:31:49,659 - __init__.py - WARNING - [WinError 21] The device is not ready: 'V'
+2021-04-09 00:31:50,112 - __init__.py - ERROR - Access denied to fetch information for 96
+2021-04-09 00:31:50,112 - __init__.py - ERROR - psutil.AccessDenied (pid=96, name='svchost.exe')
+2021-04-09 00:31:50,146 - __init__.py - ERROR - Access denied to fetch information for 120
+2021-04-09 00:31:50,147 - __init__.py - ERROR - psutil.AccessDenied (pid=120, name='Registry')
+2021-04-09 00:31:50,180 - __init__.py - ERROR - Access denied to fetch information for 436
+2021-04-09 00:31:50,180 - __init__.py - ERROR - psutil.AccessDenied (pid=436, name='smss.exe')
+2021-04-09 00:31:50,213 - __init__.py - ERROR - Access denied to fetch information for 468
+2021-04-09 00:31:50,213 - __init__.py - ERROR - psutil.AccessDenied (pid=468, name='svchost.exe')
+2021-04-09 00:31:50,248 - __init__.py - ERROR - Access denied to fetch information for 664
+2021-04-09 00:31:50,248 - __init__.py - ERROR - psutil.AccessDenied (pid=664, name='WUDFHost.exe')
+2021-04-09 00:31:50,283 - __init__.py - ERROR - Access denied to fetch information for 680
+2021-04-09 00:31:50,283 - __init__.py - ERROR - psutil.AccessDenied (pid=680, name='fontdrvhost.exe')
+2021-04-09 00:31:50,317 - __init__.py - ERROR - Access denied to fetch information for 724
+2021-04-09 00:31:50,317 - __init__.py - ERROR - psutil.AccessDenied (pid=724, name='csrss.exe')
+2021-04-09 00:31:50,362 - __init__.py - ERROR - Access denied to fetch information for 828
+2021-04-09 00:31:50,363 - __init__.py - ERROR - psutil.AccessDenied (pid=828, name='wininit.exe')
+2021-04-09 00:31:50,398 - __init__.py - ERROR - Access denied to fetch information for 836
+2021-04-09 00:31:50,398 - __init__.py - ERROR - psutil.AccessDenied (pid=836, name='csrss.exe')
+2021-04-09 00:31:50,434 - __init__.py - ERROR - Access denied to fetch information for 900
+2021-04-09 00:31:50,434 - __init__.py - ERROR - psutil.AccessDenied (pid=900, name='services.exe')
+2021-04-09 00:31:50,472 - __init__.py - ERROR - Access denied to fetch information for 908
+2021-04-09 00:31:50,472 - __init__.py - ERROR - psutil.AccessDenied (pid=908, name='lsass.exe')
+2021-04-09 00:31:50,508 - __init__.py - ERROR - Access denied to fetch information for 1072
+2021-04-09 00:31:50,508 - __init__.py - ERROR - psutil.AccessDenied (pid=1072, name='svchost.exe')
+2021-04-09 00:31:50,545 - __init__.py - ERROR - Access denied to fetch information for 1124
+2021-04-09 00:31:50,545 - __init__.py - ERROR - psutil.AccessDenied (pid=1124, name='svchost.exe')
+2021-04-09 00:31:50,580 - __init__.py - ERROR - Access denied to fetch information for 1188
+2021-04-09 00:31:50,580 - __init__.py - ERROR - psutil.AccessDenied (pid=1188, name='svchost.exe')
+2021-04-09 00:31:50,620 - __init__.py - ERROR - Access denied to fetch information for 1216
+2021-04-09 00:31:50,620 - __init__.py - ERROR - psutil.AccessDenied (pid=1216, name='winlogon.exe')
+2021-04-09 00:31:50,655 - __init__.py - ERROR - Access denied to fetch information for 1268
+2021-04-09 00:31:50,655 - __init__.py - ERROR - psutil.AccessDenied (pid=1268, name='fontdrvhost.exe')
+2021-04-09 00:31:50,814 - __init__.py - ERROR - Access denied to fetch information for 1464
+2021-04-09 00:31:50,814 - __init__.py - ERROR - psutil.AccessDenied (pid=1464, name='svchost.exe')
+2021-04-09 00:31:50,848 - __init__.py - ERROR - Access denied to fetch information for 1472
+2021-04-09 00:31:50,848 - __init__.py - ERROR - psutil.AccessDenied (pid=1472, name='svchost.exe')
+2021-04-09 00:31:50,882 - __init__.py - ERROR - Access denied to fetch information for 1504
+2021-04-09 00:31:50,882 - __init__.py - ERROR - psutil.AccessDenied (pid=1504, name='svchost.exe')
+2021-04-09 00:31:50,916 - __init__.py - ERROR - Access denied to fetch information for 1576
+2021-04-09 00:31:50,916 - __init__.py - ERROR - psutil.AccessDenied (pid=1576, name='svchost.exe')
+2021-04-09 00:31:50,950 - __init__.py - ERROR - Access denied to fetch information for 1596
+2021-04-09 00:31:50,951 - __init__.py - ERROR - psutil.AccessDenied (pid=1596, name='svchost.exe')
+2021-04-09 00:31:50,985 - __init__.py - ERROR - Access denied to fetch information for 1636
+2021-04-09 00:31:50,985 - __init__.py - ERROR - psutil.AccessDenied (pid=1636, name='svchost.exe')
+2021-04-09 00:31:51,020 - __init__.py - ERROR - Access denied to fetch information for 1672
+2021-04-09 00:31:51,020 - __init__.py - ERROR - psutil.AccessDenied (pid=1672, name='svchost.exe')
+2021-04-09 00:31:51,177 - __init__.py - ERROR - Access denied to fetch information for 1788
+2021-04-09 00:31:51,178 - __init__.py - ERROR - psutil.AccessDenied (pid=1788, name='svchost.exe')
+2021-04-09 00:31:51,213 - __init__.py - ERROR - Access denied to fetch information for 1864
+2021-04-09 00:31:51,213 - __init__.py - ERROR - psutil.AccessDenied (pid=1864, name='igfxCUIService.exe')
+2021-04-09 00:31:51,248 - __init__.py - ERROR - Access denied to fetch information for 1908
+2021-04-09 00:31:51,248 - __init__.py - ERROR - psutil.AccessDenied (pid=1908, name='svchost.exe')
+2021-04-09 00:31:51,283 - __init__.py - ERROR - Access denied to fetch information for 1952
+2021-04-09 00:31:51,283 - __init__.py - ERROR - psutil.AccessDenied (pid=1952, name='svchost.exe')
+2021-04-09 00:31:51,319 - __init__.py - ERROR - Access denied to fetch information for 1956
+2021-04-09 00:31:51,319 - __init__.py - ERROR - psutil.AccessDenied (pid=1956, name='svchost.exe')
+2021-04-09 00:31:51,353 - __init__.py - ERROR - Access denied to fetch information for 1968
+2021-04-09 00:31:51,353 - __init__.py - ERROR - psutil.AccessDenied (pid=1968, name='svchost.exe')
+2021-04-09 00:31:51,389 - __init__.py - ERROR - Access denied to fetch information for 1988
+2021-04-09 00:31:51,389 - __init__.py - ERROR - psutil.AccessDenied (pid=1988, name='svchost.exe')
+2021-04-09 00:31:51,422 - __init__.py - ERROR - Access denied to fetch information for 2148
+2021-04-09 00:31:51,422 - __init__.py - ERROR - psutil.AccessDenied (pid=2148, name='NVDisplay.Container.exe')
+2021-04-09 00:31:51,458 - __init__.py - ERROR - Access denied to fetch information for 2164
+2021-04-09 00:31:51,459 - __init__.py - ERROR - psutil.AccessDenied (pid=2164, name='svchost.exe')
+2021-04-09 00:31:51,494 - __init__.py - ERROR - Access denied to fetch information for 2232
+2021-04-09 00:31:51,494 - __init__.py - ERROR - psutil.AccessDenied (pid=2232, name='svchost.exe')
+2021-04-09 00:31:51,534 - __init__.py - ERROR - Access denied to fetch information for 2268
+2021-04-09 00:31:51,535 - __init__.py - ERROR - psutil.AccessDenied (pid=2268, name='svchost.exe')
+2021-04-09 00:31:51,575 - __init__.py - ERROR - Access denied to fetch information for 2368
+2021-04-09 00:31:51,575 - __init__.py - ERROR - psutil.AccessDenied (pid=2368, name='svchost.exe')
+2021-04-09 00:31:51,608 - __init__.py - ERROR - Access denied to fetch information for 2376
+2021-04-09 00:31:51,608 - __init__.py - ERROR - psutil.AccessDenied (pid=2376, name='svchost.exe')
+2021-04-09 00:31:51,643 - __init__.py - ERROR - Access denied to fetch information for 2388
+2021-04-09 00:31:51,643 - __init__.py - ERROR - psutil.AccessDenied (pid=2388, name='svchost.exe')
+2021-04-09 00:31:51,677 - __init__.py - ERROR - Access denied to fetch information for 2396
+2021-04-09 00:31:51,677 - __init__.py - ERROR - psutil.AccessDenied (pid=2396, name='svchost.exe')
+2021-04-09 00:31:51,711 - __init__.py - ERROR - Access denied to fetch information for 2448
+2021-04-09 00:31:51,711 - __init__.py - ERROR - psutil.AccessDenied (pid=2448, name='svchost.exe')
+2021-04-09 00:31:51,745 - __init__.py - ERROR - Access denied to fetch information for 2480
+2021-04-09 00:31:51,745 - __init__.py - ERROR - psutil.AccessDenied (pid=2480, name='svchost.exe')
+2021-04-09 00:31:51,779 - __init__.py - ERROR - Access denied to fetch information for 2528
+2021-04-09 00:31:51,779 - __init__.py - ERROR - psutil.AccessDenied (pid=2528, name='svchost.exe')
+2021-04-09 00:31:51,814 - __init__.py - ERROR - Access denied to fetch information for 2536
+2021-04-09 00:31:51,814 - __init__.py - ERROR - psutil.AccessDenied (pid=2536, name='svchost.exe')
+2021-04-09 00:31:51,860 - __init__.py - ERROR - Access denied to fetch information for 2564
+2021-04-09 00:31:51,860 - __init__.py - ERROR - psutil.AccessDenied (pid=2564, name='MemCompression')
+2021-04-09 00:31:51,900 - __init__.py - ERROR - Access denied to fetch information for 2620
+2021-04-09 00:31:51,900 - __init__.py - ERROR - psutil.AccessDenied (pid=2620, name='svchost.exe')
+2021-04-09 00:31:51,935 - __init__.py - ERROR - Access denied to fetch information for 2724
+2021-04-09 00:31:51,935 - __init__.py - ERROR - psutil.AccessDenied (pid=2724, name='WmiPrvSE.exe')
+2021-04-09 00:31:51,968 - __init__.py - ERROR - Access denied to fetch information for 2820
+2021-04-09 00:31:51,968 - __init__.py - ERROR - psutil.AccessDenied (pid=2820, name='svchost.exe')
+2021-04-09 00:31:52,004 - __init__.py - ERROR - Access denied to fetch information for 2932
+2021-04-09 00:31:52,004 - __init__.py - ERROR - psutil.AccessDenied (pid=2932, name='svchost.exe')
+2021-04-09 00:31:52,163 - __init__.py - ERROR - Access denied to fetch information for 2992
+2021-04-09 00:31:52,163 - __init__.py - ERROR - psutil.AccessDenied (pid=2992, name='svchost.exe')
+2021-04-09 00:31:52,197 - __init__.py - ERROR - Access denied to fetch information for 3076
+2021-04-09 00:31:52,197 - __init__.py - ERROR - psutil.AccessDenied (pid=3076, name='vpnagent.exe')
+2021-04-09 00:31:52,231 - __init__.py - ERROR - Access denied to fetch information for 3084
+2021-04-09 00:31:52,231 - __init__.py - ERROR - psutil.AccessDenied (pid=3084, name='ZhuDongFangYu.exe')
+2021-04-09 00:31:52,264 - __init__.py - ERROR - Access denied to fetch information for 3104
+2021-04-09 00:31:52,264 - __init__.py - ERROR - psutil.AccessDenied (pid=3104, name='svchost.exe')
+2021-04-09 00:31:52,298 - __init__.py - ERROR - Access denied to fetch information for 3248
+2021-04-09 00:31:52,299 - __init__.py - ERROR - psutil.AccessDenied (pid=3248, name='NVDisplay.Container.exe')
+2021-04-09 00:31:52,459 - __init__.py - ERROR - Access denied to fetch information for 3312
+2021-04-09 00:31:52,459 - __init__.py - ERROR - psutil.AccessDenied (pid=3312, name='svchost.exe')
+2021-04-09 00:31:52,495 - __init__.py - ERROR - Access denied to fetch information for 3528
+2021-04-09 00:31:52,495 - __init__.py - ERROR - psutil.AccessDenied (pid=3528, name='svchost.exe')
+2021-04-09 00:31:52,531 - __init__.py - ERROR - Access denied to fetch information for 3536
+2021-04-09 00:31:52,531 - __init__.py - ERROR - psutil.AccessDenied (pid=3536, name='AsLdrSrv.exe')
+2021-04-09 00:31:52,564 - __init__.py - ERROR - Access denied to fetch information for 3608
+2021-04-09 00:31:52,564 - __init__.py - ERROR - psutil.AccessDenied (pid=3608, name='HControl.exe')
+2021-04-09 00:31:52,598 - __init__.py - ERROR - Access denied to fetch information for 3676
+2021-04-09 00:31:52,598 - __init__.py - ERROR - psutil.AccessDenied (pid=3676, name='spoolsv.exe')
+2021-04-09 00:31:52,632 - __init__.py - ERROR - Access denied to fetch information for 3856
+2021-04-09 00:31:52,633 - __init__.py - ERROR - psutil.AccessDenied (pid=3856, name='svchost.exe')
+2021-04-09 00:31:52,666 - __init__.py - ERROR - Access denied to fetch information for 3888
+2021-04-09 00:31:52,667 - __init__.py - ERROR - psutil.AccessDenied (pid=3888, name='svchost.exe')
+2021-04-09 00:31:52,948 - __init__.py - ERROR - Access denied to fetch information for 3980
+2021-04-09 00:31:52,948 - __init__.py - ERROR - psutil.AccessDenied (pid=3980, name='svchost.exe')
+2021-04-09 00:31:53,478 - __init__.py - ERROR - Access denied to fetch information for 4204
+2021-04-09 00:31:53,478 - __init__.py - ERROR - psutil.AccessDenied (pid=4204, name='svchost.exe')
+2021-04-09 00:31:53,885 - __init__.py - ERROR - Access denied to fetch information for 4424
+2021-04-09 00:31:53,885 - __init__.py - ERROR - psutil.AccessDenied (pid=4424, name='svchost.exe')
+2021-04-09 00:31:54,044 - __init__.py - ERROR - Access denied to fetch information for 4552
+2021-04-09 00:31:54,044 - __init__.py - ERROR - psutil.AccessDenied (pid=4552, name='svchost.exe')
+2021-04-09 00:31:54,078 - __init__.py - ERROR - Access denied to fetch information for 4568
+2021-04-09 00:31:54,078 - __init__.py - ERROR - psutil.AccessDenied (pid=4568, name='svchost.exe')
+2021-04-09 00:31:54,112 - __init__.py - ERROR - Access denied to fetch information for 4584
+2021-04-09 00:31:54,112 - __init__.py - ERROR - psutil.AccessDenied (pid=4584, name='svchost.exe')
+2021-04-09 00:31:54,146 - __init__.py - ERROR - Access denied to fetch information for 4596
+2021-04-09 00:31:54,146 - __init__.py - ERROR - psutil.AccessDenied (pid=4596, name='svchost.exe')
+2021-04-09 00:31:54,180 - __init__.py - ERROR - Access denied to fetch information for 4604
+2021-04-09 00:31:54,180 - __init__.py - ERROR - psutil.AccessDenied (pid=4604, name='svchost.exe')
+2021-04-09 00:31:54,214 - __init__.py - ERROR - Access denied to fetch information for 4616
+2021-04-09 00:31:54,214 - __init__.py - ERROR - psutil.AccessDenied (pid=4616, name='svchost.exe')
+2021-04-09 00:31:54,249 - __init__.py - ERROR - Access denied to fetch information for 4624
+2021-04-09 00:31:54,249 - __init__.py - ERROR - psutil.AccessDenied (pid=4624, name='IntelCpHDCPSvc.exe')
+2021-04-09 00:31:54,283 - __init__.py - ERROR - Access denied to fetch information for 4632
+2021-04-09 00:31:54,283 - __init__.py - ERROR - psutil.AccessDenied (pid=4632, name='AsBhcSrv.exe')
+2021-04-09 00:31:54,318 - __init__.py - ERROR - Access denied to fetch information for 4652
+2021-04-09 00:31:54,318 - __init__.py - ERROR - psutil.AccessDenied (pid=4652, name='svchost.exe')
+2021-04-09 00:31:54,361 - __init__.py - ERROR - Access denied to fetch information for 4660
+2021-04-09 00:31:54,361 - __init__.py - ERROR - psutil.AccessDenied (pid=4660, name='esif_uf.exe')
+2021-04-09 00:31:54,397 - __init__.py - ERROR - Access denied to fetch information for 4668
+2021-04-09 00:31:54,397 - __init__.py - ERROR - psutil.AccessDenied (pid=4668, name='RtkBtManServ.exe')
+2021-04-09 00:31:54,432 - __init__.py - ERROR - Access denied to fetch information for 4676
+2021-04-09 00:31:54,432 - __init__.py - ERROR - psutil.AccessDenied (pid=4676, name='PEFService.exe')
+2021-04-09 00:31:54,471 - __init__.py - ERROR - Access denied to fetch information for 4712
+2021-04-09 00:31:54,471 - __init__.py - ERROR - psutil.AccessDenied (pid=4712, name='svchost.exe')
+2021-04-09 00:31:54,505 - __init__.py - ERROR - Access denied to fetch information for 4724
+2021-04-09 00:31:54,505 - __init__.py - ERROR - psutil.AccessDenied (pid=4724, name='svchost.exe')
+2021-04-09 00:31:54,540 - __init__.py - ERROR - Access denied to fetch information for 4736
+2021-04-09 00:31:54,540 - __init__.py - ERROR - psutil.AccessDenied (pid=4736, name='svchost.exe')
+2021-04-09 00:31:54,574 - __init__.py - ERROR - Access denied to fetch information for 4744
+2021-04-09 00:31:54,574 - __init__.py - ERROR - psutil.AccessDenied (pid=4744, name='svchost.exe')
+2021-04-09 00:31:54,608 - __init__.py - ERROR - Access denied to fetch information for 4760
+2021-04-09 00:31:54,608 - __init__.py - ERROR - psutil.AccessDenied (pid=4760, name='mysqld.exe')
+2021-04-09 00:31:54,643 - __init__.py - ERROR - Access denied to fetch information for 4868
+2021-04-09 00:31:54,643 - __init__.py - ERROR - psutil.AccessDenied (pid=4868, name='SearchIndexer.exe')
+2021-04-09 00:31:54,923 - __init__.py - ERROR - Access denied to fetch information for 4932
+2021-04-09 00:31:54,923 - __init__.py - ERROR - psutil.AccessDenied (pid=4932, name='svchost.exe')
+2021-04-09 00:31:55,202 - __init__.py - ERROR - Access denied to fetch information for 5256
+2021-04-09 00:31:55,202 - __init__.py - ERROR - psutil.AccessDenied (pid=5256, name='IntelCpHeciSvc.exe')
+2021-04-09 00:31:55,236 - __init__.py - ERROR - Access denied to fetch information for 5436
+2021-04-09 00:31:55,236 - __init__.py - ERROR - psutil.AccessDenied (pid=5436, name='dasHost.exe')
+2021-04-09 00:31:55,270 - __init__.py - ERROR - Access denied to fetch information for 5584
+2021-04-09 00:31:55,270 - __init__.py - ERROR - psutil.AccessDenied (pid=5584, name='svchost.exe')
+2021-04-09 00:31:55,304 - __init__.py - ERROR - Access denied to fetch information for 5736
+2021-04-09 00:31:55,304 - __init__.py - ERROR - psutil.AccessDenied (pid=5736, name='svchost.exe')
+2021-04-09 00:31:55,338 - __init__.py - ERROR - Access denied to fetch information for 5904
+2021-04-09 00:31:55,339 - __init__.py - ERROR - psutil.AccessDenied (pid=5904, name='svchost.exe')
+2021-04-09 00:31:55,372 - __init__.py - ERROR - Access denied to fetch information for 6312
+2021-04-09 00:31:55,372 - __init__.py - ERROR - psutil.AccessDenied (pid=6312, name='svchost.exe')
+2021-04-09 00:31:55,656 - __init__.py - ERROR - Access denied to fetch information for 6716
+2021-04-09 00:31:55,656 - __init__.py - ERROR - psutil.AccessDenied (pid=6716, name='svchost.exe')
+2021-04-09 00:31:55,814 - __init__.py - ERROR - Access denied to fetch information for 7128
+2021-04-09 00:31:55,815 - __init__.py - ERROR - psutil.AccessDenied (pid=7128, name='PresentationFontCache.exe')
+2021-04-09 00:31:55,848 - __init__.py - ERROR - Access denied to fetch information for 7152
+2021-04-09 00:31:55,849 - __init__.py - ERROR - psutil.AccessDenied (pid=7152, name='svchost.exe')
+2021-04-09 00:31:56,006 - __init__.py - ERROR - Access denied to fetch information for 7224
+2021-04-09 00:31:56,006 - __init__.py - ERROR - psutil.AccessDenied (pid=7224, name='svchost.exe')
+2021-04-09 00:31:56,040 - __init__.py - ERROR - Access denied to fetch information for 7244
+2021-04-09 00:31:56,040 - __init__.py - ERROR - psutil.AccessDenied (pid=7244, name='svchost.exe')
+2021-04-09 00:31:56,196 - __init__.py - ERROR - Access denied to fetch information for 8064
+2021-04-09 00:31:56,196 - __init__.py - ERROR - psutil.AccessDenied (pid=8064, name='dasHost.exe')
+2021-04-09 00:31:57,471 - __init__.py - ERROR - Access denied to fetch information for 9368
+2021-04-09 00:31:57,471 - __init__.py - ERROR - psutil.AccessDenied (pid=9368, name='svchost.exe')
+2021-04-09 00:31:57,505 - __init__.py - ERROR - Access denied to fetch information for 9620
+2021-04-09 00:31:57,505 - __init__.py - ERROR - psutil.AccessDenied (pid=9620, name='svchost.exe')
+2021-04-09 00:31:57,910 - __init__.py - ERROR - Access denied to fetch information for 10336
+2021-04-09 00:31:57,910 - __init__.py - ERROR - psutil.AccessDenied (pid=10336, name='svchost.exe')
+2021-04-09 00:31:58,558 - __init__.py - ERROR - Access denied to fetch information for 10616
+2021-04-09 00:31:58,559 - __init__.py - ERROR - psutil.AccessDenied (pid=10616, name='svchost.exe')
+2021-04-09 00:31:59,089 - __init__.py - ERROR - Access denied to fetch information for 11088
+2021-04-09 00:31:59,089 - __init__.py - ERROR - psutil.AccessDenied (pid=11088, name='dllhost.exe')
+2021-04-09 00:31:59,987 - __init__.py - ERROR - Access denied to fetch information for 11668
+2021-04-09 00:31:59,988 - __init__.py - ERROR - psutil.AccessDenied (pid=11668, name='svchost.exe')
+2021-04-09 00:32:00,150 - __init__.py - ERROR - Access denied to fetch information for 12136
+2021-04-09 00:32:00,150 - __init__.py - ERROR - psutil.AccessDenied (pid=12136, name='svchost.exe')
+2021-04-09 00:32:00,312 - __init__.py - ERROR - Access denied to fetch information for 12216
+2021-04-09 00:32:00,312 - __init__.py - ERROR - psutil.AccessDenied (pid=12216, name='SecurityHealthService.exe')
+2021-04-09 00:32:00,984 - __init__.py - ERROR - Access denied to fetch information for 12996
+2021-04-09 00:32:00,985 - __init__.py - ERROR - psutil.AccessDenied (pid=12996, name='BrYNSvc.exe')
+2021-04-09 00:32:01,147 - __init__.py - ERROR - Access denied to fetch information for 13164
+2021-04-09 00:32:01,147 - __init__.py - ERROR - psutil.AccessDenied (pid=13164, name='svchost.exe')
+2021-04-09 00:32:01,430 - __init__.py - ERROR - Access denied to fetch information for 13724
+2021-04-09 00:32:01,430 - __init__.py - ERROR - psutil.AccessDenied (pid=13724, name='svchost.exe')
+2021-04-09 00:32:02,955 - __init__.py - ERROR - Access denied to fetch information for 16524
+2021-04-09 00:32:02,955 - __init__.py - ERROR - psutil.AccessDenied (pid=16524, name='IAStorDataMgrSvc.exe')
+2021-04-09 00:32:02,989 - __init__.py - ERROR - Access denied to fetch information for 16604
+2021-04-09 00:32:02,989 - __init__.py - ERROR - psutil.AccessDenied (pid=16604, name='jhi_service.exe')
+2021-04-09 00:32:03,023 - __init__.py - ERROR - Access denied to fetch information for 16688
+2021-04-09 00:32:03,023 - __init__.py - ERROR - psutil.AccessDenied (pid=16688, name='SgrmBroker.exe')
+2021-04-09 00:32:03,181 - __init__.py - ERROR - Access denied to fetch information for 16788
+2021-04-09 00:32:03,181 - __init__.py - ERROR - psutil.AccessDenied (pid=16788, name='svchost.exe')
+2021-04-09 00:32:03,337 - __init__.py - ERROR - Access denied to fetch information for 16856
+2021-04-09 00:32:03,338 - __init__.py - ERROR - psutil.AccessDenied (pid=16856, name='svchost.exe')
+2021-04-09 00:32:03,988 - __init__.py - ERROR - Access denied to fetch information for 18800
+2021-04-09 00:32:03,988 - __init__.py - ERROR - psutil.AccessDenied (pid=18800, name='svchost.exe')
+2021-04-09 00:32:04,146 - __init__.py - ERROR - Access denied to fetch information for 19952
+2021-04-09 00:32:04,146 - __init__.py - ERROR - psutil.AccessDenied (pid=19952, name='svchost.exe')
+2021-04-09 00:32:04,179 - __init__.py - ERROR - Access denied to fetch information for 20308
+2021-04-09 00:32:04,179 - __init__.py - ERROR - psutil.AccessDenied (pid=20308, name='svchost.exe')
+2021-04-09 00:32:04,213 - __init__.py - ERROR - Access denied to fetch information for 20800
+2021-04-09 00:32:04,213 - __init__.py - ERROR - psutil.AccessDenied (pid=20800, name='dwm.exe')
+2021-04-09 00:32:04,509 - __init__.py - ERROR - Access denied to fetch information for 21588
+2021-04-09 00:32:04,509 - __init__.py - ERROR - psutil.AccessDenied (pid=21588, name='svchost.exe')
+2021-04-09 00:32:05,169 - __init__.py - ERROR - Access denied to fetch information for 24140
+2021-04-09 00:32:05,169 - __init__.py - ERROR - psutil.AccessDenied (pid=24140, name='svchost.exe')
+2021-04-09 00:32:06,071 - __init__.py - ERROR - Access denied to fetch information for 29900
+2021-04-09 00:32:06,071 - __init__.py - ERROR - psutil.AccessDenied (pid=29900, name='svchost.exe')
+2021-04-09 00:32:06,104 - __init__.py - ERROR - Access denied to fetch information for 31240
+2021-04-09 00:32:06,104 - __init__.py - ERROR - psutil.AccessDenied (pid=31240, name='WmiPrvSE.exe')
+2021-04-09 00:32:07,955 - __init__.py - ERROR - Access denied to fetch information for 39248
+2021-04-09 00:32:07,956 - __init__.py - ERROR - psutil.AccessDenied (pid=39248, name='svchost.exe')
+2021-04-09 00:32:09,101 - __init__.py - ERROR - Access denied to fetch information for 42772
+2021-04-09 00:32:09,101 - __init__.py - ERROR - psutil.AccessDenied (pid=42772, name='SearchProtocolHost.exe')
+2021-04-09 00:32:09,136 - __init__.py - ERROR - Access denied to fetch information for 42780
+2021-04-09 00:32:09,137 - __init__.py - ERROR - psutil.AccessDenied (pid=42780, name='svchost.exe')
+2021-04-09 00:32:10,033 - __init__.py - ERROR - Access denied to fetch information for 43764
+2021-04-09 00:32:10,033 - __init__.py - ERROR - psutil.AccessDenied (pid=43764, name='svchost.exe')
+2021-04-09 00:32:10,562 - __init__.py - ERROR - Access denied to fetch information for 44228
+2021-04-09 00:32:10,562 - __init__.py - ERROR - psutil.AccessDenied (pid=44228, name='dllhost.exe')
+2021-04-09 00:32:10,596 - __init__.py - ERROR - Access denied to fetch information for 44448
+2021-04-09 00:32:10,596 - __init__.py - ERROR - psutil.AccessDenied (pid=44448, name='svchost.exe')
+2021-04-09 00:32:10,754 - __init__.py - ERROR - Access denied to fetch information for 45264
+2021-04-09 00:32:10,754 - __init__.py - ERROR - psutil.AccessDenied (pid=45264, name='AppVShNotify.exe')
+2021-04-09 00:32:13,020 - __init__.py - ERROR - Access denied to fetch information for 48592
+2021-04-09 00:32:13,020 - __init__.py - ERROR - psutil.AccessDenied (pid=48592, name='SearchFilterHost.exe')
+2021-04-09 00:32:13,920 - __init__.py - ERROR - Access denied to fetch information for 49252
+2021-04-09 00:32:13,920 - __init__.py - ERROR - psutil.AccessDenied (pid=49252, name='OfficeClickToRun.exe')
+2021-04-09 00:32:15,216 - __init__.py - ERROR - Access denied to fetch information for 50920
+2021-04-09 00:32:15,216 - __init__.py - ERROR - psutil.AccessDenied (pid=50920, name='svchost.exe')

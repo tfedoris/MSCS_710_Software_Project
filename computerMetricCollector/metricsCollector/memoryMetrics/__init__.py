@@ -4,8 +4,10 @@ from datetime import datetime
 
 
 class MemoryMetrics:
-    def __init__(self, metrics, datetime_format):
+    def __init__(self, logger, machine_id, metrics, datetime_format):
         self.is_fetched = False
+        self.logger = logger
+        self.macine_id = machine_id
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
 
@@ -13,14 +15,18 @@ class MemoryMetrics:
         virtual_mem = psutil.virtual_memory()
         swap_mem = psutil.swap_memory()
         memory_metrics = {
-            "entry_datetime": datetime.now().strftime(self.datetime_format),
-            "mem_total": virtual_mem.total,
-            "mem_available": virtual_mem.available,
-            "mem_used": virtual_mem.used,
-            "swap_total": swap_mem.total,
-            "swap_used": swap_mem.used,
-            "swap_free": swap_mem.free,
-            "swap_percent": swap_mem.percent,
+            "MachineId": self.macine_id,
+            "EntryDatetime": datetime.now().strftime(self.datetime_format),
+            "MemoryTotal": virtual_mem.total,
+            "MemoryAvailable": virtual_mem.available,
+            "MemoryUsed": virtual_mem.used,
+            "MemoryUsedPercent": virtual_mem.percent,
+            "SwapTotal": swap_mem.total,
+            "SwapFree": swap_mem.used,
+            "SwapUsed": swap_mem.free,
+            "SwapPercent": swap_mem.percent,
+            "SwapBytesIn": swap_mem.sin,
+            "SwapBytesOut": swap_mem.sout,
         }
         self.metrics_df.append(memory_metrics, ignore_index=True)
 
