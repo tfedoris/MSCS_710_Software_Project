@@ -40,12 +40,13 @@ class DiskMetrics:
 
 
 class DiskIOMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format):
+    def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
+        self.store_table = table
 
     def fetch_metrics(self):
         self.logger.info("Start fetching for disk io metrics")
