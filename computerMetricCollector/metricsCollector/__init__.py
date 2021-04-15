@@ -1,4 +1,3 @@
-import pandas as pd
 
 
 def store_local(collector, csv_path):

@@ -1,14 +1,40 @@
-2021-04-13 23:10:58,514 - __init__.py - INFO - Getting computer id
-2021-04-13 23:10:58,519 - __init__.py - DEBUG - Read registry key 18446744071562067970
-2021-04-13 23:10:58,519 - __init__.py - DEBUG - Read substitute key SOFTWARE\Microsoft\Cryptography
-2021-04-13 23:10:58,519 - __init__.py - DEBUG - Read access key 131353
-2021-04-13 23:10:58,520 - __init__.py - INFO - Open registry key
-2021-04-13 23:10:58,520 - __init__.py - INFO - Query registry key
-2021-04-13 23:10:58,520 - __init__.py - INFO - Close registry key
-2021-04-13 23:10:58,520 - __init__.py - INFO - End getting computer id
-2021-04-13 23:10:58,520 - InitiateCollectors.py - WARNING - Collector CPUMetrics can not be found.
-2021-04-13 23:10:58,520 - InitiateCollectors.py - WARNING - Collector DiskMetrics can not be found.
-2021-04-13 23:10:58,520 - InitiateCollectors.py - WARNING - Collector DiskIOMetrics can not be found.
-2021-04-13 23:10:58,520 - InitiateCollectors.py - WARNING - Collector MemoryMetrics can not be found.
-2021-04-13 23:10:58,520 - InitiateCollectors.py - WARNING - Collector NetworkMetrics can not be found.
-2021-04-13 23:10:58,521 - InitiateCollectors.py - WARNING - Collector ProcessMetrics can not be found.
+2021-04-15 18:03:02,899 - __init__.py - INFO - Getting computer id
+2021-04-15 18:03:02,903 - __init__.py - DEBUG - Read registry key 18446744071562067970
+2021-04-15 18:03:02,903 - __init__.py - DEBUG - Read substitute key SOFTWARE\Microsoft\Cryptography
+2021-04-15 18:03:02,904 - __init__.py - DEBUG - Read access key 131353
+2021-04-15 18:03:02,904 - __init__.py - INFO - Open registry key
+2021-04-15 18:03:02,904 - __init__.py - INFO - Query registry key
+2021-04-15 18:03:02,904 - __init__.py - INFO - Close registry key
+2021-04-15 18:03:02,904 - __init__.py - INFO - End getting computer id
+2021-04-15 18:04:43,076 - __init__.py - INFO - Getting computer id
+2021-04-15 18:04:43,077 - __init__.py - DEBUG - Read registry key 18446744071562067970
+2021-04-15 18:04:43,077 - __init__.py - DEBUG - Read substitute key SOFTWARE\Microsoft\Cryptography
+2021-04-15 18:04:43,077 - __init__.py - DEBUG - Read access key 131353
+2021-04-15 18:04:43,077 - __init__.py - INFO - Open registry key
+2021-04-15 18:04:43,077 - __init__.py - INFO - Query registry key
+2021-04-15 18:04:43,077 - __init__.py - INFO - Close registry key
+2021-04-15 18:04:43,077 - __init__.py - INFO - End getting computer id
+2021-04-15 18:06:00,230 - __init__.py - INFO - Getting computer id
+2021-04-15 18:06:00,231 - __init__.py - DEBUG - Read registry key 18446744071562067970
+2021-04-15 18:06:00,231 - __init__.py - DEBUG - Read substitute key SOFTWARE\Microsoft\Cryptography
+2021-04-15 18:06:00,231 - __init__.py - DEBUG - Read access key 131353
+2021-04-15 18:06:00,231 - __init__.py - INFO - Open registry key
+2021-04-15 18:06:00,231 - __init__.py - INFO - Query registry key
+2021-04-15 18:06:00,231 - __init__.py - INFO - Close registry key
+2021-04-15 18:06:00,231 - __init__.py - INFO - End getting computer id
+2021-04-15 18:25:17,801 - __init__.py - INFO - Getting computer id
+2021-04-15 18:25:17,801 - __init__.py - DEBUG - Read registry key 18446744071562067970
+2021-04-15 18:25:17,801 - __init__.py - DEBUG - Read substitute key SOFTWARE\Microsoft\Cryptography
+2021-04-15 18:25:17,801 - __init__.py - DEBUG - Read access key 131353
+2021-04-15 18:25:17,801 - __init__.py - INFO - Open registry key
+2021-04-15 18:25:17,802 - __init__.py - INFO - Query registry key
+2021-04-15 18:25:17,802 - __init__.py - INFO - Close registry key
+2021-04-15 18:25:17,802 - __init__.py - INFO - End getting computer id
+2021-04-15 18:25:31,619 - __init__.py - INFO - Getting computer id
+2021-04-15 18:25:31,619 - __init__.py - DEBUG - Read registry key 18446744071562067970
+2021-04-15 18:25:31,619 - __init__.py - DEBUG - Read substitute key SOFTWARE\Microsoft\Cryptography
+2021-04-15 18:25:31,620 - __init__.py - DEBUG - Read access key 131353
+2021-04-15 18:25:31,620 - __init__.py - INFO - Open registry key
+2021-04-15 18:25:31,620 - __init__.py - INFO - Query registry key
+2021-04-15 18:25:31,620 - __init__.py - INFO - Close registry key
+2021-04-15 18:25:31,620 - __init__.py - INFO - End getting computer id

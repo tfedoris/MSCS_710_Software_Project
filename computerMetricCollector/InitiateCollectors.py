@@ -42,9 +42,8 @@ if __name__ == "__main__":
         if globals().get(metrics_to_collect):
             collect_class = globals()[metrics_to_collect]
             collect_metrics = collectors_meta[metrics_to_collect]["metrics"]
-            table_name = collectors_meta[metrics_to_collect]["metrics"]["table"]
-            collector = collect_class(logger, computer_collector.machine_id, collect_metrics, datetime_format,
-                                      table_name)
+            table = collectors_meta[metrics_to_collect]["table"]
+            collector = collect_class(logger, computer_collector.machine_id, collect_metrics, datetime_format, table)
             collectors.append(collector)
             to_collect.append(True)
         else:
@@ -62,7 +61,7 @@ if __name__ == "__main__":
 
                 if settings["to_store_local"]:
                     for collector in collectors:
-                        store_local(collector)
+                        store_local(collector, settings["local_store_dir"] + collector.__name__)
                 else:
                     db_engine = db_connector.get_engine()
                     with db_engine.connect() as conn:
