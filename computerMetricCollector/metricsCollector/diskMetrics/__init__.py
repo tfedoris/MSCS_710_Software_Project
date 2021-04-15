@@ -5,17 +5,20 @@ import psutil
 
 
 class DiskMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format):
+    def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
+        self.store_table = table
 
     def fetch_metrics(self):
+        self.logger.info("Start fetching for disk metrics")
         disks = psutil.disk_partitions()
-        try:
-            for disk in disks:
+        for disk in disks:
+            self.logger.debug("Fetch desk: " + disk.device)
+            if disk.opts == "rw,fixed":
                 usage = psutil.disk_usage(disk.device)
                 metric = {
                     "MachineID": self.machine_id,
@@ -26,14 +29,13 @@ class DiskMetrics:
                     "Used": usage.used,
                     "Percent": usage.percent
                 }
-                self.metrics_df.append(metric, ignore_index=True)
-        except PermissionError as pe:
-            self.logger.warning("Permission denied to get disk data")
-            self.logger.warning(pe)
-        except Exception as e:
-            self.logger.error(e)
+                self.metrics_df = self.metrics_df.append(metric, ignore_index=True)
+            else:
+                self.logger.debug("Avoid fetching desk: " + disk.device + " with mount option: " + disk.opts)
+        self.logger.info("End fetching for disk metrics")
 
     def get_metrics_df(self):
+        self.logger.info("Get metrics dataframe for disk metrics")
         return self.metrics_df
 
 
@@ -46,8 +48,10 @@ class DiskIOMetrics:
         self.metrics_df = pd.DataFrame(columns=metrics)
 
     def fetch_metrics(self):
+        self.logger.info("Start fetching for disk io metrics")
         disks_io = psutil.disk_io_counters(perdisk=True)
         for disk in disks_io.keys():
+            self.logger.debug("Fetch for disk io metrics for disk: " + disk)
             io = disks_io.get(disk)
             metrics = {
                 "MachineId": self.machine_id,
@@ -61,6 +65,8 @@ class DiskIOMetrics:
                 "TimeWriteInMilli": io.write_time
             }
             self.metrics_df.append(metrics, ignore_index=True)
+        self.logger.info("End fetching for disk io metrics")
 
     def get_metrics_df(self):
+        self.logger.info("Get metrics dataframe for disk io metrics")
         return self.metrics_df

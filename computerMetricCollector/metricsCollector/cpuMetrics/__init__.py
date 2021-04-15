@@ -4,15 +4,18 @@ from datetime import datetime
 
 
 class CPUMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format):
+    def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
+        self.store_table = table
 
     def fetch_metrics(self):
+        self.logger.info("Is CPU metrics fetched: " + str(self.is_fetched))
         if not self.is_fetched:
+            self.logger.info("Fetch for CPU metrics")
             info = cpuinfo.get_cpu_info()
             metrics_rec = {
                 "MachineId": self.machine_id,
@@ -25,7 +28,10 @@ class CPUMetrics:
                 "HZActual": info.get("hz_actual"),
                 "Count": info.get("count")
             }
-            self.metrics_df.append(metrics_rec, ignore_index=True)
+            self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
+        else:
+            self.logger.info("No fetch for CPU metrics")
 
     def get_metrics_df(self):
+        self.logger.info("Get metrics dataframe for CPU metrics")
         return self.metrics_df

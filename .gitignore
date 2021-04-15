@@ -1,3 +1,5 @@
-/src/log/*.log
+/computerMetricCollector/log/*.log
+/computerMetricCollector/log/*.log.*
 /computerMetricCollector/config/__pycache__/*
 /computerMetricCollector/metricsCollector/__pycache__/*
+**/__pycache__

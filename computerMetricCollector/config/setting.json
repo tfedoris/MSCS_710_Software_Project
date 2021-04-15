@@ -5,10 +5,18 @@
   "log_backup_cnt": 7,
   "date_time_format": "yyyy-mm-dd HH:MM:SS",
   "sleep_time_sec": 60,
-  "db_uri": "",
+  "local_store_dir": "/data/xfer/",
+  "to_store_local": true,
+  "database": {
+    "type": "mysql",
+    "host":"",
+    "user": "",
+    "db_name": "",
+    "port": 3306
+  },
   "collectors": {
     "ComputerMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineID",
         "MachineName",
@@ -18,7 +26,7 @@
       ]
     },
     "CPUMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -32,7 +40,7 @@
       ]
     },
     "DiskMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineID",
         "DiskName",
@@ -44,7 +52,7 @@
       ]
     },
     "DiskIOMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineId",
         "DiskName",
@@ -58,7 +66,7 @@
       ]
     },
     "MemoryMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -75,7 +83,7 @@
       ]
     },
     "NetworkMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -91,7 +99,7 @@
       ]
     },
     "ProcessMetrics": {
-      "sql": "",
+      "table": "",
       "metrics": [
         "MachineId",
         "Pid",
@@ -107,7 +115,6 @@
         "MemoryPhysicalUsedByte",
         "MemoryVirtualUsedByte",
         "MemoryUniqueUsedByte",
-        "MemoryNonPrivateByte",
         "MemoryPageFault",
         "IOReadCnt",
         "IOReadBytes",

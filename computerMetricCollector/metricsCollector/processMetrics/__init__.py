@@ -4,27 +4,29 @@ from datetime import datetime
 
 
 class ProcessMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format):
+    def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.logger = logger
         self.machine_id = machine_id
         self.metrics = metrics
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
+        self.store_table = table
 
     def fetch_metrics(self):
+        self.logger.info("Start fetching for process metrics")
         pid_arr = psutil.pids()
         for pid in pid_arr:
-            process = psutil.Process(pid)
             try:
+                self.logger.debug("Fetching process metrics for process pid " + str(pid))
+                process = psutil.Process(pid)
+                self.logger.debug("Fetching process metrics for process name " + process.name())
                 p_memory_info = process.memory_info()
-                non_private_mem = p_memory_info.wset - p_memory_info.private
                 cpu_times = process.cpu_times()
                 cpu_collect_int = 0.1
-                if non_private_mem < 0:
-                    non_private_mem = 0
+                #    non_private_mem = 0
                 p_io_info = process.io_counters()
                 metrics_rec = {
-                    "MachineId"
+                    "MachineId": self.machine_id,
                     "Pid": process.pid,
                     "Name": process.name(),
                     "StartTime": process.create_time(),
@@ -38,7 +40,6 @@ class ProcessMetrics:
                     "MemoryPhysicalUsedByte": p_memory_info.rss,
                     "MemoryVirtualUsedByte": p_memory_info.vms,
                     "MemoryUniqueUsedByte": p_memory_info.private,
-                    "MemoryNonPrivateByte": non_private_mem,
                     "MemoryPageFault": p_memory_info.num_page_faults,
                     "IOReadCnt": p_io_info.read_count,
                     "IOReadBytes": p_io_info.read_bytes,
@@ -46,10 +47,18 @@ class ProcessMetrics:
                     "IOWriteBytes": p_io_info.write_bytes,
                     "ThreadNum": process.num_threads()
                 }
-                self.metrics_df.append(metrics_rec, ignore_index=True)
+                self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
             except psutil.AccessDenied as ad:
-                self.logger.error("Access denied to fetch information for {}".format(pid))
-                self.logger.error(ad)
+                self.logger.warning("Access denied to fetch process metrics for pid {}".format(str(pid)))
+                self.logger.warning(ad)
+            except psutil.NoSuchProcess as nsp:
+                self.logger.warning("No process found for pid {}".format(str(pid)))
+                self.logger.warning(nsp)
+        self.logger.info("End fetching for process metrics")
 
     def get_metrics_df(self):
+        self.logger.info("Get metrics dataframe for network metrics")
         return self.metrics_df
+
+    def get_store_table(self):
+        return self.store_table
