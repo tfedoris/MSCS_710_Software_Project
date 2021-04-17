@@ -9,6 +9,7 @@ pipeline {
             steps {
                 sh '''curl -O https://bootstrap.pypa.io/get-pip.py
                       python3 get-pip.py --user
+                      ls -a ~
                       pip --version
                       pip install psutil
                       python3 computerMetricCollector/InitiateCollectors.py
