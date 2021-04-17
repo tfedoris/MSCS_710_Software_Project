@@ -1,20 +1,20 @@
 import platform
 import pandas as pd
-import winreg
+# import winreg
 
 
 def get_computer_id(logger):
     logger.info("Getting computer id")
-    reg_key = winreg.HKEY_LOCAL_MACHINE
+    reg_key = 1 # winreg.HKEY_LOCAL_MACHINE
     sub_key = "SOFTWARE\\Microsoft\\Cryptography"
-    key_read = winreg.KEY_READ | winreg.KEY_WOW64_64KEY
+    key_read = 1 # winreg.KEY_READ | winreg.KEY_WOW64_64KEY
     logger.debug("Read registry key " + str(reg_key))
     logger.debug("Read substitute key " + str(sub_key))
     logger.debug("Read access key " + str(key_read))
     logger.info("Open registry key")
-    key = winreg.OpenKey(key=reg_key, sub_key=sub_key, reserved=0, access=key_read)
+    key = 1 # winreg.OpenKey(key=reg_key, sub_key=sub_key, reserved=0, access=key_read)
     logger.info("Query registry key")
-    value = winreg.QueryValueEx(key, 'MachineGuid')
+    value = 1 # winreg.QueryValueEx(key, 'MachineGuid')
     logger.info("Close registry key")
     winreg.CloseKey(key)
     logger.info("End getting computer id")
