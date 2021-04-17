@@ -13,7 +13,6 @@ pipeline {
                       pip install psutil
                       pip install pandas
                       pip install sqlalchemy
-
                       pip install py-cpuinfo
                       ls
                       python3 computerMetricCollector/InitiateCollectors.py
