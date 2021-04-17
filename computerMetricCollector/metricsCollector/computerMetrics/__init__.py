@@ -16,7 +16,7 @@ def get_computer_id(logger):
     logger.info("Query registry key")
     value = 1 # winreg.QueryValueEx(key, 'MachineGuid')
     logger.info("Close registry key")
-    winreg.CloseKey(key)
+    # winreg.CloseKey(key)
     logger.info("End getting computer id")
     return value[0]
 
