@@ -14,7 +14,7 @@ pipeline {
                       pip install pandas
                       pip install sqlalchemy
                       pip install py-cpuinfo
-                      ls
+                      export PYTHONPATH="${PYTHONPATH}:/computerMetricCollector"
                       python3 computerMetricCollector/InitiateCollectors.py
                     '''
             }
