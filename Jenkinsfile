@@ -13,7 +13,6 @@ pipeline {
                       pip install psutil
                       pip install pandas
                       pip install sqlalchemy
-                      pip install winreg
                       pip install py-cpuinfo
                       export PYTHONPATH="${PYTHONPATH}:/computerMetricCollector"
                       python3 computerMetricCollector/InitiateCollectors.py
