@@ -7,8 +7,7 @@ pipeline {
 
         stage('Build environment') {
             steps {
-                sh 'ls'
-                sh 'python3 MSCS_710_Software_Project/computerMetricCollector/InitiateCollectors.py'
+                sh 'python3 computerMetricCollector/InitiateCollectors.py'
             }
         }
         stage('Test environment') {
