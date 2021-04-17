@@ -7,8 +7,12 @@ pipeline {
 
         stage('Build environment') {
             steps {
-                sh 'pip install psutil'
-                sh 'python3 computerMetricCollector/InitiateCollectors.py'
+                sh '''curl -O https://bootstrap.pypa.io/get-pip.py
+                      python3 get-pip.py --user
+                      pip --version
+                      pip install psutil
+                      python3 computerMetricCollector/InitiateCollectors.py
+                    '''
             }
         }
         stage('Test environment') {
