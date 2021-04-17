@@ -7,6 +7,7 @@ import psutil
 class DiskMetrics:
     def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
+        self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -22,7 +23,7 @@ class DiskMetrics:
                 usage = psutil.disk_usage(disk.device)
                 metric = {
                     "MachineID": self.machine_id,
-                    "DiskName": disk,
+                    "DiskName": disk.device,
                     "EntryDatetime": datetime.now().strftime(self.datetime_format),
                     "Total": usage.total,
                     "Free": usage.free,
@@ -33,6 +34,8 @@ class DiskMetrics:
             else:
                 self.logger.debug("Avoid fetching desk: " + disk.device + " with mount option: " + disk.opts)
         self.logger.info("End fetching for disk metrics")
+        self.is_fetched = True
+        self.to_stored = True
 
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for disk metrics")
@@ -42,6 +45,7 @@ class DiskMetrics:
 class DiskIOMetrics:
     def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
+        self.to_stored = True
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -67,6 +71,8 @@ class DiskIOMetrics:
             }
             self.metrics_df.append(metrics, ignore_index=True)
         self.logger.info("End fetching for disk io metrics")
+        self.is_fetched = True
+        self.to_stored = True
 
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for disk io metrics")

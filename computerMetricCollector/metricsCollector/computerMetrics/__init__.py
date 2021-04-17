@@ -24,8 +24,9 @@ def get_computer_id(logger):
 class ComputerMetrics:
     def __init__(self, logger, metrics):
         self.is_fetched = False
+        self.to_stored = False
         self.logger = logger
-        self.metrics_df = pd.DataFrame(metrics)
+        self.metrics_df = pd.DataFrame(columns=metrics)
         self.machine_id = get_computer_id(self.logger)
 
     def fetch_metrics(self):
@@ -42,6 +43,7 @@ class ComputerMetrics:
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
             self.is_fetched = True
+            self.to_stored = True
         else:
             self.logger.info("No fetch for computer metrics")
 

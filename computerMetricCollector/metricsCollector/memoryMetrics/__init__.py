@@ -6,6 +6,7 @@ from datetime import datetime
 class MemoryMetrics:
     def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
+        self.to_stored = False
         self.logger = logger
         self.macine_id = machine_id
         self.datetime_format = datetime_format
@@ -32,6 +33,8 @@ class MemoryMetrics:
         }
         self.metrics_df = self.metrics_df.append(memory_metrics, ignore_index=True)
         self.logger.info("End fetching for memory metrics")
+        self.is_fetched = True
+        self.to_stored = True
 
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for memory metrics")

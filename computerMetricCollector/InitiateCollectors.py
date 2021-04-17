@@ -34,7 +34,8 @@ if __name__ == "__main__":
                         settings.get("log_backup_cnt"))
     collectors_meta = settings.get("collectors")
     datetime_format = settings.get("date_time_format")
-    computer_collector = ComputerMetrics(logger, collectors_meta.get("ComputerMetrics"))
+    computer_collector = ComputerMetrics(logger, collectors_meta["ComputerMetrics"]["metrics"])
+    computer_collector.fetch_metrics()
     collectors = []
     del collectors_meta["ComputerMetrics"]
     to_collect = []
@@ -49,7 +50,6 @@ if __name__ == "__main__":
         else:
             logger.warning("Collector " + metrics_to_collect + " can not be found.")
             to_collect.append(False)
-
     if True not in to_collect:
         logger.error("No collector found. Exit. Please ensure metrics collector code exist.")
     else:
@@ -59,18 +59,35 @@ if __name__ == "__main__":
                 for collector in collectors:
                     collector.fetch_metrics()
 
+                logger.info("Begin persisting fetch metrics")
+                logger.debug("To store metrics on local " + str(settings["to_store_local"]))
                 if settings["to_store_local"]:
+                    csv_name = settings["local_store_dir"] + type(computer_collector).__name__ + ".csv"
+                    store_local(computer_collector, csv_name)
                     for collector in collectors:
-                        store_local(collector, settings["local_store_dir"] + collector.__name__)
+                        logger.info("Begin store " + type(collector).__name__)
+                        csv_name = settings["local_store_dir"] + type(collector).__name__ + ".csv"
+                        store_local(collector, csv_name)
+
                 else:
                     db_engine = db_connector.get_engine()
                     with db_engine.connect() as conn:
+                        logger.debug("Store on to host " + db_connector.host + " into database " + db_connector.db_name)
+                        conn.auto_commit = False
+                        transaction = conn.begin()
+                        store_to_database(computer_collector, conn)
                         for collector in collectors:
+                            logger.info("Begin store " + type(collector).__name__)
                             store_to_database(collector, conn)
+                            transaction.commit()
             except AccessDenied as ad:
                 logger.error("Access denied to fetch information for {}".format(str(collector)))
                 logger.error(ad)
+                if transaction is not None:
+                    transaction.rollback()
             except Exception as e:
+                if transaction is not None:
+                    transaction.rollback()
                 logger.error(e)
             finally:
                 sleep(settings.get("sleep_time_sec"))

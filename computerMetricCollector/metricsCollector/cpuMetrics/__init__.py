@@ -6,6 +6,7 @@ from datetime import datetime
 class CPUMetrics:
     def __init__(self, logger, machine_id, metrics, datetime_format, table):
         self.is_fetched = False
+        self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -24,11 +25,13 @@ class CPUMetrics:
                 "Vendor": info.get("vendor_id_raw"),
                 "Arch": info.get("arch"),
                 "Bits": info.get("bits"),
-                "HZAdvertise": info.get("hz_advertised"),
-                "HZActual": info.get("hz_actual"),
+                "HZAdvertise": info.get("hz_advertised")[0],
+                "HZActual": info.get("hz_actual")[0],
                 "Count": info.get("count")
             }
             self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
+            self.is_fetched = True
+            self.to_stored = True
         else:
             self.logger.info("No fetch for CPU metrics")
 

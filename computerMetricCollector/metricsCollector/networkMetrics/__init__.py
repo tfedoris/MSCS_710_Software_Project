@@ -5,6 +5,8 @@ from datetime import datetime
 
 class NetworkMetrics:
     def __init__(self, logger, machine_id, metrics, datetime_format, table):
+        self.is_fetch = False
+        self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id,
         self.metrics = metrics
@@ -33,6 +35,8 @@ class NetworkMetrics:
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
         self.logger.info("End fetching for network metrics")
+        self.is_fetch = True
+        self.to_stored = True
 
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for network metrics")

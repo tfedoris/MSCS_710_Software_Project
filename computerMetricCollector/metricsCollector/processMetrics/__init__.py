@@ -5,6 +5,8 @@ from datetime import datetime
 
 class ProcessMetrics:
     def __init__(self, logger, machine_id, metrics, datetime_format, table):
+        self.is_fetch = True
+        self.to_stored = True
         self.logger = logger
         self.machine_id = machine_id
         self.metrics = metrics
@@ -54,7 +56,11 @@ class ProcessMetrics:
             except psutil.NoSuchProcess as nsp:
                 self.logger.warning("No process found for pid {}".format(str(pid)))
                 self.logger.warning(nsp)
+            except Exception as e:
+                self.logger.error(e)
         self.logger.info("End fetching for process metrics")
+        self.is_fetch = True
+        self.to_stored = True
 
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for network metrics")
