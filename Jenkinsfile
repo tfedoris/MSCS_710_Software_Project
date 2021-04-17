@@ -7,6 +7,7 @@ pipeline {
 
         stage('Build environment') {
             steps {
+                sh 'pip install psutil'
                 sh 'python3 computerMetricCollector/InitiateCollectors.py'
             }
         }
