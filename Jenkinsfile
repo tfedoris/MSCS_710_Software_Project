@@ -12,6 +12,7 @@ pipeline {
                       PATH="/var/lib/jenkins/.local/bin:$PATH"
                       pip --version
                       pip install psutil
+                      ls
                       python3 computerMetricCollector/InitiateCollectors.py
                     '''
             }
