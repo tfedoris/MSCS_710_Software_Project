@@ -7,6 +7,9 @@ pipeline {
 
         stage('Build environment') {
             steps {
+                echo "git"
+                git credentialsId: '980349b4-87ae-4cb4-be9e-a0fbf1779374', url: 'https://github.com/yilin6867/MSCS_710_Software_Project.git'
+                echo "running script"
                 sh 'python3 MSCS_710_Software_Project/computerMetricCollector/InitiateCollectors.py'
             }
         }
