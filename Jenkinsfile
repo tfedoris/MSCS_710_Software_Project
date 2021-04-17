@@ -3,37 +3,22 @@ pipeline {
     triggers {
         pollSCM('*/5 * * * 1-5')
     }
-    options {
-        skipDefaultCheckout(true)
-        // Keep the 10 most recent builds
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-        timestamps()
-    }
-    environment {
-      PATH="/var/lib/jenkins/miniconda3/bin:$PATH"
-    }
     stages {
 
-        stage ("Code pull"){
+        stage ("Checkout"){
             steps{
-                checkout scm
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '980349b4-87ae-4cb4-be9e-a0fbf1779374', url: 'https://github.com/yilin6867/MSCS_710_Software_Project.git']]])
             }
         }
         stage('Build environment') {
             steps {
-                sh '''conda create --yes -n ${BUILD_TAG} python
-                      source activate ${BUILD_TAG}
-                      pip install -r requirements.txt
-                    '''
+                git credentialsId: '980349b4-87ae-4cb4-be9e-a0fbf1779374', url: 'https://github.com/yilin6867/MSCS_710_Software_Project.git'
+                sh 'python3 MSCS_710_Software_Project/computerMetricCollector/InitiateCollectors.py'
             }
         }
         stage('Test environment') {
             steps {
-                sh '''source activate ${BUILD_TAG}
-                      pip list
-                      which pip
-                      which python
-                    '''
+                echo "testing environment started"
             }
         }
     }
