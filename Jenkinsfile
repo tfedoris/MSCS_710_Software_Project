@@ -10,8 +10,11 @@ pipeline {
                 sh '''curl -O https://bootstrap.pypa.io/get-pip.py
                       python3 get-pip.py --user
                       PATH="/var/lib/jenkins/.local/bin:$PATH"
-                      pip --version
                       pip install psutil
+                      pip install pandas
+                      pip install sqlalchemy
+                      pip install winreg
+                      pip install py-cpuinfo
                       ls
                       python3 computerMetricCollector/InitiateCollectors.py
                     '''
