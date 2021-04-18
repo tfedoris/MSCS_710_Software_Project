@@ -16,6 +16,7 @@ pipeline {
                       pip install py-cpuinfo
                       export PYTHONPATH="${PYTHONPATH}:/computerMetricCollector"
                       # python3 computerMetricCollector/InitiateCollectors.py
+                      # hi
                     '''
             }
         }
