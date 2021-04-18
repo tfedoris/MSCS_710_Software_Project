@@ -1,24 +1,14 @@
 import platform
 import pandas as pd
-import winreg
+import subprocess
 
 
 def get_computer_id(logger):
     logger.info("Getting computer id")
-    reg_key = winreg.HKEY_LOCAL_MACHINE
-    sub_key = "SOFTWARE\\Microsoft\\Cryptography"
-    key_read = winreg.KEY_READ | winreg.KEY_WOW64_64KEY
-    logger.debug("Read registry key " + str(reg_key))
-    logger.debug("Read substitute key " + str(sub_key))
-    logger.debug("Read access key " + str(key_read))
-    logger.info("Open registry key")
-    key = winreg.OpenKey(key=reg_key, sub_key=sub_key, reserved=0, access=key_read)
-    logger.info("Query registry key")
-    value = winreg.QueryValueEx(key, 'MachineGuid')
-    logger.info("Close registry key")
-    winreg.CloseKey(key)
+    uuid_output = subprocess.check_output('wmic csproduct get UUID')
+    uuid = str(uuid_output).split('\\r\\r\\n')[1].strip()
     logger.info("End getting computer id")
-    return value[0]
+    return uuid
 
 
 class ComputerMetrics:
@@ -34,12 +24,15 @@ class ComputerMetrics:
         if not self.is_fetched:
             self.logger.info("Fetch for computer metrics")
             machine_info = platform.uname()
-            metrics = {
-                "MachineID": self.machine_id,
+            data = {
                 "MachineName": machine_info.node,
                 "System": machine_info.system,
                 "Version": machine_info.version,
                 "MachineType": machine_info.machine
+            }
+            metrics = {
+                "MachineID": self.machine_id,
+                "data": str(data)
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
             self.is_fetched = True

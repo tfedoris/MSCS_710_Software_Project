@@ -69,7 +69,7 @@ class DiskIOMetrics:
                 "TimeReadInMilli": io.read_time,
                 "TimeWriteInMilli": io.write_time
             }
-            self.metrics_df.append(metrics, ignore_index=True)
+            self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
         self.logger.info("End fetching for disk io metrics")
         self.is_fetched = True
         self.to_stored = True

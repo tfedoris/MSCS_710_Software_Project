@@ -8,7 +8,7 @@ class MemoryMetrics:
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
-        self.macine_id = machine_id
+        self.machine_id = machine_id
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
         self.store_table = table
@@ -18,7 +18,7 @@ class MemoryMetrics:
         virtual_mem = psutil.virtual_memory()
         swap_mem = psutil.swap_memory()
         memory_metrics = {
-            "MachineId": self.macine_id,
+            "MachineId": self.machine_id,
             "EntryDatetime": datetime.now().strftime(self.datetime_format),
             "MemoryTotal": virtual_mem.total,
             "MemoryAvailable": virtual_mem.available,

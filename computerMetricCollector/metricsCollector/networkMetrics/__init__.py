@@ -9,6 +9,8 @@ class NetworkMetrics:
         self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id,
+        if type(self.machine_id) == tuple:
+            self.machine_id = str(machine_id)
         self.metrics = metrics
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
