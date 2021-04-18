@@ -7,6 +7,7 @@
   "sleep_time_sec": 60,
   "local_store_dir": "/data/xfer/",
   "to_store_local": true,
+  "encryption_path": "computerMetricCollector\\dataEncryption\\ppk",
   "database": {
     "type": "mysql",
     "host":"",

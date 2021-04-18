@@ -65,10 +65,10 @@ if __name__ == "__main__":
                     csv_name = settings["local_store_dir"] + type(computer_collector).__name__ + ".csv"
                     store_local(computer_collector, csv_name)
                     for collector in collectors:
-                        logger.info("Begin store " + type(collector).__name__)
+                        logger.info("Begin storing " + type(collector).__name__)
                         csv_name = settings["local_store_dir"] + type(collector).__name__ + ".csv"
                         store_local(collector, csv_name)
-
+                        logger.info("End storing " + type(collector).__name__)
                 else:
                     db_engine = db_connector.get_engine()
                     with db_engine.connect() as conn:
