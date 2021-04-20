@@ -5,9 +5,9 @@
   "log_backup_cnt": 7,
   "date_time_format": "%Y-%m-%d %H:%M:%S",
   "sleep_time_sec": 60,
-  "local_store_dir": "/data/xfer/",
+  "local_store_dir": "/data/xfer/collectorLocal",
   "to_store_local": true,
-  "encryption_path": "computerMetricCollector\\dataEncryption\\ppk",
+  "encryption_key_file": "dataEncryption\\ppk\\public.pem",
   "database": {
     "type": "mysql",
     "host":"",
@@ -18,8 +18,15 @@
   "collectors": {
     "ComputerMetrics": {
       "table": "",
+      "metrics_to_encrypt": [
+        "MachineName",
+        "System",
+        "Version",
+        "MachineType"
+      ],
       "metrics": [
         "MachineID",
+        "EntryDatetime",
         "MachineName",
         "System",
         "Version",
@@ -28,6 +35,15 @@
     },
     "CPUMetrics": {
       "table": "",
+      "metrics_to_encrypt": [
+        "Brand",
+        "Vendor",
+        "Arch",
+        "Bits",
+        "HZAdvertise",
+        "HZActual",
+        "Count"
+      ],
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -42,10 +58,17 @@
     },
     "DiskMetrics": {
       "table": "",
+      "metrics_to_encrypt": [
+        "DiskName",
+        "Total",
+        "Free",
+        "Used",
+        "Percent"
+      ],
       "metrics": [
         "MachineID",
-        "DiskName",
         "EntryDatetime",
+        "DiskName",
         "Total",
         "Free",
         "Used",
@@ -54,10 +77,19 @@
     },
     "DiskIOMetrics": {
       "table": "",
+      "metrics_to_encrypt": [
+        "DiskName",
+        "CountRead",
+        "CountWrite",
+        "BytesRead",
+        "BytesWrite",
+        "TimeReadInMilli",
+        "TimeWriteInMilli"
+      ],
       "metrics": [
         "MachineId",
-        "DiskName",
         "EntryDatetime",
+        "DiskName",
         "CountRead",
         "CountWrite",
         "BytesRead",
@@ -68,6 +100,18 @@
     },
     "MemoryMetrics": {
       "table": "",
+      "metrics_to_encrypt": [
+        "MemoryTotal",
+        "MemoryAvailable",
+        "MemoryUsed",
+        "MemoryUsedPercent",
+        "SwapTotal",
+        "SwapFree",
+        "SwapUsed",
+        "SwapPercent",
+        "SwapBytesIn",
+        "SwapBytesOut"
+      ],
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -85,6 +129,17 @@
     },
     "NetworkMetrics": {
       "table": "",
+      "metrics_to_encrypt": [
+        "NetworkInterface",
+        "ByteSend",
+        "ByteReceived",
+        "ErrorByteReceived",
+        "ErrorByteSend",
+        "PacketSend",
+        "PacketReceived",
+        "PacketReceivedDrop",
+        "PacketSendDrop"
+      ],
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -101,13 +156,33 @@
     },
     "ProcessMetrics": {
       "table": "",
-      "metrics": [
-        "MachineId",
+      "metrics_to_encrypt": [
         "Pid",
         "Name",
         "StartTime",
         "User",
+        "Status",
+        "CPUUserTime",
+        "CPUKernelTime",
+        "CPUPercent",
+        "MemoryPercentUsedByte",
+        "MemoryPhysicalUsedByte",
+        "MemoryVirtualUsedByte",
+        "MemoryUniqueUsedByte",
+        "MemoryPageFault",
+        "IOReadCnt",
+        "IOReadBytes",
+        "IOWriteCnt",
+        "IOWriteBytes",
+        "ThreadNum"
+      ],
+      "metrics": [
+        "MachineId",
         "EntryDatetime",
+        "Pid",
+        "Name",
+        "StartTime",
+        "User",
         "Status",
         "CPUUserTime",
         "CPUKernelTime",

@@ -4,6 +4,7 @@ import logging
 from psutil import PermissionError, AccessDenied
 from time import sleep
 from logging.handlers import TimedRotatingFileHandler
+from computerMetricCollector.dataCrypto import encrypt_data
 from computerMetricCollector.dbConnector import MYSQLConnector
 from computerMetricCollector.metricsCollector import store_local, store_to_database
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
@@ -34,17 +35,21 @@ if __name__ == "__main__":
                         settings.get("log_backup_cnt"))
     collectors_meta = settings.get("collectors")
     datetime_format = settings.get("date_time_format")
-    computer_collector = ComputerMetrics(logger, collectors_meta["ComputerMetrics"]["metrics"])
+    metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
+    metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
+    computer_collector = ComputerMetrics(logger, metrics_to_collect, metrics_to_encrypt)
     computer_collector.fetch_metrics()
     collectors = []
     del collectors_meta["ComputerMetrics"]
     to_collect = []
-    for metrics_to_collect in collectors_meta.keys():
-        if globals().get(metrics_to_collect):
-            collect_class = globals()[metrics_to_collect]
-            collect_metrics = collectors_meta[metrics_to_collect]["metrics"]
-            table = collectors_meta[metrics_to_collect]["table"]
-            collector = collect_class(logger, computer_collector.machine_id, collect_metrics, datetime_format, table)
+    for collector_str in collectors_meta.keys():
+        if globals().get(collector_str):
+            collect_class = globals()[collector_str]
+            metrics_to_collect = collectors_meta[collector_str]["metrics"]
+            metrics_to_encrypt = collectors_meta[collector_str]["metrics_to_encrypt"]
+            table = collectors_meta[collector_str]["table"]
+            collector = collect_class(logger, computer_collector.machine_id, metrics_to_collect, metrics_to_encrypt,
+                                      datetime_format, table)
             collectors.append(collector)
             to_collect.append(True)
         else:
@@ -55,9 +60,11 @@ if __name__ == "__main__":
     else:
         while True:
             db_connector = MYSQLConnector(settings["database"])
+            key_file = os.path.dirname(os.path.abspath(__file__)) + "\\" + settings["encryption_key_file"]
             try:
-                for collector in collectors:
+                for idx, collector in enumerate(collectors):
                     collector.fetch_metrics()
+                    encrypt_data(collector, key_file)
 
                 logger.info("Begin persisting fetch metrics")
                 logger.debug("To store metrics on local " + str(settings["to_store_local"]))
@@ -88,6 +95,6 @@ if __name__ == "__main__":
             except Exception as e:
                 if transaction is not None:
                     transaction.rollback()
-                logger.error(e)
+                logger.error(e.args[0])
             finally:
                 sleep(settings.get("sleep_time_sec"))

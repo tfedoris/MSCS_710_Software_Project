@@ -1,6 +1,7 @@
 import platform
 import pandas as pd
 import subprocess
+from computerMetricCollector.dataCrypto import encrypt_data
 
 
 def get_computer_id(logger):
@@ -12,10 +13,11 @@ def get_computer_id(logger):
 
 
 class ComputerMetrics:
-    def __init__(self, logger, metrics):
+    def __init__(self, logger, metrics, metrics_to_encrypt):
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
+        self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
         self.machine_id = get_computer_id(self.logger)
 

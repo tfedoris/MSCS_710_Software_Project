@@ -4,14 +4,14 @@ from datetime import datetime
 
 
 class NetworkMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, table):
         self.is_fetch = False
         self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id,
         if type(self.machine_id) == tuple:
             self.machine_id = str(machine_id)
-        self.metrics = metrics
+        self.metrics_to_encrypt = metrics_to_encrypt
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
         self.store_table = table
