@@ -37,7 +37,7 @@ if __name__ == "__main__":
     datetime_format = settings.get("date_time_format")
     metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
     metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
-    computer_collector = ComputerMetrics(logger, metrics_to_collect, metrics_to_encrypt)
+    computer_collector = ComputerMetrics(logger, metrics_to_collect, metrics_to_encrypt, datetime_format)
     computer_collector.fetch_metrics()
     collectors = []
     del collectors_meta["ComputerMetrics"]

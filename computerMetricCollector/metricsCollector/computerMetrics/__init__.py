@@ -1,4 +1,5 @@
 import platform
+from datetime import datetime
 import pandas as pd
 import subprocess
 from computerMetricCollector.dataCrypto import encrypt_data
@@ -13,28 +14,27 @@ def get_computer_id(logger):
 
 
 class ComputerMetrics:
-    def __init__(self, logger, metrics, metrics_to_encrypt):
+    def __init__(self, logger, metrics, metrics_to_encrypt, datetime_format):
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
         self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
         self.machine_id = get_computer_id(self.logger)
+        self.datetime_format = datetime_format
 
     def fetch_metrics(self):
         self.logger.info("Is computer metrics fetched: " + str(self.is_fetched))
         if not self.is_fetched:
             self.logger.info("Fetch for computer metrics")
             machine_info = platform.uname()
-            data = {
+            metrics = {
+                "MachineID": self.machine_id,
+                "EntryDatetime": datetime.now().strftime(self.datetime_format),
                 "MachineName": machine_info.node,
                 "System": machine_info.system,
                 "Version": machine_info.version,
                 "MachineType": machine_info.machine
-            }
-            metrics = {
-                "MachineID": self.machine_id,
-                "data": str(data)
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
             self.is_fetched = True
