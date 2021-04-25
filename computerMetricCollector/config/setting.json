@@ -30,7 +30,9 @@
         "MachineName",
         "System",
         "Version",
-        "MachineType"
+        "MachineType",
+        "Nonce",
+        "SessionKey"
       ]
     },
     "CPUMetrics": {
@@ -53,7 +55,9 @@
         "Bits",
         "HZAdvertise",
         "HZActual",
-        "Count"
+        "Count",
+        "Nonce",
+        "SessionKey"
       ]
     },
     "DiskMetrics": {
@@ -72,7 +76,9 @@
         "Total",
         "Free",
         "Used",
-        "Percent"
+        "Percent",
+        "Nonce",
+        "SessionKey"
       ]
     },
     "DiskIOMetrics": {
@@ -95,7 +101,9 @@
         "BytesRead",
         "BytesWrite",
         "TimeReadInMilli",
-        "TimeWriteInMilli"
+        "TimeWriteInMilli",
+        "Nonce",
+        "SessionKey"
       ]
     },
     "MemoryMetrics": {
@@ -124,7 +132,9 @@
         "SwapUsed",
         "SwapPercent",
         "SwapBytesIn",
-        "SwapBytesOut"
+        "SwapBytesOut",
+        "Nonce",
+        "SessionKey"
       ]
     },
     "NetworkMetrics": {
@@ -151,7 +161,9 @@
         "PacketSend",
         "PacketReceived",
         "PacketReceivedDrop",
-        "PacketSendDrop"
+        "PacketSendDrop",
+        "Nonce",
+        "SessionKey"
       ]
     },
     "ProcessMetrics": {
@@ -196,7 +208,9 @@
         "IOReadBytes",
         "IOWriteCnt",
         "IOWriteBytes",
-        "ThreadNum"
+        "ThreadNum",
+        "Nonce",
+        "SessionKey"
       ]
     }
   }

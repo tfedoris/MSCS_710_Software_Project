@@ -9,16 +9,15 @@ def encrypt_data(collector, key_file):
     df = collector.metrics_df
     metrics_to_encrypt = collector.metrics_to_encrypt
     public_key = RSA.import_key(open(key_file).read())
-    num_bytes = 16
-    session_key = get_random_bytes(num_bytes)
-    cipher_rsa = PKCS1_OAEP.new(public_key)
-    enc_session_key = cipher_rsa.encrypt(session_key)
-    cipher_aes = AES.new(session_key, AES.MODE_EAX)
-    df = df.assign(Nonce=cipher_aes.nonce)
-    df = df.assign(SessionKey=enc_session_key)
     # Store the nonce and session key to be use in decrypting data
     for idx, row in df.iterrows():
-        row = row.copy()
+        num_bytes = 16
+        session_key = get_random_bytes(num_bytes)
+        cipher_rsa = PKCS1_OAEP.new(public_key)
+        enc_session_key = cipher_rsa.encrypt(session_key)
+        cipher_aes = AES.new(session_key, AES.MODE_EAX)
+        df.loc[idx, "Nonce"] = cipher_aes.nonce
+        df.loc[idx, "SessionKey"] = enc_session_key
         for col in metrics_to_encrypt:
             if col in row:
                 data = str(row[col]).encode("utf-8")
@@ -31,21 +30,16 @@ def encrypt_data(collector, key_file):
 def decrypt_data(dataframe, col_to_decrypt, key_file):
     private_key = RSA.import_key(open(key_file).read())
     cipher_rsa = PKCS1_OAEP.new(private_key)
-    df_by_key = dict(tuple(dataframe.groupby(["SessionKey", "Nonce"])))
-    for key, nonce_str in df_by_key.keys():
-        df = df_by_key[(key, nonce_str)]
-        encrypted_key = eval(key)
-        nonce = eval(nonce_str)
+    for idx, row in dataframe.iterrows():
+        encrypted_key = eval(row["SessionKey"])
+        nonce = eval(row["Nonce"])
         session_key = cipher_rsa.decrypt(encrypted_key)
         cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
-        for idx, row in df.iterrows():
-            for col in col_to_decrypt:
-                cipher_text = eval(row[col])
-                data = cipher_aes.decrypt(cipher_text)
-                row[col] = data.decode("utf-8")
-            df.loc[idx] = row
-        df_by_key[(key, nonce_str)] = df
-    dataframe = pd.concat(df_by_key.values())
+        for col in col_to_decrypt:
+            cipher_text = eval(row[col])
+            data = cipher_aes.decrypt(cipher_text)
+            row[col] = data.decode("utf-8")
+        dataframe.loc[idx] = row
     return dataframe
 
 

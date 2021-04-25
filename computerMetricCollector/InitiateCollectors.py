@@ -68,6 +68,7 @@ if __name__ == "__main__":
         else:
             logger.warning("Collector " + metrics_to_collect + " can not be found.")
             to_collect.append(False)
+    collectors.append(computer_collector)
     if True not in to_collect:
         logger.error("No collector found. Exit. Please ensure metrics collector code exist.")
     else:
