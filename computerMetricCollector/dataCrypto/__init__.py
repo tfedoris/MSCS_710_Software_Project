@@ -4,6 +4,22 @@ from Cryptodome.Random import get_random_bytes
 import pandas as pd
 
 
+def generate_rsa_ppk(private_file_path, public_file_path):
+    bits = 2048
+    key = RSA.generate(bits)
+    private_key = key.export_key()
+    public_key = key.publickey().export_key()
+    with open(private_file_path, "bw+") as private_file:
+        private_file.seek(0)
+        private_file.write(private_key)
+        private_file.truncate()
+        private_file.close()
+    with open(public_file_path, "bw+") as public_file:
+        public_file.seek(0)
+        public_file.write(public_key)
+        public_file.close()
+
+
 def encrypt_data(collector, key_file):
     collector.logger.debug("Encrypting " + type(collector).__name__ + " data")
     df = collector.metrics_df
