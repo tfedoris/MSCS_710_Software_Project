@@ -4,3 +4,5 @@
 /computerMetricCollector/metricsCollector/__pycache__/*
 /computerMetricCollector/log/MetricCollector.log
 **/__pycache__
+/build/*
+/dist/*

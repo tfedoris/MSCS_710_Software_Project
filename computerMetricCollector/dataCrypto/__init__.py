@@ -5,22 +5,27 @@ import pandas as pd
 
 
 def encrypt_data(collector, key_file):
+    collector.logger.debug("Encrypting " + type(collector).__name__ + " data")
     df = collector.metrics_df
     metrics_to_encrypt = collector.metrics_to_encrypt
     public_key = RSA.import_key(open(key_file).read())
-    session_key = get_random_bytes(16)
+    num_bytes = 16
+    session_key = get_random_bytes(num_bytes)
     cipher_rsa = PKCS1_OAEP.new(public_key)
     enc_session_key = cipher_rsa.encrypt(session_key)
     cipher_aes = AES.new(session_key, AES.MODE_EAX)
     df = df.assign(Nonce=cipher_aes.nonce)
     df = df.assign(SessionKey=enc_session_key)
+    # Store the nonce and session key to be use in decrypting data
     for idx, row in df.iterrows():
         row = row.copy()
         for col in metrics_to_encrypt:
-            data = str(row[col]).encode("utf-8")
-            ciphertext = cipher_aes.encrypt(data)
-            df.loc[idx, col] = ciphertext
+            if col in row:
+                data = str(row[col]).encode("utf-8")
+                ciphertext = cipher_aes.encrypt(data)
+                df.loc[idx, col] = ciphertext
     collector.metrics_df = df
+    collector.logger.debug("End encrypting " + type(collector).__name__ + " data")
 
 
 def decrypt_data(dataframe, col_to_decrypt, key_file):
@@ -54,8 +59,9 @@ if __name__ == "__main__":
                                     "\\computerMetricCollector")
     key_file = "C:\\Users\\Admin\\Desktop\\CompSci\\MSCS_710\\MSCS_710_Software_Project\\computerMetricCollector\\dataCrypto\\ppk\\private.pem"
     for file in files:
-        collector = file.split(".")[0]
-        encrypted_metrics = settings["collectors"][collector]["metrics_to_encrypt"]
-        encrypt_df = pd.read_csv(data_path + "\\" + file)
-        decrypt_df = decrypt_data(encrypt_df, encrypted_metrics, key_file)
-        print(decrypt_df)
+        if not file.startswith("decrypted"):
+            collector = file.split(".")[0]
+            encrypted_metrics = settings["collectors"][collector]["metrics_to_encrypt"]
+            encrypt_df = pd.read_csv(data_path + "\\" + file)
+            decrypt_df = decrypt_data(encrypt_df, encrypted_metrics, key_file)
+            decrypt_df.to_csv(data_path + "\\decrypted_" + file)

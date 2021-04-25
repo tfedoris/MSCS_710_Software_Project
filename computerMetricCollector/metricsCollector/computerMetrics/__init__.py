@@ -7,7 +7,7 @@ from computerMetricCollector.dataCrypto import encrypt_data
 
 def get_computer_id(logger):
     logger.info("Getting computer id")
-    uuid_output = subprocess.check_output('wmic csproduct get UUID')
+    uuid_output = subprocess.check_output("wmic csproduct get UUID")
     uuid = str(uuid_output).split('\\r\\r\\n')[1].strip()
     logger.info("End getting computer id")
     return uuid

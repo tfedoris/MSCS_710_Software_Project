@@ -5,9 +5,9 @@
   "log_backup_cnt": 7,
   "date_time_format": "%Y-%m-%d %H:%M:%S",
   "sleep_time_sec": 60,
-  "local_store_dir": "/data/xfer/collectorLocal",
+  "local_store_dir": "/data/xfer/collectorLocal/",
   "to_store_local": true,
-  "encryption_key_file": "dataEncryption\\ppk\\public.pem",
+  "encryption_key_file": "dataCrypto\\ppk\\public.pem",
   "database": {
     "type": "mysql",
     "host":"",
