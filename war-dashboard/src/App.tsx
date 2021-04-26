@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navigation from "components/organisms/Navigation";
+import React from "react";
+import { useStyles } from "themes/DynamicDrawerTheme";
 
-function App() {
+const App = (): JSX.Element => {
+  const [displayedView, setDisplayedView] = React.useState(<div />);
+  const classes = useStyles();
+
+  const handleSidebarSelect = (pageName: string): void => {
+    switch (pageName) {
+      case "Dashboard":
+        setDisplayedView(<h1>Dashboard</h1>);
+        break;
+      case "Account":
+        setDisplayedView(<h1>Account</h1>);
+        break;
+      default:
+        setDisplayedView(<div />);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center" }}>
+      <div className={classes.root}>
+        <Navigation children={displayedView} onSelect={handleSidebarSelect} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
