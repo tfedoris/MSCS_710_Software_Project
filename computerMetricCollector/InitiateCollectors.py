@@ -54,7 +54,7 @@ def persist_local(logger, file_path, collector):
     logger.info("End storing " + type(collector).__name__)
 
 
-def persist_database(logger, database_dict, computer_collector, collectors):
+def persist_database(logger, database_dict, collectors):
     transaction = None
     db_conn = MYSQLConnector(database_dict)
     try:
@@ -64,7 +64,6 @@ def persist_database(logger, database_dict, computer_collector, collectors):
                          db_conn.db_name)
             conn.auto_commit = False
             transaction = conn.begin()
-            store_to_database(computer_collector, conn)
             for collector in collectors:
                 logger.info("Begin store " + type(collector).__name__)
                 store_to_database(collector, conn)
@@ -92,7 +91,8 @@ def collect_metrics(logger, settings, encrypt_key_file, collectors, computer_col
             for c in collectors:
                 persist_local(logger, settings["local_store_dir"], c)
         else:
-            persist_database(logger, settings["database"], computer_collector, collectors)
+            collectors.append(computer_collector)
+            persist_database(logger, settings["database"], collectors)
     except AccessDenied as ad:
         logger.error("Access denied for fetch data from psutil library")
         logger.error(ad)

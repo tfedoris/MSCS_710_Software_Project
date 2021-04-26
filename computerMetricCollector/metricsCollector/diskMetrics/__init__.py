@@ -42,6 +42,9 @@ class DiskMetrics:
         self.logger.info("Get metrics dataframe for disk metrics")
         return self.metrics_df
 
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
+
 
 class DiskIOMetrics:
     def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, table):
@@ -79,3 +82,6 @@ class DiskIOMetrics:
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for disk io metrics")
         return self.metrics_df
+
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)

@@ -40,3 +40,6 @@ class MemoryMetrics:
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for memory metrics")
         return self.metrics_df
+
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)

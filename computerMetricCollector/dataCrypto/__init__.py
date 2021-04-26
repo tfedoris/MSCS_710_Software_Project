@@ -74,4 +74,7 @@ if __name__ == "__main__":
             encrypted_metrics = settings["collectors"][collector]["metrics_to_encrypt"]
             encrypt_df = pd.read_csv(data_path + "\\" + file)
             decrypt_df = decrypt_data(encrypt_df, encrypted_metrics, key_file)
-            decrypt_df.to_csv(data_path + "\\decrypted_" + file)
+            if os.path.isfile(data_path + "\\decrypted_" + file):
+                decrypt_df.to_csv(data_path + "\\decrypted_" + file, mode="a", header=False)
+            else:
+                decrypt_df.to_csv(data_path + "\\decrypted_" + file)

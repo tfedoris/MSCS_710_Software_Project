@@ -22,6 +22,7 @@ if __name__ == "__main__":
     log_file = root_dir + "\\log\\" + settings.get("log_file")
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))
+    logger.debug("Testing mode: " + is_test)
     logger.info("Extract metadata from configuration to start collecting metrics")
     collectors_meta = settings.get("collectors")
     datetime_format = settings.get("date_time_format")
@@ -48,14 +49,17 @@ if __name__ == "__main__":
     else:
         collected_counter = 0
         while True:
+            print("Start collection " + str(collected_counter))
             key_file = os.path.dirname(os.path.abspath(__file__)) + "\\" + settings["encryption_key_file"]
             if os.path.exists(key_file):
                 logger.info("Encryption key file is found")
                 collect_metrics(logger, settings, key_file, collectors, computer_collector)
                 collected_counter = collected_counter + 1
-                print("Finish " + str(collected_counter))
+                for c in collectors:
+                    c.reset_metrics_df()
+                print("Finish collection " + str(collected_counter))
                 sleep(settings.get("sleep_time_sec"))
-                if settings.get("is_test"):
+                if is_test:
                     logger.info("Test run finish. The program will terminate")
                     exit(0)
             else:

@@ -45,3 +45,6 @@ class ComputerMetrics:
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for computer metrics")
         return self.metrics_df
+
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
