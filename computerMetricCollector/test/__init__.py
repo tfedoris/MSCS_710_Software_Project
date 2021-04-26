@@ -1,4 +1,5 @@
 import os
+from Cryptodome.PublicKey import RSA
 from computerMetricCollector.InitiateCollectors import get_logger, init_collector, persist_local, persist_database
 from computerMetricCollector.config import import_config
 from computerMetricCollector.dataCrypto import encrypt_data
@@ -17,20 +18,50 @@ if __name__ == "__main__":
     logger.fatal("Test fatal message")
 
     # Test creating collectors to collect metrics
-    collectors_meta = []
-    encrypt_key_file = ""
-    collector_str = ""
-    machine_id = ""
+    collectors_meta = {
+      "table": "",
+      "metrics_to_encrypt": [
+        "NetworkInterface",
+        "ByteSend",
+        "ByteReceived",
+        "ErrorByteReceived",
+        "ErrorByteSend",
+        "PacketSend",
+        "PacketReceived",
+        "PacketReceivedDrop",
+        "PacketSendDrop"
+      ],
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "NetworkInterface",
+        "ByteSend",
+        "ByteReceived",
+        "ErrorByteReceived",
+        "ErrorByteSend",
+        "PacketSend",
+        "PacketReceived",
+        "PacketReceivedDrop",
+        "PacketSendDrop",
+        "Nonce",
+        "SessionKey"
+      ]
+    }
+    bits = 2048
+    key = RSA.generate(bits)
+    encrypt_key = key.publickey().export_key()
+    decrypt_key = key.export_key()
+    collector_str = "NetworkMetrics"
+    machine_id = "11111111-2222-3333-4444-555555555555"
     datetime_format = "%Y-%m-%d %H:%M:%S"
     collector = init_collector(logger, collectors_meta, collector_str, machine_id, datetime_format)
     collector.fetch_metrics()
-    encrypt_data(collector, encrypt_key_file)
+    encrypt_data(collector, encrypt_key)
 
     # Test persisting collector data locally
     abs_path = os.path.abspath(__file__)
     root_dir = os.path.dirname(os.path.dirname(abs_path))
     settings = import_config(root_dir)
-    collector = ""
     persist_local(logger, settings["local_store_dir"], collector)
 
     # Test persisting collector data to the database
