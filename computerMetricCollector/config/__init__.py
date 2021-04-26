@@ -8,4 +8,6 @@ def import_config(root_path):
     if os.path.exists(full_file_path):
         with open(file=full_file_path) as f:
             settings = json.load(f)
+    else:
+        print("Settings file can not be found: " + full_file_path)
     return settings
