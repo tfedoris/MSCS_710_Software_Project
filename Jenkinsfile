@@ -7,7 +7,7 @@ pipeline {
 
         stage('Build environment') {
             steps {
-                sh '''curl -O https://bootstrap.pypa.io/get-pip.py
+                bat '''curl -O https://bootstrap.pypa.io/get-pip.py
                       python3 get-pip.py --user
                       PATH="/var/lib/jenkins/.local/bin:$PATH"
                       pip install psutil
@@ -15,7 +15,7 @@ pipeline {
                       pip install sqlalchemy
                       pip install py-cpuinfo
                       export PYTHONPATH="${PYTHONPATH}:/computerMetricCollector"
-                      # python3 computerMetricCollector/InitiateCollectors.py
+                      python3 computerMetricCollector/InitiateCollectors.py
                     '''
             }
         }
@@ -27,7 +27,7 @@ pipeline {
     }
     post {
         always {
-            sh 'conda remove --yes -n ${BUILD_TAG} --all'
+            bat 'conda remove --yes -n ${BUILD_TAG} --all'
         }
         failure {
             echo "Send e-mail, when failed"
