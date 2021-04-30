@@ -20,11 +20,11 @@ def generate_rsa_ppk(private_file_path, public_file_path):
         public_file.close()
 
 
-def encrypt_data(collector, key_file):
+def encrypt_data(collector, key):
     collector.logger.debug("Encrypting " + type(collector).__name__ + " data")
     df = collector.metrics_df
     metrics_to_encrypt = collector.metrics_to_encrypt
-    public_key = RSA.import_key(open(key_file).read())
+    public_key = RSA.import_key(key)
     cipher_rsa = PKCS1_OAEP.new(public_key)
     num_bytes = 16
     # Store the nonce and session key to be use in decrypting data
@@ -43,8 +43,8 @@ def encrypt_data(collector, key_file):
     collector.logger.debug("End encrypting " + type(collector).__name__ + " data")
 
 
-def decrypt_data(dataframe, col_to_decrypt, key_file):
-    private_key = RSA.import_key(open(key_file).read())
+def decrypt_data(dataframe, col_to_decrypt, key):
+    private_key = RSA.import_key(key)
     cipher_rsa = PKCS1_OAEP.new(private_key)
     for idx, row in dataframe.iterrows():
         encrypted_key = bytes.fromhex(row["SessionKey"])
@@ -73,7 +73,8 @@ if __name__ == "__main__":
             collector = file.split(".")[0]
             encrypted_metrics = settings["collectors"][collector]["metrics_to_encrypt"]
             encrypt_df = pd.read_csv(data_path + "\\" + file)
-            decrypt_df = decrypt_data(encrypt_df, encrypted_metrics, key_file)
+            decrypt_key = open(key_file).read()
+            decrypt_df = decrypt_data(encrypt_df, encrypted_metrics, decrypt_key)
             if os.path.isfile(data_path + "\\decrypted_" + file):
                 decrypt_df.to_csv(data_path + "\\decrypted_" + file, mode="a", header=False)
             else:

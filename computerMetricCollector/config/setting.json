@@ -8,13 +8,6 @@
   "local_store_dir": "/data/xfer/collectorLocal/",
   "to_store_local": true,
   "encryption_key_file": "dataCrypto\\ppk\\public.pem",
-  "database": {
-    "type": "mysql",
-    "host":"",
-    "user": "",
-    "db_name": "",
-    "port": 3306
-  },
   "collectors": {
     "ComputerMetrics": {
       "table": "",

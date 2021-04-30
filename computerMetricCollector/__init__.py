@@ -1,7 +1,7 @@
 import argparse
 import os
 from time import sleep
-from computerMetricCollector.InitiateCollectors import get_logger, init_collector, collect_metrics
+from computerMetricCollector.CollectoUtils import get_logger, init_collector, collect_metrics
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
 from computerMetricCollector.config import import_config
 
@@ -52,8 +52,9 @@ if __name__ == "__main__":
             print("Start collection " + str(collected_counter))
             key_file = os.path.dirname(os.path.abspath(__file__)) + "\\" + settings["encryption_key_file"]
             if os.path.exists(key_file):
+                encryption_key = open(key_file).read()
                 logger.info("Encryption key file is found")
-                collect_metrics(logger, settings, key_file, collectors, computer_collector)
+                collect_metrics(logger, settings, encryption_key, collectors, computer_collector)
                 collected_counter = collected_counter + 1
                 for c in collectors:
                     c.reset_metrics_df()

@@ -2,7 +2,6 @@ import platform
 from datetime import datetime
 import pandas as pd
 import subprocess
-from computerMetricCollector.dataCrypto import encrypt_data
 
 
 def get_computer_id(logger):

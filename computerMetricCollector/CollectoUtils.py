@@ -75,14 +75,14 @@ def persist_database(logger, database_dict, collectors):
             transaction.rollback()
 
 
-def collect_metrics(logger, settings, encrypt_key_file, collectors, computer_collector):
+def collect_metrics(logger, settings, encrypt_key, collectors, computer_collector):
     try:
         logger.info("Encrypt computer metrics")
-        encrypt_data(computer_collector, encrypt_key_file)
+        encrypt_data(computer_collector, encrypt_key)
         logger.info("Begin fetching metrics data from other collects and encrypting the collected metrics")
         for c in collectors:
             c.fetch_metrics()
-            encrypt_data(c, encrypt_key_file)
+            encrypt_data(c, encrypt_key)
         logger.info("End fetching and encrypting metrics data")
         logger.info("Begin persisting fetch metrics")
         logger.debug("To store metrics on local: " + str(settings["to_store_local"]))
