@@ -1,8 +1,8 @@
 import logging
+import requests
 from psutil import AccessDenied
 from logging.handlers import TimedRotatingFileHandler
 from computerMetricCollector.dataCrypto import encrypt_data
-from computerMetricCollector.dbConnector import MYSQLConnector
 from computerMetricCollector.metricsCollector import store_local, store_to_database
 from computerMetricCollector.metricsCollector.cpuMetrics import CPUMetrics
 from computerMetricCollector.metricsCollector.memoryMetrics import MemoryMetrics
@@ -54,25 +54,22 @@ def persist_local(logger, file_path, collector):
     logger.info("End storing " + type(collector).__name__)
 
 
-def persist_database(logger, database_dict, collectors):
-    transaction = None
-    db_conn = MYSQLConnector(database_dict)
-    try:
-        db_engine = db_conn.get_engine()
-        with db_engine.connect() as conn:
-            logger.debug("Store on to host " + db_conn.host + " into database " +
-                         db_conn.db_name)
-            conn.auto_commit = False
-            transaction = conn.begin()
+def persist_database(logger, remote_store_dict, collectors):
+    url = remote_store_dict.get("url")
+    key = remote_store_dict.get("register_key")
+    if (url is not None and key is not None) and (url != "" and key != ""):
+        try:
             for collector in collectors:
-                logger.info("Begin store " + type(collector).__name__)
-                store_to_database(collector, conn)
-                transaction.commit()
-    except AccessDenied as ad:
-        logger.error("Access denied to {} at {}".format(db_conn.db_name, db_conn.host))
-        logger.error(ad)
-        if transaction is not None:
-            transaction.rollback()
+                metrics_df = collector.get_metrics_df()
+                data = metrics_df.to_dict(orient="list")
+                post_data = {"key": key, "playload": data}
+                requests.post(url, post_data=post_data)
+        except Exception as e:
+            logger.error(e.args[0])
+    else:
+        logger.error("Unknown url and/or Unknown register key")
+        logger.error("URL: " + str(url))
+        logger.error("Register Key: " + str(key))
 
 
 def collect_metrics(logger, settings, encrypt_key, collectors, computer_collector):
