@@ -1,0 +1,22 @@
+2021-05-04 00:40:56,097 - __init__.py - ERROR - Test error message
+2021-05-04 00:40:56,097 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 00:41:41,823 - __init__.py - ERROR - Test error message
+2021-05-04 00:41:41,824 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 00:45:12,189 - __init__.py - ERROR - Test error message
+2021-05-04 00:45:12,190 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 00:45:34,642 - CollectoUtils.py - ERROR - Unknown url and/or Unknown register key
+2021-05-04 00:45:34,643 - CollectoUtils.py - ERROR - URL: 
+2021-05-04 00:45:34,643 - CollectoUtils.py - ERROR - Register Key: 
+2021-05-04 01:17:04,137 - __init__.py - ERROR - Test error message
+2021-05-04 01:17:04,137 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 01:17:49,047 - __init__.py - ERROR - Test error message
+2021-05-04 01:17:49,048 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 01:20:31,857 - __init__.py - ERROR - Test error message
+2021-05-04 01:20:31,857 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 01:21:28,152 - CollectoUtils.py - ERROR - Unknown url and/or Unknown register key
+2021-05-04 01:21:28,153 - CollectoUtils.py - ERROR - URL: 
+2021-05-04 01:21:28,153 - CollectoUtils.py - ERROR - Register Key: 
+2021-05-04 01:23:02,715 - __init__.py - ERROR - Test error message
+2021-05-04 01:23:02,715 - __init__.py - CRITICAL - Test fatal message
+2021-05-04 01:24:24,009 - __init__.py - ERROR - Test error message
+2021-05-04 01:24:24,009 - __init__.py - CRITICAL - Test fatal message
