@@ -4,7 +4,7 @@ import unittest
 from Cryptodome.PublicKey import RSA
 from computerMetricCollector.CollectoUtils import get_logger, init_collector, persist_local, persist_database
 from computerMetricCollector.config import import_config
-from computerMetricCollector.crypto import encrypt_data, read_key
+from computerMetricCollector.crypto import encrypt_data, read_key, decrypt_data
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics, get_computer_id
 
 
@@ -28,11 +28,13 @@ class TestCollect(unittest.TestCase):
         self.assertLogs(set_logger("FATAL"), "FATAL")
 
     def test_key(self):
+        root_dir = os.path.dirname(__file__)
+        settings = import_config(root_dir)
         bits = 2048
         key = RSA.generate(bits)
         encrypt_key = key.publickey().export_key()
         dir_name = os.path.dirname(os.path.dirname(__file__))
-        encrypt_key_file = dir_name + "/crypto/ppk/public.pem"
+        encrypt_key_file = dir_name + settings.get("encryption_key_file")
         public_key = read_key(encrypt_key_file)
         self.assertEqual(len(encrypt_key), len(public_key))
 
@@ -71,7 +73,22 @@ class TestCollect(unittest.TestCase):
         self.assertRegex(com_id, r"^[a-zA-Z0-9-]*$")
 
     def test_encryption(self):
-
+        root_dir = os.path.dirname(__file__)
+        settings = import_config(root_dir)
+        collectors_meta = settings.get("collectors")
+        datetime_format = settings.get("date_time_format")
+        com_meta = collectors_meta.get("ComputerMetrics")
+        com_collector = ComputerMetrics(TestCollect.logger, com_meta.get("metrics"),
+                                        com_meta.get("metrics_to_encrypt"), datetime_format, com_meta.get("url"))
+        com_collector.fetch_metrics()
+        raw_metrics_df = com_collector.get_metrics_df()
+        encrypt_key = read_key(root_dir + settings.get("encryption_key_file"))
+        encrypt_data(com_collector, encrypt_key)
+        encrypted_metrics_df = com_collector.get_metrics_df()
+        with open(root_dir + "\\crypto\\ppk\private.pem") as f:
+            decrypt_key = f.read()
+        decrypted_metrics_df = decrypt_data(encrypted_metrics_df, com_meta.get("metrics_to_encrypt"), decrypt_key)
+        pd.testing.assert_frame_equal(raw_metrics_df, decrypted_metrics_df)
 
 
 if __name__ == "__main__":

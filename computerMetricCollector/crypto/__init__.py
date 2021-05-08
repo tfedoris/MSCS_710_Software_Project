@@ -22,8 +22,8 @@ def generate_rsa_ppk(private_file_path, public_file_path):
 
 
 def read_key(keyFile):
-    with open(keyFile) as file:
-        key = file.read()
+    with open(keyFile) as f:
+        key = f.read()
     return key
 
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     settings = import_config(root_dir)
     data_path = root_dir + settings.get("local_store_dir")
     files = os.listdir(data_path)
-    key_file = root_dir + "\\crypto\\ppk\\private.pem"
+    key_file = root_dir + settings.get("encryption_key_file")
     for file in files:
         if not file.startswith("decrypted"):
             collector = file.split(".")[0]
