@@ -5,14 +5,15 @@ import psutil
 
 
 class DiskMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
+        self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
-        self.store_table = table
+        self.remote_url = url
 
     def fetch_metrics(self):
         self.logger.info("Start fetching for disk metrics")
@@ -31,6 +32,7 @@ class DiskMetrics:
                     "Percent": usage.percent
                 }
                 self.metrics_df = self.metrics_df.append(metric, ignore_index=True)
+                self.metrics_df = self.metrics_df.reset_index(drop=True)
             else:
                 self.logger.debug("Avoid fetching desk: " + disk.device + " with mount option: " + disk.opts)
         self.logger.info("End fetching for disk metrics")
@@ -41,14 +43,18 @@ class DiskMetrics:
         self.logger.info("Get metrics dataframe for disk metrics")
         return self.metrics_df
 
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
+
 
 class DiskIOMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, table):
         self.is_fetched = False
         self.to_stored = True
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
+        self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
         self.store_table = table
 
@@ -70,6 +76,7 @@ class DiskIOMetrics:
                 "TimeWriteInMilli": io.write_time
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
+            self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for disk io metrics")
         self.is_fetched = True
         self.to_stored = True
@@ -77,3 +84,6 @@ class DiskIOMetrics:
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for disk io metrics")
         return self.metrics_df
+
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)

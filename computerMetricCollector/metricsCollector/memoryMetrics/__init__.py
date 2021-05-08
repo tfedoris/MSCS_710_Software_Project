@@ -4,14 +4,15 @@ from datetime import datetime
 
 
 class MemoryMetrics:
-    def __init__(self, logger, machine_id, metrics, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
+        self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
-        self.store_table = table
+        self.remote_url = url
 
     def fetch_metrics(self):
         self.logger.info("Start fetching for memory metrics")
@@ -32,6 +33,7 @@ class MemoryMetrics:
             "SwapBytesOut": swap_mem.sout,
         }
         self.metrics_df = self.metrics_df.append(memory_metrics, ignore_index=True)
+        self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for memory metrics")
         self.is_fetched = True
         self.to_stored = True
@@ -39,3 +41,6 @@ class MemoryMetrics:
     def get_metrics_df(self):
         self.logger.info("Get metrics dataframe for memory metrics")
         return self.metrics_df
+
+    def reset_metrics_df(self):
+        self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)

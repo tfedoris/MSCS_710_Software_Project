@@ -8,11 +8,18 @@
   "local_store_dir": "/local_data/",
   "user_id": "",
   "to_store_local": true,
-  "encryption_key_file": "crypto\\ppk\\public.pem",
+  "encryption_key_file": "/crypto/ppk/public.pem",
   "collectors": {
     "ComputerMetrics": {
       "url": "",
       "metrics_to_encrypt": [
+        "MachineName",
+        "System",
+        "Version",
+        "MachineType"
+      ],
+      "metrics_to_match": [
+        "MachineID",
         "MachineName",
         "System",
         "Version",
@@ -40,6 +47,15 @@
         "HZActual",
         "Count"
       ],
+      "metrics_to_match": [
+        "MachineId",
+        "Brand",
+        "Vendor",
+        "Arch",
+        "Bits",
+        "HZAdvertise",
+        "HZActual"
+      ],
       "metrics": [
         "MachineId",
         "EntryDatetime",
@@ -63,6 +79,11 @@
         "Used",
         "Percent"
       ],
+      "metrics_to_match": [
+        "MachineID",
+        "DiskName",
+        "Total"
+      ],
       "metrics": [
         "MachineID",
         "EntryDatetime",
@@ -85,6 +106,10 @@
         "BytesWrite",
         "TimeReadInMilli",
         "TimeWriteInMilli"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "DiskName"
       ],
       "metrics": [
         "MachineId",
@@ -113,6 +138,11 @@
         "SwapPercent",
         "SwapBytesIn",
         "SwapBytesOut"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "MemoryTotal",
+        "SwapTotal"
       ],
       "metrics": [
         "MachineId",
@@ -143,6 +173,10 @@
         "PacketReceived",
         "PacketReceivedDrop",
         "PacketSendDrop"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "NetworkInterface"
       ],
       "metrics": [
         "MachineId",
@@ -181,6 +215,8 @@
         "IOWriteCnt",
         "IOWriteBytes",
         "ThreadNum"
+      ],
+      "metrics_to_match": [
       ],
       "metrics": [
         "MachineId",
