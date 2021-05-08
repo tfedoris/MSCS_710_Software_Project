@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class ProcessMetrics:
-    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
         self.is_fetch = True
         self.to_stored = True
         self.logger = logger
@@ -12,7 +12,7 @@ class ProcessMetrics:
         self.metrics_to_encrypt = metrics_to_encrypt
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
-        self.store_table = table
+        self.remote_url = url
 
     def fetch_metrics(self):
         self.logger.info("Start fetching for process metrics")
@@ -50,6 +50,7 @@ class ProcessMetrics:
                     "ThreadNum": process.num_threads()
                 }
                 self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
+                self.metrics_df = self.metrics_df.reset_index(drop=True)
             except psutil.AccessDenied as ad:
                 self.logger.warning("Access denied to fetch process metrics for pid {}".format(str(pid)))
                 self.logger.warning(ad)

@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class CPUMetrics:
-    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
@@ -12,7 +12,7 @@ class CPUMetrics:
         self.datetime_format = datetime_format
         self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
-        self.store_table = table
+        self.remote_url = url
 
     def fetch_metrics(self):
         self.logger.info("Is CPU metrics fetched: " + str(self.is_fetched))
@@ -31,6 +31,7 @@ class CPUMetrics:
                 "Count": info.get("count")
             }
             self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
+            self.metrics_df = self.metrics_df.reset_index(drop=True)
             self.is_fetched = True
             self.to_stored = True
         else:

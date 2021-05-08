@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class NetworkMetrics:
-    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, table):
+    def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
         self.is_fetch = False
         self.to_stored = False
         self.logger = logger
@@ -14,7 +14,7 @@ class NetworkMetrics:
         self.metrics_to_encrypt = metrics_to_encrypt
         self.datetime_format = datetime_format
         self.metrics_df = pd.DataFrame(columns=metrics)
-        self.store_table = table
+        self.remote_url = url
 
     def fetch_metrics(self):
         network_card_io = psutil.net_io_counters(pernic=True)
@@ -36,6 +36,7 @@ class NetworkMetrics:
                 "PacketSendDrop": io.dropout
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
+            self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for network metrics")
         self.is_fetch = True
         self.to_stored = True

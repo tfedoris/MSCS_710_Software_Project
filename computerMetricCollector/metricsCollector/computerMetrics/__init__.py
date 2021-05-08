@@ -13,7 +13,7 @@ def get_computer_id(logger):
 
 
 class ComputerMetrics:
-    def __init__(self, logger, metrics, metrics_to_encrypt, datetime_format):
+    def __init__(self, logger, metrics, metrics_to_encrypt, datetime_format, url):
         self.is_fetched = False
         self.to_stored = False
         self.logger = logger
@@ -21,6 +21,7 @@ class ComputerMetrics:
         self.metrics_df = pd.DataFrame(columns=metrics)
         self.machine_id = get_computer_id(self.logger)
         self.datetime_format = datetime_format
+        self.remote_url = url
 
     def fetch_metrics(self):
         self.logger.info("Is computer metrics fetched: " + str(self.is_fetched))
@@ -36,6 +37,7 @@ class ComputerMetrics:
                 "MachineType": machine_info.machine
             }
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
+            self.metrics_df = self.metrics_df.reset_index(drop=True)
             self.is_fetched = True
             self.to_stored = True
         else:
