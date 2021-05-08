@@ -1,84 +1,78 @@
 import os
+import pandas as pd
+import unittest
 from Cryptodome.PublicKey import RSA
 from computerMetricCollector.CollectoUtils import get_logger, init_collector, persist_local, persist_database
 from computerMetricCollector.config import import_config
-from computerMetricCollector.dataCrypto import encrypt_data
+from computerMetricCollector.crypto import encrypt_data, read_key
+from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics, get_computer_id
 
-if __name__ == "__main__":
-    # Test logger
+
+def set_logger(level):
     log_file = "Test.log"
-    log_level = "ERROR"
     rotate_time = "midnight"
     backup_cnt = 10
-    logger = get_logger(log_file, log_level, rotate_time, backup_cnt)
-    logger.debug("Test debug message")
-    logger.info("Test info message")
-    logger.warning("Test warning message")
-    logger.error("Test error message")
-    logger.fatal("Test fatal message")
+    logger = get_logger(log_file, level, rotate_time, backup_cnt)
+    return logger
 
-    # Test creating collectors to collect metrics
-    collectors_meta = {
-        "NetworkMetrics": {
-          "table": "",
-          "metrics_to_encrypt": [
-            "NetworkInterface",
-            "ByteSend",
-            "ByteReceived",
-            "ErrorByteReceived",
-            "ErrorByteSend",
-            "PacketSend",
-            "PacketReceived",
-            "PacketReceivedDrop",
-            "PacketSendDrop"
-          ],
-          "metrics": [
-            "MachineId",
-            "EntryDatetime",
-            "NetworkInterface",
-            "ByteSend",
-            "ByteReceived",
-            "ErrorByteReceived",
-            "ErrorByteSend",
-            "PacketSend",
-            "PacketReceived",
-            "PacketReceivedDrop",
-            "PacketSendDrop",
-            "Nonce",
-            "SessionKey"
-          ]
-        }
-    }
-    logger.info("Start testing encryption")
-    bits = 2048
-    key = RSA.generate(bits)
-    # Randomly create public private key to be store as csv to ensure reading of encryption key is not a problem.
-    encrypt_key = key.publickey().export_key()
-    decrypt_key = key.export_key()
-    dir_name = os.path.dirname(os.path.dirname(__file__))
-    with open(dir_name + "/dataCrypto/ppk/public.pem", "bw+") as public_file:
-        public_file.write(encrypt_key)
-    with open(dir_name + "/dataCrypto/ppk/public.pem", "r") as public_file:
-        encrypt_key = public_file.read()
-    with open(dir_name + "/dataCrypto/ppk/private.pem", "bw+") as private_file:
-        private_file.write(decrypt_key)
-    with open(dir_name + "/dataCrypto/ppk/private.pem", "r") as private_file:
-        decrypt_key = private_file.read()
 
-    collector_str = "NetworkMetrics"
-    machine_id = "11111111-2222-3333-4444-555555555555"
-    datetime_format = "%Y-%m-%d %H:%M:%S"
-    logger.debug("Test encryption with " + str(bits) + " bits key")
-    logger.debug("Test encryption with public key " + str(bits) + " bits key")
-    collector = init_collector(logger, collectors_meta, collector_str, machine_id, datetime_format)
-    collector.fetch_metrics()
-    encrypt_data(collector, encrypt_key)
+class TestCollect(unittest.TestCase):
+    logger = set_logger("ERROR")
 
-    # Test persisting collector data locally
-    abs_path = os.path.abspath(__file__)
-    root_dir = os.path.dirname(os.path.dirname(abs_path))
-    settings = import_config(root_dir)
-    persist_local(logger, settings["local_store_dir"], collector)
+    def test_logger(self):
+        level = "ERROR"
+        self.assertLogs(set_logger("DEBUG"), "DEBUG")
+        self.assertLogs(set_logger("INFO"), "INFO")
+        self.assertLogs(set_logger("WARNING"), "WARNING")
+        self.assertLogs(TestCollect.logger, level)
+        self.assertLogs(set_logger("FATAL"), "FATAL")
 
-    # Test persisting collector data to the database
-    persist_database(logger, settings["store_remote"], [collector])
+    def test_key(self):
+        bits = 2048
+        key = RSA.generate(bits)
+        encrypt_key = key.publickey().export_key()
+        dir_name = os.path.dirname(os.path.dirname(__file__))
+        encrypt_key_file = dir_name + "/crypto/ppk/public.pem"
+        public_key = read_key(encrypt_key_file)
+        self.assertEqual(len(encrypt_key), len(public_key))
+
+    def test_collector(self):
+        root_dir = os.path.dirname(__file__)
+        settings = import_config(root_dir)
+        collectors_meta = settings.get("collectors")
+        datetime_format = settings.get("date_time_format")
+        com_meta = collectors_meta.get("ComputerMetrics")
+        com_collector = ComputerMetrics(TestCollect.logger, com_meta.get("metrics"),
+                                        com_meta.get("metrics_to_encrypt"), datetime_format, com_meta.get("url"))
+        com_collector.fetch_metrics()
+        com_df = com_collector.get_metrics_df()
+        com_df = com_df.filter(items=com_meta.get("metrics_to_match"), axis=1)
+        sample_df = pd.read_csv(root_dir + "/sample_data/decrypted_ComputerMetrics.csv", names=com_meta.get("metrics"))
+        sample_df = sample_df.drop(["EntryDatetime", "Nonce", "SessionKey"], axis=1)
+
+        pd.testing.assert_frame_equal(com_df, sample_df)
+        del collectors_meta["ComputerMetrics"]
+        for collector_str in collectors_meta.keys():
+            meta = collectors_meta.get(collector_str)
+            if len(meta.get("metrics_to_match")) == 0:
+                continue
+            collector = init_collector(TestCollect.logger, collectors_meta, collector_str, com_collector.machine_id,
+                                       datetime_format)
+            collector.fetch_metrics()
+            metrics_df = collector.get_metrics_df()
+            sample_df = pd.read_csv(root_dir + "/sample_data/decrypted_" + collector_str + ".csv",
+                                    names=metrics_df.columns)
+            metrics_df = metrics_df.filter(items=meta.get("metrics_to_match"), axis=1)
+            sample_df = sample_df.filter(items=meta.get("metrics_to_match"), axis=1)
+            pd.testing.assert_frame_equal(metrics_df, sample_df, check_dtype=False)
+
+    def test_com_id(self):
+        com_id = get_computer_id(TestCollect.logger)
+        self.assertRegex(com_id, r"^[a-zA-Z0-9-]*$")
+
+    def test_encryption(self):
+
+
+
+if __name__ == "__main__":
+    unittest.main()

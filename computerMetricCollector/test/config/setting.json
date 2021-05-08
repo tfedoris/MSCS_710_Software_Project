@@ -1,0 +1,247 @@
+{
+  "log_level": "DEBUG",
+  "log_file": "MetricCollector.log",
+  "log_rotate_time": "midnight",
+  "log_backup_cnt": 7,
+  "date_time_format": "%Y-%m-%d %H:%M:%S",
+  "sleep_time_sec": 60,
+  "local_store_dir": "/local_data/",
+  "user_id": "",
+  "to_store_local": true,
+  "encryption_key_file": "crypto\\ppk\\public.pem",
+  "collectors": {
+    "ComputerMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "MachineName",
+        "System",
+        "Version",
+        "MachineType"
+      ],
+      "metrics_to_match": [
+        "MachineID",
+        "MachineName",
+        "System",
+        "Version",
+        "MachineType"
+      ],
+      "metrics": [
+        "MachineID",
+        "EntryDatetime",
+        "MachineName",
+        "System",
+        "Version",
+        "MachineType",
+        "Nonce",
+        "SessionKey"
+      ]
+    },
+    "CPUMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "Brand",
+        "Vendor",
+        "Arch",
+        "Bits",
+        "HZAdvertise",
+        "HZActual",
+        "Count"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "Brand",
+        "Vendor",
+        "Arch",
+        "Bits",
+        "HZAdvertise",
+        "HZActual"
+      ],
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "Brand",
+        "Vendor",
+        "Arch",
+        "Bits",
+        "HZAdvertise",
+        "HZActual",
+        "Count",
+        "Nonce",
+        "SessionKey"
+      ]
+    },
+    "DiskMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "DiskName",
+        "Total",
+        "Free",
+        "Used",
+        "Percent"
+      ],
+      "metrics_to_match": [
+        "MachineID",
+        "DiskName",
+        "Total"
+      ],
+      "metrics": [
+        "MachineID",
+        "EntryDatetime",
+        "DiskName",
+        "Total",
+        "Free",
+        "Used",
+        "Percent",
+        "Nonce",
+        "SessionKey"
+      ]
+    },
+    "DiskIOMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "DiskName",
+        "CountRead",
+        "CountWrite",
+        "BytesRead",
+        "BytesWrite",
+        "TimeReadInMilli",
+        "TimeWriteInMilli"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "DiskName"
+      ],
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "DiskName",
+        "CountRead",
+        "CountWrite",
+        "BytesRead",
+        "BytesWrite",
+        "TimeReadInMilli",
+        "TimeWriteInMilli",
+        "Nonce",
+        "SessionKey"
+      ]
+    },
+    "MemoryMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "MemoryTotal",
+        "MemoryAvailable",
+        "MemoryUsed",
+        "MemoryUsedPercent",
+        "SwapTotal",
+        "SwapFree",
+        "SwapUsed",
+        "SwapPercent",
+        "SwapBytesIn",
+        "SwapBytesOut"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "MemoryTotal",
+        "SwapTotal"
+      ],
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "MemoryTotal",
+        "MemoryAvailable",
+        "MemoryUsed",
+        "MemoryUsedPercent",
+        "SwapTotal",
+        "SwapFree",
+        "SwapUsed",
+        "SwapPercent",
+        "SwapBytesIn",
+        "SwapBytesOut",
+        "Nonce",
+        "SessionKey"
+      ]
+    },
+    "NetworkMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "NetworkInterface",
+        "ByteSend",
+        "ByteReceived",
+        "ErrorByteReceived",
+        "ErrorByteSend",
+        "PacketSend",
+        "PacketReceived",
+        "PacketReceivedDrop",
+        "PacketSendDrop"
+      ],
+      "metrics_to_match": [
+        "MachineId",
+        "NetworkInterface"
+      ],
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "NetworkInterface",
+        "ByteSend",
+        "ByteReceived",
+        "ErrorByteReceived",
+        "ErrorByteSend",
+        "PacketSend",
+        "PacketReceived",
+        "PacketReceivedDrop",
+        "PacketSendDrop",
+        "Nonce",
+        "SessionKey"
+      ]
+    },
+    "ProcessMetrics": {
+      "url": "",
+      "metrics_to_encrypt": [
+        "Pid",
+        "Name",
+        "StartTime",
+        "User",
+        "Status",
+        "CPUUserTime",
+        "CPUKernelTime",
+        "CPUPercent",
+        "MemoryPercentUsedByte",
+        "MemoryPhysicalUsedByte",
+        "MemoryVirtualUsedByte",
+        "MemoryUniqueUsedByte",
+        "MemoryPageFault",
+        "IOReadCnt",
+        "IOReadBytes",
+        "IOWriteCnt",
+        "IOWriteBytes",
+        "ThreadNum"
+      ],
+      "metrics_to_match": [
+      ],
+      "metrics": [
+        "MachineId",
+        "EntryDatetime",
+        "Pid",
+        "Name",
+        "StartTime",
+        "User",
+        "Status",
+        "CPUUserTime",
+        "CPUKernelTime",
+        "CPUPercent",
+        "MemoryPercentUsedByte",
+        "MemoryPhysicalUsedByte",
+        "MemoryVirtualUsedByte",
+        "MemoryUniqueUsedByte",
+        "MemoryPageFault",
+        "IOReadCnt",
+        "IOReadBytes",
+        "IOWriteCnt",
+        "IOWriteBytes",
+        "ThreadNum",
+        "Nonce",
+        "SessionKey"
+      ]
+    }
+  }
+}
