@@ -3,7 +3,7 @@ import os
 
 
 def import_config(root_path):
-    full_file_path = root_path + "/config/setting.json"
+    full_file_path = root_path + "\\config\\setting.json"
     settings = {}
     if os.path.exists(full_file_path):
         with open(file=full_file_path) as f:

@@ -1,8 +1,8 @@
 import logging
-import requests
+import os
 from psutil import AccessDenied
 from logging.handlers import TimedRotatingFileHandler
-from computerMetricCollector.dataCrypto import encrypt_data
+from computerMetricCollector.crypto import encrypt_data
 from computerMetricCollector.metricsCollector import store_local, store_to_database
 from computerMetricCollector.metricsCollector.cpuMetrics import CPUMetrics
 from computerMetricCollector.metricsCollector.memoryMetrics import MemoryMetrics
@@ -27,7 +27,6 @@ def get_logger(file, log_level, rotate_time, backup_cnt):
     format_str = "%(asctime)s - %(filename)s - %(levelname)s - %(message)s"
     log_handler.setFormatter(logging.Formatter(format_str))
     logger_instance.addHandler(log_handler)
-    logger_instance.info("Create logger instance")
     return logger_instance
 
 
@@ -38,9 +37,9 @@ def init_collector(logger, collectors_meta, collector_name, machine_id, datetime
         collect_class = globals()[collector_name]
         metrics_to_collect = collectors_meta[collector_name]["metrics"]
         metrics_to_encrypt = collectors_meta[collector_name]["metrics_to_encrypt"]
-        table = collectors_meta[collector_name]["table"]
+        url = collectors_meta[collector_name]["url"]
         collector_instance = collect_class(logger, machine_id, metrics_to_collect, metrics_to_encrypt,
-                                           datetime_format, table)
+                                           datetime_format, url)
         logger.debug("End instantiate collector for " + collector_name)
     else:
         logger.warning("Collector " + collector_name + " is not supported yet.")
@@ -54,22 +53,15 @@ def persist_local(logger, file_path, collector):
     logger.info("End storing " + type(collector).__name__)
 
 
-def persist_database(logger, remote_store_dict, collectors):
-    url = remote_store_dict.get("url")
-    key = remote_store_dict.get("register_key")
-    if (url is not None and key is not None) and (url != "" and key != ""):
-        try:
-            for collector in collectors:
-                metrics_df = collector.get_metrics_df()
-                data = metrics_df.to_dict(orient="list")
-                post_data = {"key": key, "playload": data}
-                requests.post(url, post_data=post_data)
-        except Exception as e:
-            logger.error(e.args[0])
+def persist_database(logger, config, public_key, collectors):
+    user_id = config.get("user_id")
+    if (user_id is not None and public_key is not None) and (user_id != "" and public_key != ""):
+        for collector in collectors:
+            store_to_database(collector, user_id, public_key)
     else:
         logger.error("Unknown url and/or Unknown register key")
-        logger.error("URL: " + str(url))
-        logger.error("Register Key: " + str(key))
+        logger.error("User ID: " + str(user_id))
+        logger.error("Public Key: " + str(public_key))
 
 
 def collect_metrics(logger, settings, encrypt_key, collectors, computer_collector):
@@ -84,12 +76,13 @@ def collect_metrics(logger, settings, encrypt_key, collectors, computer_collecto
         logger.info("Begin persisting fetch metrics")
         logger.debug("To store metrics on local: " + str(settings["to_store_local"]))
         if settings["to_store_local"]:
-            persist_local(logger,  settings["local_store_dir"], computer_collector)
+            root_dir = os.path.dirname(__file__)
+            persist_local(logger, root_dir + settings["local_store_dir"], computer_collector)
             for c in collectors:
-                persist_local(logger, settings["local_store_dir"], c)
+                persist_local(logger, root_dir + settings["local_store_dir"], c)
         else:
             collectors.append(computer_collector)
-            persist_database(logger, settings["database"], collectors)
+            persist_database(logger, settings, encrypt_key, collectors)
     except AccessDenied as ad:
         logger.error("Access denied for fetch data from psutil library")
         logger.error(ad)

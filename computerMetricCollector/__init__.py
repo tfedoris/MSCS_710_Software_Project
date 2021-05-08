@@ -4,6 +4,7 @@ from time import sleep
 from computerMetricCollector.CollectoUtils import get_logger, init_collector, collect_metrics
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
 from computerMetricCollector.config import import_config
+from computerMetricCollector.crypto import read_key
 
 if __name__ == "__main__":
     # Defines arguments to be passed in when running the program
@@ -22,7 +23,8 @@ if __name__ == "__main__":
     log_file = root_dir + "\\log\\" + settings.get("log_file")
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))
-    logger.debug("Testing mode: " + is_test)
+    logger.info("Create logger instance")
+    logger.debug("Testing mode: " + str(is_test))
     logger.info("Extract metadata from configuration to start collecting metrics")
     collectors_meta = settings.get("collectors")
     datetime_format = settings.get("date_time_format")
@@ -32,7 +34,8 @@ if __name__ == "__main__":
     # Collect computer metrics separate since it is called different and require to call first
     com_metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
     com_metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
-    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format)
+    com_url = collectors_meta["ComputerMetrics"]["url"]
+    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format, com_url)
     computer_collector.fetch_metrics()
     # Computer Metrics does not need to be fetch again
     del collectors_meta["ComputerMetrics"]
@@ -52,13 +55,13 @@ if __name__ == "__main__":
             print("Start collection " + str(collected_counter))
             key_file = os.path.dirname(os.path.abspath(__file__)) + "\\" + settings["encryption_key_file"]
             if os.path.exists(key_file):
-                encryption_key = open(key_file).read()
+                encryption_key = read_key(key_file)
                 logger.info("Encryption key file is found")
                 collect_metrics(logger, settings, encryption_key, collectors, computer_collector)
-                collected_counter = collected_counter + 1
                 for c in collectors:
                     c.reset_metrics_df()
                 print("Finish collection " + str(collected_counter))
+                collected_counter = collected_counter + 1
                 sleep(settings.get("sleep_time_sec"))
                 if is_test:
                     logger.info("Test run finish. The program will terminate")

@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from computerMetricCollector.dataCrypto import decrypt_data
+from computerMetricCollector.crypto import decrypt_data
 
 if __name__ == "__main__":
     files = os.listdir("C:\\data\\xfer\\collectorLocal")

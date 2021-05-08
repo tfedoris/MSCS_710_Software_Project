@@ -5,16 +5,13 @@
   "log_backup_cnt": 7,
   "date_time_format": "%Y-%m-%d %H:%M:%S",
   "sleep_time_sec": 60,
-  "local_store_dir": "/data/xfer/collectorLocal/",
-  "store_remote": {
-    "url": "",
-    "register_key": ""
-  },
+  "local_store_dir": "/local_data/",
+  "user_id": "",
   "to_store_local": true,
-  "encryption_key_file": "dataCrypto\\ppk\\public.pem",
+  "encryption_key_file": "crypto\\ppk\\public.pem",
   "collectors": {
     "ComputerMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "MachineName",
         "System",
@@ -33,7 +30,7 @@
       ]
     },
     "CPUMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "Brand",
         "Vendor",
@@ -58,7 +55,7 @@
       ]
     },
     "DiskMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "DiskName",
         "Total",
@@ -79,7 +76,7 @@
       ]
     },
     "DiskIOMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "DiskName",
         "CountRead",
@@ -104,7 +101,7 @@
       ]
     },
     "MemoryMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "MemoryTotal",
         "MemoryAvailable",
@@ -135,7 +132,7 @@
       ]
     },
     "NetworkMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "NetworkInterface",
         "ByteSend",
@@ -164,7 +161,7 @@
       ]
     },
     "ProcessMetrics": {
-      "table": "",
+      "url": "",
       "metrics_to_encrypt": [
         "Pid",
         "Name",
