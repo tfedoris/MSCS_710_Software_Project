@@ -1,21 +1,28 @@
-pipeline {
-    agent any
-    triggers {
-        pollSCM('*/5 * * * 1-5')
+pipeline{
+    agent {
+    label 'main'
     }
-    stages {
-
-        stage('Build environment') {
-            steps {
-                bat '''curl -O https://bootstrap.pypa.io/get-pip.py
-                      python3 get-pip.py --user
-                      PATH="/var/lib/jenkins/.local/bin:$PATH"
-                      pip install psutil
-                      pip install pandas
-                      pip install sqlalchemy
-                      pip install py-cpuinfo
-                      export PYTHONPATH="${PYTHONPATH}:/computerMetricCollector"
-                      python3 computerMetricCollector/InitiateCollectors.py
+    stages{
+        stage("git"){
+            steps{
+                git branch: 'main', credentialsId: 'tim github', url: 'https://github.com/tfedoris/MSCS_710_Software_Project.git'
+            }
+        }
+        stage("test run"){
+            steps{
+                powershell '''ls
+                    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"))
+                    '''
+                bat '''C:\\ProgramData\\chocolatey\\bin\\choco feature enable -n allowGlobalConfirmation
+                    C:\\ProgramData\\chocolatey\\bin\\choco.exe install python --version=3.8.0
+                    C:\\python38\\scripts\\pip.exe install --upgrade pip
+                    C:\\python38\\scripts\\pip.exe install psutil
+                    C:\\python38\\scripts\\pip.exe install pandas
+                    C:\\python38\\scripts\\pip.exe install sqlalchemy
+                    C:\\python38\\scripts\\pip.exe install py-cpuinfo
+                    C:\\python38\\scripts\\pip.exe install pycryptodomex
+                    C:\\python38\\scripts\\pip.exe install requests
+                    C:\\python38\\python.exe -m computerMetricCollector.__init__ -t True
                     '''
             }
         }
@@ -23,14 +30,6 @@ pipeline {
             steps {
                 echo "testing environment started"
             }
-        }
-    }
-    post {
-        always {
-            bat 'conda remove --yes -n ${BUILD_TAG} --all'
-        }
-        failure {
-            echo "Send e-mail, when failed"
         }
     }
 }
