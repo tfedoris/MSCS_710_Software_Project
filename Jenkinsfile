@@ -3,13 +3,14 @@ pipeline{
     label 'main'
     }
     stages{
-        stage("git"){
+        stage('Pull from GitHub'){
             steps{
                 git branch: 'main', credentialsId: 'tim github', url: 'https://github.com/tfedoris/MSCS_710_Software_Project.git'
             }
         }
-        stage("test run"){
+        stage('End-to-end test'){
             steps{
+                echo 'installing python and dependencies'
                 powershell '''ls
                     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"))
                     '''
@@ -22,13 +23,16 @@ pipeline{
                     C:\\python38\\scripts\\pip.exe install py-cpuinfo
                     C:\\python38\\scripts\\pip.exe install pycryptodomex
                     C:\\python38\\scripts\\pip.exe install requests
-                    C:\\python38\\python.exe -m computerMetricCollector.__init__ -t True
                     '''
+                echo 'python and dependencies installed'
+                echo 'running python script'
+                bat 'C:\\python38\\python.exe -m computerMetricCollector.__init__ -t True'
+                echo 'program finished'
             }
         }
-        stage('Test environment') {
+        stage('Run test cases') {
             steps {
-                echo "testing environment started"
+                bat 'C:\\python38\\python.exe -m computerMetricCollector.test.__init__'
             }
         }
     }
