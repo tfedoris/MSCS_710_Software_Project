@@ -61,6 +61,7 @@ export default function Navigation({ children, onSelect }: Props) {
       >
         <Toolbar>
           <IconButton
+            id="open-drawer"
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -75,6 +76,7 @@ export default function Navigation({ children, onSelect }: Props) {
         </Toolbar>
       </AppBar>
       <Drawer
+        id="drawer"
         className={classes.drawer}
         variant="persistent"
         anchor="left"
@@ -84,7 +86,7 @@ export default function Navigation({ children, onSelect }: Props) {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton id="close-drawer" onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
