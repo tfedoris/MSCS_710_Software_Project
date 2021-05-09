@@ -1,7 +1,7 @@
 from Cryptodome.Cipher import AES, PKCS1_OAEP
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Random import get_random_bytes
-from computerMetricCollector.metricsCollector import store_local
+import requests
 import pandas as pd
 
 
@@ -21,10 +21,14 @@ def generate_rsa_ppk(private_file_path, public_file_path):
         public_file.close()
 
 
-def read_key(keyFile):
-    with open(keyFile) as f:
-        key = f.read()
-    return key
+def get_key(reg_id, url):
+    response = requests.post(url, data={"registrationId": reg_id})
+    res_json = response.json()
+    public_key = None
+    if res_json.get("success") and res_json.get("data"):
+        data = res_json.get("data")
+        public_key = data.get("publicKey")
+    return public_key
 
 
 def encrypt_data(collector, key):
