@@ -38,14 +38,11 @@ class TestMiscellaneous(unittest.TestCase):
 
 if __name__ == "__main__":
     test_classes = [TestMiscellaneous, ComTest, CPUTest, DiskTest, DiskIOTest, MemoryTest, NetworkTest, ProcessTest]
-
     loader = unittest.TestLoader()
-
     suites_list = []
     for test_class in test_classes:
         suite = loader.loadTestsFromTestCase(test_class)
         suites_list.append(suite)
-
-    big_suite = unittest.TestSuite(suites_list)
+    suite = unittest.TestSuite(suites_list)
     runner = unittest.TextTestRunner()
-    results = runner.run(big_suite)
+    results = runner.run(suite)

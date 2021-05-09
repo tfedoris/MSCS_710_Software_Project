@@ -31,6 +31,16 @@ class CPUTest(unittest.TestCase):
         else:
             self.logger.warning("No match test for cpu data")
 
+    def test_metrics_type(self):
+        for idx, rec in self.metrics_df.iterrows():
+            self.assertRegex(rec["Brand"], r"^[a-zA-Z0-9-()#@. ]*$")
+            self.assertRegex(rec["Vendor"], r"^[a-zA-Z0-9-_ ]*$")
+            self.assertRegex(rec["Arch"], r"^[a-zA-Z0-9_]*$")
+            self.assertGreater(rec["Bits"], 0)
+            self.assertGreater(rec["HZAdvertise"], 0)
+            self.assertGreater(rec["HZActual"], 0)
+            self.assertGreater(rec["Count"], 0)
+
     def test_encryption(self):
         raw_metrics_df = self.metrics_df
         encrypt_key = read_key(self.root_dir + self.settings.get("encryption_key_file"))
