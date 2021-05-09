@@ -1,0 +1,7 @@
+type UserRegistrationKey @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userName: String!
+  key: String!
+  registrationId: String
+}
+ 
