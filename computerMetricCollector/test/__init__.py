@@ -2,7 +2,7 @@ import os
 import unittest
 from Cryptodome.PublicKey import RSA
 from computerMetricCollector.config import import_config
-from computerMetricCollector.crypto import read_key
+from computerMetricCollector.test.crypto import read_key
 from computerMetricCollector.test.TestCase.TestCom import ComTest
 from computerMetricCollector.test.TestCase.TestCPU import CPUTest
 from computerMetricCollector.test.TestCase.TestDisk import DiskTest
@@ -37,7 +37,7 @@ class TestMiscellaneous(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    test_classes = [TestMiscellaneous, ComTest, CPUTest, DiskTest, DiskIOTest, MemoryTest]
+    test_classes = [TestMiscellaneous, ComTest, CPUTest, DiskTest, DiskIOTest, MemoryTest, NetworkTest, ProcessTest]
 
     loader = unittest.TestLoader()
 

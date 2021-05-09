@@ -1,7 +1,8 @@
 import unittest
 import pandas as pd
 import os
-from computerMetricCollector.crypto import encrypt_data, read_key, decrypt_data
+from computerMetricCollector.crypto import encrypt_data, decrypt_data
+from computerMetricCollector.test.crypto import read_key
 from computerMetricCollector.config import import_config
 from computerMetricCollector.metricsCollector.processMetrics import ProcessMetrics
 from computerMetricCollector.metricsCollector.computerMetrics import get_computer_id
@@ -22,7 +23,7 @@ class ProcessTest(unittest.TestCase):
         self.sample_df = pd.read_csv(self.root_dir + "/sample_data/ProcessMetrics.csv",
                                      names=self.meta.get("metrics"))
 
-    def test_disk_metrics(self):
+    def test_process_metrics(self):
         if len(self.meta.get("metrics_to_match")) > 0:
             match_metrics_df = self.metrics_df.filter(items=self.meta.get("metrics_to_match"), axis=1)
             match_sample_df = self.sample_df.filter(items=self.meta.get("metrics_to_match"), axis=1)
@@ -31,9 +32,9 @@ class ProcessTest(unittest.TestCase):
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
             self.assertGreaterEqual(int(rec["Pid"]), 0)
-            self.assertRegex(str(rec["Name"]), "^[a-zA-Z0-9_.]*$")
+            self.assertRegex(str(rec["Name"]), "^[a-zA-Z0-9_+-/\\\\. ]*$")
             self.assertGreaterEqual(int(rec["StartTime"]), 0)
-            self.assertRegex(str(rec["User"]), "^[a-zA-Z0-9.\-]*$")
+            self.assertRegex(str(rec["User"]), "^[a-zA-Z0-9.\\\\ -]*$")
             self.assertRegex(str(rec["Status"]), "^[a-zA-Z]*$")
             self.assertGreaterEqual(int(rec["CPUUserTime"]), 0)
             self.assertGreaterEqual(int(rec["CPUKernelTime"]), 0)

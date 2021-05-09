@@ -1,7 +1,8 @@
 import unittest
 import pandas as pd
 import os
-from computerMetricCollector.crypto import encrypt_data, read_key, decrypt_data
+from computerMetricCollector.crypto import encrypt_data, decrypt_data
+from computerMetricCollector.test.crypto import read_key
 from computerMetricCollector.config import import_config
 from computerMetricCollector.metricsCollector.diskMetrics import DiskIOMetrics
 from computerMetricCollector.metricsCollector.computerMetrics import get_computer_id
@@ -22,7 +23,7 @@ class DiskIOTest(unittest.TestCase):
         self.sample_df = pd.read_csv(self.root_dir + "/sample_data/DiskIOMetrics.csv",
                                      names=self.meta.get("metrics"))
 
-    def test_disk_metrics(self):
+    def test_disk_io_metrics(self):
         if len(self.meta.get("metrics_to_match")) > 0:
             match_metrics_df = self.metrics_df.filter(items=self.meta.get("metrics_to_match"), axis=1)
             match_sample_df = self.sample_df.filter(items=self.meta.get("metrics_to_match"), axis=1)

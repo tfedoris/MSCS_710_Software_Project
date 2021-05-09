@@ -1,7 +1,8 @@
 import unittest
 import pandas as pd
 import os
-from computerMetricCollector.crypto import encrypt_data, read_key, decrypt_data
+from computerMetricCollector.crypto import encrypt_data, decrypt_data
+from computerMetricCollector.test.crypto import read_key
 from computerMetricCollector.config import import_config
 from computerMetricCollector.metricsCollector.computerMetrics import get_computer_id
 from computerMetricCollector.metricsCollector.cpuMetrics import CPUMetrics
