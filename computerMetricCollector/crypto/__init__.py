@@ -77,9 +77,9 @@ if __name__ == "__main__":
     settings = import_config(root_dir)
     data_path = root_dir + settings.get("local_store_dir")
     files = os.listdir(data_path)
-    key_file = root_dir + settings.get("encryption_key_file")
+    key_file = root_dir + "/crypto/ppk/private.pem"
     for file in files:
-        if not file.startswith("decrypted"):
+        if not file.startswith("decrypted") and file.endswith(".csv"):
             collector = file.split(".")[0]
             encrypted_metrics = settings["collectors"][collector]["metrics_to_encrypt"]
             columns = settings["collectors"][collector]["metrics"]
