@@ -14,6 +14,8 @@ from computerMetricCollector.test.TestCase.LoggerTest import set_logger
 
 
 class TestMiscellaneous(unittest.TestCase):
+    root_dir = os.path.dirname(__file__)
+    settings = import_config(root_dir)
 
     def test_logger(self):
         level = "ERROR"
