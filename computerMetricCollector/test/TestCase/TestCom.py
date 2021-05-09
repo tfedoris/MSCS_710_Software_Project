@@ -1,11 +1,13 @@
 import unittest
 import pandas as pd
 import os
+from requests import Response
 from computerMetricCollector.crypto import encrypt_data, decrypt_data
 from computerMetricCollector.test.crypto import read_key
 from computerMetricCollector.config import import_config
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics, get_computer_id
 from computerMetricCollector.test.TestCase.LoggerTest import set_logger
+from computerMetricCollector.metricsCollector import store_to_database
 
 
 class ComTest(unittest.TestCase):
@@ -42,3 +44,12 @@ class ComTest(unittest.TestCase):
         decrypt_key = read_key(self.root_dir + self.settings.get("decryption_key_file"))
         decrypted_metrics_df = decrypt_data(encrypted_metrics_df, self.meta.get("metrics_to_encrypt"), decrypt_key)
         pd.testing.assert_frame_equal(raw_metrics_df, decrypted_metrics_df)
+
+    def test_store(self):
+        url = self.meta.get("url")
+        reg_id = self.settings.get("registration_id")
+        encrypt_key = read_key(self.root_dir + self.settings.get("encryption_key_file"))
+        if (url is not None and url != "") and (reg_id is not None and reg_id != ""):
+            response = store_to_database(self.collector, reg_id, encrypt_key)
+            self.assertIsInstance(response, Response)
+            self.assertEqual(response.status_code, 200)

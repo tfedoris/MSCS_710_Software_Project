@@ -57,7 +57,11 @@ def persist_database(logger, config, public_key, collectors):
     reg_id = config.get("registration_id")
     if (reg_id is not None and public_key is not None) and (reg_id != "" and public_key != ""):
         for collector in collectors:
-            store_to_database(collector, reg_id, public_key)
+            response = store_to_database(collector, reg_id, public_key)
+            if response is not None and response.status_code == 200:
+                logger.info("Stored " + type(collector).__name__ + " successfully")
+            else:
+                logger.error("Fail to store  " + type(collector).__name__)
     else:
         logger.error("Unknown url and/or Unknown register key")
         logger.error("User ID: " + str(reg_id))
