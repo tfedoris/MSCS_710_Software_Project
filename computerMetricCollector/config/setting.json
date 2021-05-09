@@ -9,7 +9,7 @@
   "public_key_url": "",
   "registration_id": "",
   "to_store_local": true,
-  "encryption_key_file": "crypto\\ppk\\public.pem",
+  "encryption_key_file": "\\crypto\\ppk\\public.pem",
   "collectors": {
     "ComputerMetrics": {
       "url": "",

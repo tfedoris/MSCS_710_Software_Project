@@ -5,6 +5,7 @@ from computerMetricCollector.CollectoUtils import get_logger, init_collector, co
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
 from computerMetricCollector.config import import_config
 from computerMetricCollector.crypto import get_key
+from computerMetricCollector.test import read_key
 
 if __name__ == "__main__":
     # Defines arguments to be passed in when running the program
@@ -54,7 +55,9 @@ if __name__ == "__main__":
         collected_counter = 0
         while True:
             print("Start collection " + str(collected_counter))
-            encryption_key = get_key(settings.get("registration_id"), settings.get("public_key_url"))
+            # Replace when the api is ready
+            #encryption_key = get_key(settings.get("registration_id"), settings.get("public_key_url"))
+            encryption_key = read_key(root_dir + settings.get("encryption_key_file"))
             if encryption_key is not None:
                 logger.info("Encryption key file is found")
                 collect_metrics(logger, settings, encryption_key, collectors, computer_collector)

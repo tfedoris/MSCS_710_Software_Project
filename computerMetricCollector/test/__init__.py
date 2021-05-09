@@ -14,16 +14,13 @@ from computerMetricCollector.test.TestCase.LoggerTest import set_logger
 
 
 class TestMiscellaneous(unittest.TestCase):
-    logger = set_logger("ERROR")
-    root_dir = os.path.dirname(__file__)
-    settings = import_config(root_dir)
 
     def test_logger(self):
         level = "ERROR"
         self.assertLogs(set_logger("DEBUG"), "DEBUG")
         self.assertLogs(set_logger("INFO"), "INFO")
         self.assertLogs(set_logger("WARNING"), "WARNING")
-        self.assertLogs(TestMiscellaneous.logger, level)
+        self.assertLogs(set_logger("ERROR"), "ERROR")
         self.assertLogs(set_logger("FATAL"), "FATAL")
 
     def test_key(self):
