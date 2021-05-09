@@ -41,7 +41,7 @@ const AuthStateApp: React.FunctionComponent = () => {
       <div className={classes.root}>
         <Navigation onSelect={handleSidebarSelect}>
           <div className="App">
-            <div>Hello, {user.username}</div>
+            <h1>Hello, {user.username}</h1>
             <AmplifySignOut />
           </div>
         </Navigation>
