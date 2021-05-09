@@ -1,14 +1,10 @@
 {
-  "log_level": "DEBUG",
-  "log_file": "MetricCollector.log",
-  "log_rotate_time": "midnight",
-  "log_backup_cnt": 7,
   "date_time_format": "%Y-%m-%d %H:%M:%S",
-  "sleep_time_sec": 60,
   "local_store_dir": "/local_data/",
   "user_id": "",
   "to_store_local": true,
   "encryption_key_file": "/crypto/ppk/public.pem",
+  "decryption_key_file": "/crypto/ppk/private.pem",
   "collectors": {
     "ComputerMetrics": {
       "url": "",

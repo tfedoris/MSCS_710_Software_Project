@@ -35,7 +35,8 @@ if __name__ == "__main__":
     com_metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
     com_metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
     com_url = collectors_meta["ComputerMetrics"]["url"]
-    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format, com_url)
+    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format,
+                                         com_url)
     computer_collector.fetch_metrics()
     # Computer Metrics does not need to be fetch again
     del collectors_meta["ComputerMetrics"]
