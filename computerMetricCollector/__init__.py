@@ -4,7 +4,7 @@ from time import sleep
 from computerMetricCollector.CollectoUtils import get_logger, init_collector, collect_metrics
 from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
 from computerMetricCollector.config import import_config
-from computerMetricCollector.crypto import read_key
+from computerMetricCollector.crypto import get_key
 
 if __name__ == "__main__":
     # Defines arguments to be passed in when running the program
@@ -35,7 +35,8 @@ if __name__ == "__main__":
     com_metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
     com_metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
     com_url = collectors_meta["ComputerMetrics"]["url"]
-    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format, com_url)
+    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format,
+                                         com_url)
     computer_collector.fetch_metrics()
     # Computer Metrics does not need to be fetch again
     del collectors_meta["ComputerMetrics"]
@@ -53,9 +54,8 @@ if __name__ == "__main__":
         collected_counter = 0
         while True:
             print("Start collection " + str(collected_counter))
-            key_file = os.path.dirname(os.path.abspath(__file__)) + "\\" + settings["encryption_key_file"]
-            if os.path.exists(key_file):
-                encryption_key = read_key(key_file)
+            encryption_key = get_key(settings.get("registration_id"), settings.get("public_key_url"))
+            if encryption_key is not None:
                 logger.info("Encryption key file is found")
                 collect_metrics(logger, settings, encryption_key, collectors, computer_collector)
                 for c in collectors:
@@ -67,7 +67,6 @@ if __name__ == "__main__":
                     logger.info("Test run finish. The program will terminate")
                     exit(0)
             else:
-                logger.error("Encryption key file is not found. Please follow readme to extract encryption key and " +
-                             "instruction to import to the collector.")
-                logger.error(key_file)
+                logger.error("Fail to fail public key with registration id " + settings.get("registration_id"))
+                logger.error("Please provide correct registration id.")
                 exit(1)
