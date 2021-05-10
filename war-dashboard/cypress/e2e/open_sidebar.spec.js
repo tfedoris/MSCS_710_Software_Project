@@ -39,7 +39,7 @@ describe("Open Sidebar:", function () {
   it("menu button opens the sidebar", () => {
     cy.get('[aria-label="open drawer"]').click();
 
-    cy.get("#drawer").should("be.hidden");
+    cy.get("#drawer").should("be.visible");
   });
 });
 
