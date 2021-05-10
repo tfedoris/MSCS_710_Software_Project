@@ -6,6 +6,9 @@ import Amplify from "aws-amplify";
 import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import awsconfig from "./aws-exports";
+import axios from "axios";
+import shortid from "shortid";
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
 Amplify.configure(awsconfig);
 
@@ -15,13 +18,47 @@ const AuthStateApp: React.FunctionComponent = () => {
 
   const [authState, setAuthState] = React.useState<AuthState>();
   const [user, setUser] = React.useState<any | undefined>();
+  const [registrationId, setRegistrationId] = React.useState(
+    "NO REGISTRATION ID FOUND"
+  );
 
   React.useEffect(() => {
-    return onAuthUIStateChange((nextAuthState, authData) => {
+    return onAuthUIStateChange((nextAuthState, authData: any) => {
       setAuthState(nextAuthState);
       setUser(authData);
     });
-  }, []);
+  });
+
+  React.useEffect(() => {
+    async function fetchRegistrationId() {
+      await axios
+        .post(
+          "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-registration-id",
+          { user_id: user.username }
+        )
+        .then(async (response) => {
+          if (response.data.success) {
+            setRegistrationId(response.data.data.registration_id);
+          } else {
+            await axios
+              .post(
+                "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-registration-info",
+                { user_id: user.username, registration_id: shortid.generate() }
+              )
+              .then((insertResponse) => {
+                console.log(insertResponse);
+                // if (insertResponse.data.data.success) {
+                //   console.log("User successfully registered");
+                // }
+              });
+          }
+        });
+    }
+
+    if (authState === AuthState.SignedIn && user) {
+      fetchRegistrationId();
+    }
+  }, [user, authState]);
 
   const handleSidebarSelect = (pageName: string): void => {
     switch (pageName) {
@@ -42,6 +79,7 @@ const AuthStateApp: React.FunctionComponent = () => {
         <Navigation onSelect={handleSidebarSelect}>
           <div className="App">
             <h1>Hello, {user.username}</h1>
+            <h2>Registration ID: {registrationId}</h2>
             <AmplifySignOut />
           </div>
         </Navigation>
