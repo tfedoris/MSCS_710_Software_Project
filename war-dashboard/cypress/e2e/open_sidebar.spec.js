@@ -3,7 +3,7 @@
 const USERNAME = "tfedoris";
 const PASSWORD = "mscs710!";
 
-describe("Sidebar Open:", function () {
+describe("Open Sidebar:", function () {
   // Step 1: before each test, we want to visit our app.
   // Note that this takes into account the base url that we
   // already configured. So the final address will be
@@ -36,10 +36,10 @@ describe("Sidebar Open:", function () {
       .click({ force: true });
   });
 
-  it("it opens the sidebar", () => {
+  it("menu button opens the sidebar", () => {
     cy.get('[aria-label="open drawer"]').click();
 
-    cy.get("#drawer").should("be.visible");
+    cy.get("#drawer").should("be.hidden");
   });
 });
 
