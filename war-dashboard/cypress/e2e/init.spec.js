@@ -1,3 +1,5 @@
-it("visits the app", () => {
-  cy.visit("/");
+describe("Vist Application URL:", function () {
+  it("visits the app", () => {
+    cy.visit("/");
+  });
 });
