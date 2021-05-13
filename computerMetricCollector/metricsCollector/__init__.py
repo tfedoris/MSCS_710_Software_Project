@@ -1,26 +1,25 @@
-import os
-import requests
+from abc import ABC
 
 
-def store_local(collector, csv_path):
-    if collector.to_stored:
-        metric_df = collector.get_metrics_df()
-        if os.path.exists(csv_path):
-            metric_df.to_csv(csv_path, mode="a", header=False, index=False, index_label=False)
-        else:
-            metric_df.to_csv(csv_path, header=False, index=False, index_label=False)
-        collector.to_stored = False
-    else:
-        collector.logger.info("Skipping collect " + type(collector).__name__)
+class Collector(ABC):
 
+    def fetch_metrics(self):
+        """
+        This function fetch the metrics to be store in the database
+        :return:
+        """
+        pass
 
-def store_to_database(collector, reg_id, public_key):
-    response = None
-    if collector.to_stored and collector.remote_url != "":
-        metrics_df = collector.get_metrics_df()
-        data = metrics_df.to_dict(orient="list")
-        post_data = {"registration_key": reg_id, "key": public_key, "payload": data}
-        response = requests.post(collector.remote_url, post_data=post_data)
-    else:
-        collector.logger.info("Skipping collector " + type(collector).__name__)
-    return response
+    def get_metrics_df(self):
+        """
+        This function return the metrics data frame in collector instance
+        :return: metrics data frame create from fetch metrics function
+        """
+        pass
+
+    def reset_metrics_df(self):
+        """
+        This function resets the metrics data frame and enable the instance to fetch again
+        :return:
+        """
+        pass
