@@ -1,9 +1,12 @@
 import logging
 import os
+from datetime import datetime
+
 from psutil import AccessDenied
 from logging.handlers import TimedRotatingFileHandler
 from computerMetricCollector.crypto import encrypt_data
-from computerMetricCollector.metricsCollector import store_local, store_to_database
+from computerMetricCollector.metricsCollector.StorageAPI import store_local, store_to_database, register_machine
+from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
 from computerMetricCollector.metricsCollector.cpuMetrics import CPUMetrics
 from computerMetricCollector.metricsCollector.memoryMetrics import MemoryMetrics
 from computerMetricCollector.metricsCollector.diskMetrics import DiskMetrics, DiskIOMetrics
@@ -24,13 +27,22 @@ def get_logger(file, log_level, rotate_time, backup_cnt):
     log_handler = TimedRotatingFileHandler(filename=file, when=rotate_time, interval=1,
                                            backupCount=backup_cnt)
     logger_instance.setLevel(log_level)
-    format_str = "%(asctime)s - %(filename)s - %(levelname)s - %(message)s"
+    format_str = "%(asctime)s - %(filename)s - %(lineno)d  - %(levelname)s - %(message)s"
     log_handler.setFormatter(logging.Formatter(format_str))
     logger_instance.addHandler(log_handler)
     return logger_instance
 
 
 def init_collector(logger, collectors_meta, collector_name, machine_id, datetime_format):
+    """
+    This function instantiate a collector child class based the given input
+    :param logger: the logger instance for writing the state of the software
+    :param collectors_meta: dictionary of meta data of the collector use to create the collector instance
+    :param collector_name: name of the collector to instantiate
+    :param machine_id: id of the machine to associate with each collector
+    :param datetime_format: datetime format used to parse datetime object
+    :return:
+    """
     collector_instance = None
     logger.debug("Start instantiate collector for " + collector_name)
     if globals().get(collector_name):
@@ -47,31 +59,69 @@ def init_collector(logger, collectors_meta, collector_name, machine_id, datetime
 
 
 def persist_local(logger, file_path, collector):
+    """
+    This function prepare to store the collected data frames to local directory
+    :param logger: the logger instance for writing the state of the software
+    :param file_path: file path of the directory to store the csv
+    :param collector: collector with the data frame to store
+    :return:
+    """
     logger.info("Begin storing " + type(collector).__name__)
     csv_name = file_path + type(collector).__name__ + ".csv"
     store_local(collector, csv_name)
     logger.info("End storing " + type(collector).__name__)
 
 
-def persist_database(logger, config, public_key, collectors):
+def persist_database(logger, config, collectors):
+    """
+    THis function prepare to store each collector in the list of collectors to the remote database based on the
+    configured values
+    :param logger: the logger instance for writing the state of the software
+    :param config: dictionary of configured values
+    :param collectors: list of collectors to store
+    :return:
+    """
     reg_id = config.get("registration_id")
-    if (reg_id is not None and public_key is not None) and (reg_id != "" and public_key != ""):
+    register_url = config.get("register_url")
+    now = datetime.now().strftime(config.get("date_time_format")),
+    machine_id = collectors[0].machine_id
+    register_machine(register_url, reg_id, machine_id, now)
+    if reg_id is not None and reg_id != "":
         for collector in collectors:
-            response = store_to_database(collector, reg_id, public_key)
-            if response is not None and response.status_code == 200:
-                logger.info("Stored " + type(collector).__name__ + " successfully")
-            else:
-                logger.error("Fail to store  " + type(collector).__name__)
+            store_to_database(collector, reg_id)
     else:
-        logger.error("Unknown url and/or Unknown register key")
-        logger.error("User ID: " + str(reg_id))
-        logger.error("Public Key: " + str(public_key))
+        logger.error("Missing register key")
+        logger.error("Registration ID: " + str(reg_id))
 
 
-def collect_metrics(logger, settings, encrypt_key, collectors, computer_collector):
+def create_computer_collector(logger, collectors_meta, datetime_format):
+    """
+    This function instantiated a collector object for the computer metrics collector
+    :param logger: the logger instance for writing the state of the software
+    :param collectors_meta: dictionary of meta data for creating computer metrics collector
+    :param datetime_format: datetime format used to parse datetime object
+    :return:
+    """
+    com_metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
+    com_metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
+    com_url = collectors_meta["ComputerMetrics"]["url"]
+    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format,
+                                         com_url)
+    return computer_collector
+
+
+def collect_metrics(logger, settings, encrypt_key, collectors):
+    """
+    This function fetch, encrypted and persist metrics data for each collector in the collector list. It will first
+    fetch and encrypt for each collector. Then, the data is persist to either local or remote database depending on
+    the configured value
+    :param logger: the logger instance for writing the state of the software
+    :param settings: dictionary of configured values
+    :param encrypt_key: public key use in the encryption
+    :param collectors: list of collectors
+    :return:
+    """
     try:
-        logger.info("Encrypt computer metrics")
-        encrypt_data(computer_collector, encrypt_key)
         logger.info("Begin fetching metrics data from other collects and encrypting the collected metrics")
         for c in collectors:
             c.fetch_metrics()
@@ -81,12 +131,10 @@ def collect_metrics(logger, settings, encrypt_key, collectors, computer_collecto
         logger.debug("To store metrics on local: " + str(settings["to_store_local"]))
         if settings["to_store_local"]:
             root_dir = os.path.dirname(__file__)
-            persist_local(logger, root_dir + settings["local_store_dir"], computer_collector)
             for c in collectors:
                 persist_local(logger, root_dir + settings["local_store_dir"], c)
         else:
-            collectors.append(computer_collector)
-            persist_database(logger, settings, encrypt_key, collectors)
+            persist_database(logger, settings, collectors)
     except AccessDenied as ad:
         logger.error("Access denied for fetch data from psutil library")
         logger.error(ad)

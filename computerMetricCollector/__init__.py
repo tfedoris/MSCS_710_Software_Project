@@ -1,8 +1,9 @@
 import argparse
 import os
 from time import sleep
-from computerMetricCollector.CollectoUtils import get_logger, init_collector, collect_metrics
-from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
+from computerMetricCollector.CollectoUtils import (
+    get_logger, init_collector, collect_metrics, create_computer_collector
+)
 from computerMetricCollector.config import import_config
 from computerMetricCollector.crypto import get_key
 from computerMetricCollector.test import read_key
@@ -16,6 +17,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     is_test = args.test
 
+    # Set path to load settings
     abs_path = os.path.abspath(__file__)
     root_dir = os.path.dirname(abs_path)
     settings = import_config(root_dir)
@@ -33,13 +35,8 @@ if __name__ == "__main__":
     collectors = []
     to_collect = []
     # Collect computer metrics separate since it is called different and require to call first
-    com_metrics_to_collect = collectors_meta["ComputerMetrics"]["metrics"]
-    com_metrics_to_encrypt = collectors_meta["ComputerMetrics"]["metrics_to_encrypt"]
-    com_url = collectors_meta["ComputerMetrics"]["url"]
-    computer_collector = ComputerMetrics(logger, com_metrics_to_collect, com_metrics_to_encrypt, datetime_format,
-                                         com_url)
-    computer_collector.fetch_metrics()
-    # Computer Metrics does not need to be fetch again
+    computer_collector = create_computer_collector(logger, collectors_meta, datetime_format)
+    collectors.append(computer_collector)
     del collectors_meta["ComputerMetrics"]
     logger.info("Start instantiate collector for hardware and running process")
     for collector_str in collectors_meta.keys():
@@ -55,12 +52,11 @@ if __name__ == "__main__":
         collected_counter = 0
         while True:
             print("Start collection " + str(collected_counter))
-            # Replace when the api is ready
-            #encryption_key = get_key(settings.get("registration_id"), settings.get("public_key_url"))
-            encryption_key = read_key(root_dir + settings.get("encryption_key_file"))
+            encryption_key = get_key(settings.get("registration_id"), settings.get("public_key_url"))
+
             if encryption_key is not None:
                 logger.info("Encryption key file is found")
-                collect_metrics(logger, settings, encryption_key, collectors, computer_collector)
+                collect_metrics(logger, settings, encryption_key, collectors)
                 for c in collectors:
                     c.reset_metrics_df()
                 print("Finish collection " + str(collected_counter))
@@ -70,6 +66,8 @@ if __name__ == "__main__":
                     logger.info("Test run finish. The program will terminate")
                     exit(0)
             else:
-                logger.error("Fail to fail public key with registration id " + settings.get("registration_id"))
+                logger.error("Fail to fetch public key with registration id " + settings.get("registration_id"))
                 logger.error("Please provide correct registration id.")
                 exit(1)
+            # Reload settings for the next run
+            settings = import_config(root_dir)
