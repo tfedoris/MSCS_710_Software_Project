@@ -36,7 +36,7 @@ CREATE TABLE cpu_metrics (
     , core_count VARBINARY(4)
     , nonce VARBINARY(36)
     , session_key VARBINARY(512)
-    , primary key (machine_id, brand)
+    , primary key (machine_id)
 );
 
 CREATE TABLE disk_metrics(
@@ -78,7 +78,7 @@ CREATE TABLE memory_metrics(
 	, swap_free VARBINARY (32)
 	, swap_used VARBINARY (32)
 	, swap_percent VARBINARY (16)
-	, swap_byte_int VARBINARY (8)
+	, swap_byte_in VARBINARY (8)
 	, swap_byte_out VARBINARY (8)
     , nonce VARBINARY(36)
     , session_key VARBINARY(512)
