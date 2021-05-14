@@ -47,9 +47,6 @@ const AuthStateApp: React.FunctionComponent = () => {
               )
               .then((insertResponse) => {
                 console.log(insertResponse);
-                // if (insertResponse.data.data.success) {
-                //   console.log("User successfully registered");
-                // }
               });
           }
         });
