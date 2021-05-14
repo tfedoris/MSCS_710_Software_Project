@@ -1,14 +1,26 @@
 import argparse
 import os
+import sys
 from time import sleep
-from computerMetricCollector.CollectoUtils import (
+from computerMetricCollector.CollectorUtils import (
     get_logger, init_collector, collect_metrics, create_computer_collector
 )
 from computerMetricCollector.config import import_config
 from computerMetricCollector.crypto import get_key
 from computerMetricCollector.test import read_key
 
+
 if __name__ == "__main__":
+    # Set path to load settings
+    if getattr(sys, 'frozen', True):
+        # If the application is run as a bundle, the PyInstaller bootloader
+        # extends the sys module by a flag frozen=True and sets the app
+        # path into variable _MEIPASS'.
+        root_dir = os.path.dirname(os.path.dirname(sys.executable))
+    else:
+        root_dir = os.path.dirname(os.path.abspath(__file__))
+    print(root_dir)
+
     # Defines arguments to be passed in when running the program
     parser = argparse.ArgumentParser(description="Initiate Collector to collect metrics")
     parser.add_argument("-t", "--test", required=False,
@@ -17,12 +29,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     is_test = args.test
 
-    # Set path to load settings
-    abs_path = os.path.abspath(__file__)
-    root_dir = os.path.dirname(abs_path)
+
     settings = import_config(root_dir)
     if len(settings.keys()) == 0:
-        exit(1)
+        sys.exit(1)
     log_file = root_dir + "\\log\\" + settings.get("log_file")
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))

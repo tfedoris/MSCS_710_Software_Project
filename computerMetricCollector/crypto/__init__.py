@@ -4,9 +4,10 @@ from Cryptodome.Random import get_random_bytes
 import requests
 
 
-def get_key(reg_id, url):
+def get_key(logger, reg_id, url):
     """
     Get the key from the remote server using the registration key and the url for the api
+    :param logger: the logger instance for writing the state of the software
     :param reg_id: Registration key associated to the user's account
     :param url: URL of the api to call
     :return: public key in string
@@ -14,6 +15,7 @@ def get_key(reg_id, url):
     response = requests.post(url, json={"registration_id": reg_id})
     res_json = response.json()
     public_key = None
+    logger.debug("Sucesss: " + str(res_json.get("success")))
     if res_json.get("success") and res_json.get("data"):
         data = res_json.get("data")
         public_key = data.get("public_key")

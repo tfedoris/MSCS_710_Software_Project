@@ -5,7 +5,7 @@
   "log_backup_cnt": 7,
   "date_time_format": "%Y-%m-%d %H:%M:%S",
   "sleep_time_sec": 60,
-  "local_store_dir": "/local_data/",
+  "local_store_dir": "\\local_data\\",
   "public_key_url": "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-public-key",
   "register_url": "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-map-user-machine",
   "registration_id": "6K9l_qp7zO",

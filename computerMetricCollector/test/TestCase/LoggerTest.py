@@ -1,4 +1,4 @@
-from computerMetricCollector.CollectoUtils import get_logger
+from computerMetricCollector.CollectorUtils import get_logger
 
 
 def set_logger(level):
