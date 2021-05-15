@@ -2,12 +2,12 @@ import unittest
 import pandas as pd
 import os
 from requests import Response
-from computerMetricCollector.crypto import encrypt_data, decrypt_data
-from computerMetricCollector.test.crypto import read_key
+from computerMetricCollector.crypto import encrypt_data
+from computerMetricCollector.test.crypto import read_key, decrypt_data
 from computerMetricCollector.config import import_config
-from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics, get_computer_id
+from computerMetricCollector.metricsCollector.computerMetrics import ComputerMetrics
 from computerMetricCollector.test.TestCase.LoggerTest import set_logger
-from computerMetricCollector.metricsCollector import store_to_database
+from computerMetricCollector.metricsCollector.StorageAPI import store_to_database
 
 
 class ComTest(unittest.TestCase):

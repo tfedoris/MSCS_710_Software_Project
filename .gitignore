@@ -4,6 +4,6 @@
 /computerMetricCollector/metricsCollector/__pycache__/*
 /computerMetricCollector/local_data/*.csv
 /computerMetricCollector/log/MetricCollector.log
+/computerMetricCollector/build/*
+/computerMetricCollector/dist/*
 **/__pycache__
-/build/*
-/dist/*

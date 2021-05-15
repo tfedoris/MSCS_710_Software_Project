@@ -1,5 +1,6 @@
 import os
 import unittest
+import sys
 from Cryptodome.PublicKey import RSA
 from computerMetricCollector.config import import_config
 from computerMetricCollector.test.crypto import read_key
@@ -14,7 +15,10 @@ from computerMetricCollector.test.TestCase.LoggerTest import set_logger
 
 
 class TestMiscellaneous(unittest.TestCase):
-    root_dir = os.path.dirname(__file__)
+    if getattr(sys, 'frozen', True):
+        root_dir = os.path.dirname(os.path.dirname(sys.executable))
+    else:
+        root_dir = os.path.dirname(__file__)
     settings = import_config(root_dir)
 
     def test_logger(self):

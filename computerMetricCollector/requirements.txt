@@ -1,0 +1,5 @@
+pycryptodomex==3.10.1
+requests==2.25.1
+psutil==5.8.0
+py-cpuinfo=7.0.0
+pandas=1.2.3
