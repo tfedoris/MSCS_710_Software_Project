@@ -8,7 +8,7 @@
   "local_store_dir": "\\local_data\\",
   "public_key_url": "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-public-key",
   "register_url": "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-map-user-machine",
-  "to_store_local": true,
+  "to_store_local": false,
   "encryption_key_file": "\\crypto\\ppk\\public.pem",
   "collectors": {
     "ComputerMetrics": {
