@@ -62,10 +62,10 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         collected_counter = 1
+        encryption_key = get_key(logger, settings.get("registration_id"), settings.get("public_key_url"))
         while True:
             print("Start collection " + str(collected_counter))
             logger.info("Start collection " + str(collected_counter))
-            encryption_key = get_key(logger, settings.get("registration_id"), settings.get("public_key_url"))
 
             if encryption_key is not None:
                 logger.info("Encryption key file is found")
