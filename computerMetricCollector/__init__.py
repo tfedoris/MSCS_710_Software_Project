@@ -9,7 +9,6 @@ from computerMetricCollector.CollectorUtils import (
 )
 from computerMetricCollector.config import import_config
 from computerMetricCollector.crypto import get_key
-from computerMetricCollector.test import read_key
 
 
 if __name__ == "__main__":
