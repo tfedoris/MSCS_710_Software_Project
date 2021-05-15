@@ -29,12 +29,14 @@ if __name__ == "__main__":
                         help="Boolean value to enable collector to run in test mode",
                         default=False)
     args = parser.parse_args()
-    is_test = args.test
+    is_testing = args.test
     settings = import_config(root_dir)
     settings["registration_id"] = reg_id = input("Input your registration ID: ")
 
+    # If not settings is provide
     if len(settings.keys()) == 0:
         sys.exit(1)
+
     log_file = root_dir + "\\log\\" + settings.get("log_file")
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))
@@ -54,9 +56,11 @@ if __name__ == "__main__":
     for collector_str in collectors_meta.keys():
         collector = init_collector(logger, collectors_meta, collector_str, computer_collector.machine_id,
                                    datetime_format)
+
         if collector is not None:
             to_collect.append(True)
             collectors.append(collector)
+
     if True not in to_collect:
         logger.error("No collector found. Please ensure metrics collector code exist.")
         sys.exit(1)
@@ -75,9 +79,11 @@ if __name__ == "__main__":
                 print("Finish collection " + str(collected_counter))
                 logger.info("Finish collection " + str(collected_counter))
                 collected_counter = collected_counter + 1
-                if is_test:
+
+                if is_testing:
                     logger.info("Test run finish. The program will terminate")
                     sys.exit(0)
+
                 logger.debug("Begin sleeping for " + str(settings.get("sleep_time_sec")) + " second(s)")
                 next_collect_time = datetime.now() + timedelta(seconds=settings.get("sleep_time_sec"))
                 print("Next collection time " + next_collect_time.strftime(datetime_format))

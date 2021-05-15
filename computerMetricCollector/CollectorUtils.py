@@ -1,5 +1,4 @@
 import logging
-import os
 from datetime import datetime
 
 from psutil import AccessDenied
@@ -24,8 +23,7 @@ def get_logger(file, log_level, rotate_time, backup_cnt):
     :return: The logger instance for writing the state of the software
     """
     logger_instance = logging.getLogger(__name__)
-    log_handler = TimedRotatingFileHandler(filename=file, when=rotate_time, interval=1,
-                                           backupCount=backup_cnt)
+    log_handler = TimedRotatingFileHandler(filename=file, when=rotate_time, interval=1, backupCount=backup_cnt)
     logger_instance.setLevel(log_level)
     format_str = "%(asctime)s - %(filename)s - %(lineno)d  - %(levelname)s - %(message)s"
     log_handler.setFormatter(logging.Formatter(format_str))
