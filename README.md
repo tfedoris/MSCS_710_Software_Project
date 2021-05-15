@@ -60,7 +60,12 @@ After starting the collector, the spawned window will prompt the user for regist
 Once the script is runnnning, you should be able to view your computer metrics here
 (https://www.wardashboard.com/)
 
-## Metric Collector
+## Computer Metric Collector
+The Computer Metric Collector is a python program for collecting computer performance data from the host computer and peristing those data to the remote database for users the visual their computers' performance.
+When start, a window will prompt to request user to input their registration ID if the ID is not already passed as argument. 
+After the registration ID is read, the program will start collecting computer performance data. 
+It will collect data continuously until the user stop the program. 
+Every collection will be output to the windows to user to visualize. 
 
 ## UI
 The website is hosted on an Amazon EC2 server using Apache. EC2 server provides a free web service for us to develop the website with flexibility. We do not need to create a web server machine to host the website server. For the user interface, we will be utilized Flask to design the website. Flask is a WSGI (Web Server Gateway Interface) web framework. Using Flask, we developed a model-view-controller architecture for our website. We set up routes that will generate graphs using Plotly. Plotly is an open-source graphing library that can be found [here][1]. We will use this library to display the data that is extracted from the database. The routes will also serve web pages which are HTML files that were generated using Jinja.
