@@ -1,5 +1,5 @@
 import pandas as pd
-from computerMetricCollector.crypto import decrypt_data
+from deprecated.crypto import decrypt_data
 
 '''
 Run this program to decrypt encrypted data
