@@ -1,17 +1,31 @@
 const axios = require("axios");
 
-exports.handler = async (event) => {
-  var mysql = require("mysql");
-  var connection = mysql.createConnection({
+// Require and initialize outside of your main handler
+const mysql = require("serverless-mysql")({
+  config: {
     host: "wardatabase.cm9i2tottiif.us-west-2.rds.amazonaws.com",
     user: "admin",
     password: "12345678",
     database: "warproject",
-  });
+  },
+});
 
+// Main handler function
+exports.handler = async (event) => {
   var validated = false;
   var test = "false";
-  var response = { success: false, data: {} };
+  // Initialize response object
+  var response = {
+    success: false,
+    data: {},
+    headers: {
+      "X-Requested-With": "*",
+      "Access-Control-Allow-Headers":
+        "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,OPTIONS",
+    },
+  };
 
   await axios
     .post(
@@ -35,36 +49,30 @@ exports.handler = async (event) => {
 
   if (!validated) return response;
 
-  connection.connect();
-  return new Promise((resolve, reject) => {
-    const query =
-      "INSERT INTO disk_io_metrics VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(
-      query,
-      [
-        event.machine_id,
-        event.entry_time,
-        event.disk_name,
-        event.count_read,
-        event.count_write,
-        event.bytes_read,
-        event.bytes_write,
-        event.time_read_in_milli,
-        event.time_write_in_milli,
-        event.nonce,
-        event.session_id,
-      ],
-      (err, results, fields) => {
-        if (err) {
-          response.data = err;
-          resolve(response);
-        } else {
-          console.log(results);
-          response.success = results.affectedRows > 0 ? true : false;
-          response.data = results;
-          resolve(response);
-        }
-      }
-    );
-  });
+  // Set query string
+  const query =
+    "REPLACE INTO disk_io_metrics VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  // Run your query
+  let results = await mysql.query(query, [
+    event.machine_id,
+    event.entry_time,
+    event.disk_name,
+    event.count_read,
+    event.count_write,
+    event.bytes_read,
+    event.bytes_write,
+    event.time_read_in_milli,
+    event.time_write_in_milli,
+    event.nonce,
+    event.session_id,
+  ]);
+  response.success = results.affectedRows > 0 ? true : false;
+  response.data = results;
+
+  // Run clean up function
+  await mysql.end();
+
+  // Return the results
+  return response;
 };

@@ -1,16 +1,20 @@
 const axios = require("axios");
 
-exports.handler = async (event) => {
-  var mysql = require("mysql");
-  var connection = mysql.createConnection({
+// Require and initialize outside of your main handler
+const mysql = require("serverless-mysql")({
+  config: {
     host: "wardatabase.cm9i2tottiif.us-west-2.rds.amazonaws.com",
     user: "admin",
     password: "12345678",
     database: "waruserinfo",
-  });
+  },
+});
 
-  var gotKeyPair = false;
+// Main handler function
+exports.handler = async (event) => {
+  var validated = false;
   var test = "false";
+  // Initialize response object
   var response = {
     success: false,
     data: {},
@@ -22,6 +26,7 @@ exports.handler = async (event) => {
       "Access-Control-Allow-Methods": "POST,OPTIONS",
     },
   };
+  var gotKeyPair = false;
   var public_key = "";
   var private_key = "";
 
@@ -33,8 +38,8 @@ exports.handler = async (event) => {
       (result) => {
         if (result.data.success) {
           gotKeyPair = true;
-          public_key = result.data.public_key;
-          private_key = result.data.private_key;
+          public_key = result.data.data.publicKey;
+          private_key = result.data.data.privateKey;
         }
       },
       (error) => {
@@ -46,23 +51,22 @@ exports.handler = async (event) => {
 
   if (!gotKeyPair) return response;
 
-  connection.connect();
-  return new Promise((resolve, reject) => {
-    const query = "INSERT INTO registration_info VALUES (?, ?, ?, ?)";
-    connection.query(
-      query,
-      [event.user_id, event.registration_id, public_key, private_key],
-      (err, results, fields) => {
-        if (err) {
-          response.data = err;
-          resolve(response);
-        } else {
-          console.log(results);
-          response.success = results.affectedRows > 0 ? true : false;
-          response.data = results;
-          resolve(response);
-        }
-      }
-    );
-  });
+  // Set query string
+  const query = "REPLACE INTO registration_info VALUES (?, ?, ?, ?)";
+
+  // Run your query
+  let results = await mysql.query(query, [
+    event.user_id,
+    event.registration_id,
+    public_key,
+    private_key,
+  ]);
+  response.success = results.affectedRows > 0 ? true : false;
+  response.data = results;
+
+  // Run clean up function
+  await mysql.end();
+
+  // Return the results
+  return response;
 };

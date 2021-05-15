@@ -1,17 +1,31 @@
 const axios = require("axios");
 
-exports.handler = async (event) => {
-  var mysql = require("mysql");
-  var connection = mysql.createConnection({
+// Require and initialize outside of your main handler
+const mysql = require("serverless-mysql")({
+  config: {
     host: "wardatabase.cm9i2tottiif.us-west-2.rds.amazonaws.com",
     user: "admin",
     password: "12345678",
     database: "warproject",
-  });
+  },
+});
 
+// Main handler function
+exports.handler = async (event) => {
   var validated = false;
   var test = "false";
-  var response = { success: false, data: {} };
+  // Initialize response object
+  var response = {
+    success: false,
+    data: {},
+    headers: {
+      "X-Requested-With": "*",
+      "Access-Control-Allow-Headers":
+        "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,OPTIONS",
+    },
+  };
 
   await axios
     .post(
@@ -35,47 +49,41 @@ exports.handler = async (event) => {
 
   if (!validated) return response;
 
-  connection.connect();
-  return new Promise((resolve, reject) => {
-    const query =
-      "INSERT INTO processes_metrics VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(
-      query,
-      [
-        event.machine_id,
-        event.entry_time,
-        event.pid,
-        event.name,
-        event.start_time,
-        event.start_user,
-        event.status,
-        event.cpu_user_time,
-        event.cpu_kernel_time,
-        event.cpu_percent,
-        event.memory_percent_used_byte,
-        event.memory_physical_used_byte,
-        event.memory_virtual_used_byte,
-        event.memory_unique_used_byte,
-        event.memory_page_fault,
-        event.io_read_count,
-        event.io_read_bytes,
-        event.io_write_count,
-        event.io_write_bytes,
-        event.thread_num,
-        event.nonce,
-        event.session_key,
-      ],
-      (err, results, fields) => {
-        if (err) {
-          response.data = err;
-          resolve(response);
-        } else {
-          console.log(results);
-          response.success = results.affectedRows > 0 ? true : false;
-          response.data = results;
-          resolve(response);
-        }
-      }
-    );
-  });
+  // Set query string
+  const query =
+    "REPLACE INTO processes_metrics VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  // Run your query
+  let results = await mysql.query(query, [
+    event.machine_id,
+    event.entry_time,
+    event.pid,
+    event.name,
+    event.start_time,
+    event.start_user,
+    event.status,
+    event.cpu_user_time,
+    event.cpu_kernel_time,
+    event.cpu_percent,
+    event.memory_percent_used_byte,
+    event.memory_physical_used_byte,
+    event.memory_virtual_used_byte,
+    event.memory_unique_used_byte,
+    event.memory_page_fault,
+    event.io_read_count,
+    event.io_read_bytes,
+    event.io_write_count,
+    event.io_write_bytes,
+    event.thread_num,
+    event.nonce,
+    event.session_key,
+  ]);
+  response.success = results.affectedRows > 0 ? true : false;
+  response.data = results;
+
+  // Run clean up function
+  await mysql.end();
+
+  // Return the results
+  return response;
 };
