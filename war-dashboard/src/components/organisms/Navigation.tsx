@@ -96,7 +96,7 @@ export default function Navigation({ children, onSelect }: Props) {
         </div>
         <Divider />
         <List component="nav">
-          {["Dashboard", "Account"].map((text, index) => (
+          {["Account", "Dashboard"].map((text, index) => (
             <ListItem
               button
               key={text}
