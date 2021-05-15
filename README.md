@@ -8,7 +8,7 @@
 * [Metric Collector](#metric-collector)
 * [UI](#ui)
 * [Pipeline](#pipeline)
-* [Testing](#testing)
+* [Testing] (#testing)
 
 ## General Info
 WAR is a software service that gathers system resource utilization information on multiple host machines and to persist on a centralized database. The purpose of WAR is to allow the users to visualize the system resource utilization of their machines.
@@ -23,15 +23,12 @@ Design Document:
 
 
 ## Requirements
-pycryptodomex 3.10.1
-
-requests 2.25.1
-
-psutil 5.8.0
-
-py-cpuinfo 7.0.0
-
-pandas 1.2.3
+#### Computer Metrics Collector Libraries
+ 1) pycryptodomex 3.10.1
+ 1) requests 2.25.1
+ 1) psutil 5.8.0
+ 1) py-cpuinfo 7.0.0
+ 1) pandas 1.2.3
 
 ## How to Run
 In order to start up war, please execute the following from the root directory:
