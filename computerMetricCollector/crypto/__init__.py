@@ -15,18 +15,20 @@ def get_key(logger, reg_id, url):
     logger.info("Start fetching for public key for encryption")
     logger.debug("registration_id: " + str(reg_id))
     logger.debug("URL: " + str(url))
-    fail = True
+    attempt = 0
     public_key = None
-    while fail:
+    while attempt < 2:
         response = requests.post(url, json={"registration_id": reg_id})
         res_json = response.json()
         logger.debug("Sucesss: " + str(res_json.get("success")))
         if res_json.get("success") and res_json.get("data"):
             data = res_json.get("data")
             public_key = data.get("public_key")
-            fail = False
         else:
+            print("Fail to get public key using registration id: " + reg_id)
+            print("Attempt to fetch public key again.")
             logger.error(res_json)
+            attempt = attempt + 1
     return public_key
 
 
