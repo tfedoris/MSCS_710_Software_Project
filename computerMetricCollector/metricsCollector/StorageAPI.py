@@ -13,8 +13,12 @@ def store_local(collector, csv_path):
     if collector.to_stored:
         metric_df = collector.get_metrics_df()
         if os.path.exists(csv_path):
+            collector.logger.info("Target csv path " + csv_path + " exists")
             metric_df.to_csv(csv_path, mode="a", header=False, index=False, index_label=False)
+            collector.logger.info("Append to " + csv_path)
         else:
+            collector.logger.info("Target csv path " + csv_path + " does not exists.")
+            collector.logger.info("Created csv for " + type(collector).__name__)
             metric_df.to_csv(csv_path, index=False, index_label=False)
         collector.to_stored = False
     else:

@@ -1,7 +1,9 @@
 import argparse
+import multiprocessing
 import os
 import sys
 from time import sleep
+from datetime import datetime, timedelta
 from computerMetricCollector.CollectorUtils import (
     get_logger, init_collector, collect_metrics, create_computer_collector
 )
@@ -12,14 +14,14 @@ from computerMetricCollector.test import read_key
 
 if __name__ == "__main__":
     # Set path to load settings
-    if getattr(sys, 'frozen', True):
+    if getattr(sys, 'frozen', False):
         # If the application is run as a bundle, the PyInstaller bootloader
         # extends the sys module by a flag frozen=True and sets the app
         # path into variable _MEIPASS'.
         root_dir = os.path.dirname(os.path.dirname(sys.executable))
+        multiprocessing.freeze_support()
     else:
         root_dir = os.path.dirname(os.path.abspath(__file__))
-    print(root_dir)
 
     # Defines arguments to be passed in when running the program
     parser = argparse.ArgumentParser(description="Initiate Collector to collect metrics")
@@ -28,9 +30,9 @@ if __name__ == "__main__":
                         default=False)
     args = parser.parse_args()
     is_test = args.test
-
-
     settings = import_config(root_dir)
+    settings["registration_id"] = reg_id = input("Input your registration ID: ")
+
     if len(settings.keys()) == 0:
         sys.exit(1)
     log_file = root_dir + "\\log\\" + settings.get("log_file")
@@ -57,12 +59,13 @@ if __name__ == "__main__":
             collectors.append(collector)
     if True not in to_collect:
         logger.error("No collector found. Please ensure metrics collector code exist.")
-        exit(1)
+        sys.exit(1)
     else:
-        collected_counter = 0
+        collected_counter = 1
         while True:
             print("Start collection " + str(collected_counter))
-            encryption_key = get_key(settings.get("registration_id"), settings.get("public_key_url"))
+            logger.info("Start collection " + str(collected_counter))
+            encryption_key = get_key(logger, settings.get("registration_id"), settings.get("public_key_url"))
 
             if encryption_key is not None:
                 logger.info("Encryption key file is found")
@@ -70,14 +73,20 @@ if __name__ == "__main__":
                 for c in collectors:
                     c.reset_metrics_df()
                 print("Finish collection " + str(collected_counter))
+                logger.info("Finish collection " + str(collected_counter))
                 collected_counter = collected_counter + 1
-                sleep(settings.get("sleep_time_sec"))
                 if is_test:
                     logger.info("Test run finish. The program will terminate")
-                    exit(0)
+                    sys.exit(0)
+                logger.debug("Begin sleeping for " + str(settings.get("sleep_time_sec")) + " second(s)")
+                next_collect_time = datetime.now() + timedelta(seconds=settings.get("sleep_time_sec"))
+                print("Next collection time " + next_collect_time.strftime(datetime_format))
+                sleep(settings.get("sleep_time_sec"))
             else:
                 logger.error("Fail to fetch public key with registration id " + settings.get("registration_id"))
                 logger.error("Please provide correct registration id.")
-                exit(1)
+                sys.exit(1)
             # Reload settings for the next run
+            logger.info("Reload settings")
             settings = import_config(root_dir)
+            settings["registration_id"] = reg_id

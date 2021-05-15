@@ -12,13 +12,21 @@ def get_key(logger, reg_id, url):
     :param url: URL of the api to call
     :return: public key in string
     """
-    response = requests.post(url, json={"registration_id": reg_id})
-    res_json = response.json()
+    logger.info("Start fetching for public key for encryption")
+    logger.debug("registration_id: " + str(reg_id))
+    logger.debug("URL: " + str(url))
+    fail = True
     public_key = None
-    logger.debug("Sucesss: " + str(res_json.get("success")))
-    if res_json.get("success") and res_json.get("data"):
-        data = res_json.get("data")
-        public_key = data.get("public_key")
+    while fail:
+        response = requests.post(url, json={"registration_id": reg_id})
+        res_json = response.json()
+        logger.debug("Sucesss: " + str(res_json.get("success")))
+        if res_json.get("success") and res_json.get("data"):
+            data = res_json.get("data")
+            public_key = data.get("public_key")
+            fail = False
+        else:
+            logger.error(res_json)
     return public_key
 
 

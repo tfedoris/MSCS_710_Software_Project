@@ -123,18 +123,24 @@ def collect_metrics(logger, settings, encrypt_key, collectors):
     """
     try:
         logger.info("Begin fetching metrics data from other collects and encrypting the collected metrics")
+        print("Start fetching and encrypting metrics data")
         for c in collectors:
             c.fetch_metrics()
             encrypt_data(c, encrypt_key)
+        print("End fetching and encrypting metrics data")
         logger.info("End fetching and encrypting metrics data")
-        logger.info("Begin persisting fetch metrics")
+        logger.info("Begin persisting fetched metrics")
         logger.debug("To store metrics on local: " + str(settings["to_store_local"]))
         if settings["to_store_local"]:
-            root_dir = os.path.dirname(__file__)
+            print("Start storing metrics data to local data directory")
             for c in collectors:
-                persist_local(logger, root_dir + settings["local_store_dir"], c)
+                persist_local(logger, settings.get("root_dir") + settings["local_store_dir"], c)
+            print("End storing metrics data to local data directory")
         else:
+            print("Start storing metrics data to remote database")
             persist_database(logger, settings, collectors)
+            print("End storing metrics data to remote database")
+        logger.info("Finish persisting fetched metrics")
     except AccessDenied as ad:
         logger.error("Access denied for fetch data from psutil library")
         logger.error(ad)
