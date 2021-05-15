@@ -28,10 +28,17 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--test", required=False,
                         help="Boolean value to enable collector to run in test mode",
                         default=False)
+    parser.add_argument("-rid", "--registration_id", required=False,
+                        help="String value represent registration id of the user. If not pass as arguement the " +
+                             "program will ask for it.",
+                        default=None)
     args = parser.parse_args()
     is_testing = args.test
+    reg_id = args.registration_id
     settings = import_config(root_dir)
-    settings["registration_id"] = reg_id = input("Input your registration ID: ")
+    if reg_id is None:
+        reg_id = input("Input your registration ID: ")
+    settings["registration_id"] = reg_id
 
     # If not settings is provide
     if len(settings.keys()) == 0:
@@ -41,7 +48,7 @@ if __name__ == "__main__":
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))
     logger.info("Create logger instance")
-    logger.debug("Testing mode: " + str(is_test))
+    logger.debug("Testing mode: " + str(is_testing))
     logger.info("Extract metadata from configuration to start collecting metrics")
     collectors_meta = settings.get("collectors")
     datetime_format = settings.get("date_time_format")
