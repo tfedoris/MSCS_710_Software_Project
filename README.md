@@ -8,7 +8,7 @@
 * [Metric Collector](#metric-collector)
 * [UI](#ui)
 * [Pipeline](#pipeline)
-* [Testing] (#testing)
+* [Testing](#testing)
 
 ## General Info
 WAR is a software service that gathers system resource utilization information on multiple host machines and to persist on a centralized database. The purpose of WAR is to allow the users to visualize the system resource utilization of their machines.
@@ -24,23 +24,38 @@ Design Document:
 
 ## Requirements
 #### Computer Metrics Collector Libraries
- 1) pycryptodomex 3.10.1
- 1) requests 2.25.1
- 1) psutil 5.8.0
- 1) py-cpuinfo 7.0.0
- 1) pandas 1.2.3
+ 1) pycryptodomex==3.10.1
+ 1) requests==2.25.1
+ 1) psutil==5.8.0
+ 1) py-cpuinfo==7.0.0
+ 1) panda==1.2.3
+ 1) pyinstaller==4.3
 
 ## How to Run
 In order to start up war, please execute the following from the root directory:
 
+Install dependent libraries from requirements.txt
 ```
 pip3 install -r computerMetricCollector/requirements.txt
+```
+
+Run from python shell
+```
 python computerMetricCollector/__init__.py
 ```
 If you only want the script to run onnce for testing purposes, execute the following:
 ```
 python -m computerMetricCollector.__init__ -t True
 ```
+
+Create executable to run the Computer Metrics Collector
+```
+pyinstaller --onefile --name ComputerMetricsCollector __init__.py
+```
+Pyinstaller will create an executable named `ComputerMetricsCollector.exe` in `computerMetricCollector/dist/` folder.
+
+After starting the collector, the spawned window will prompt the user for registration ID that is associated with their account.
+> User need to register a account in (https://www.wardashboard.com/) to obtain a registration ID
 
 Once the script is runnnning, you should be able to view your computer metrics here
 (https://www.wardashboard.com/)
