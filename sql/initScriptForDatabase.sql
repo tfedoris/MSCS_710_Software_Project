@@ -19,7 +19,7 @@ CREATE TABLE client_machine (
     , system_name VARBINARY(32)
     , version VARBINARY(32)
     , machine_type VARBINARY(16)
-    , nounce VARBINARY(36)
+    , nonce VARBINARY(36)
     , session_key VARBINARY(512)
     , primary key (machine_id)
 );
@@ -133,6 +133,5 @@ CREATE TABLE map_user_machine (
   , machine_id varchar(40) NOT NULL
   , last_update_time datetime DEFAULT NULL
   , PRIMARY KEY (user_id,machine_id)
-  , CONSTRAINT map_user_uid FOREIGN KEY (user_id) REFERENCES `user` (user_id)
   , CONSTRAINT map_user_machine_id FOREIGN KEY (machine_id) REFERENCES client_machine (machine_id)
 );
