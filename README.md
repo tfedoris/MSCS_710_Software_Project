@@ -58,7 +58,7 @@ Pyinstaller will create an executable named `ComputerMetricsCollector.exe` in `c
 After starting the collector, the spawned window will prompt the user for registration ID that is associated with their account.
 > User need to register a account in (https://www.wardashboard.com/) to obtain a registration ID
 
-Once the script is running, you should be able to view your computer metrics here
+Once the script is running, you should be able to view your computer metrics here:
 (https://www.wardashboard.com/)
 
 ## Computer Metric Collector
