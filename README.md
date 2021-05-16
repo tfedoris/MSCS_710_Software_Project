@@ -76,7 +76,7 @@ metrics collector application running on their local machine. This registration 
 data visualization for this application. We will use this library to display the data that is extracted from the database.
 
 To get started with creating an account, you can visit the WAR Dashboard web application here:
-(wardashboard.com)
+(https://wardashboard.com)
 
 ## Database
 The database that stores the computer metrics collection from client machines is in MySQL. We choose MySQL for its compatibility with Amazon RDS and AWS's API Gateway that utlizes Lambda Functions.
