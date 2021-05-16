@@ -20,7 +20,7 @@ CREATE TABLE client_machine (
     , version VARBINARY(32)
     , machine_type VARBINARY(16)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id)
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE cpu_metrics (
     , hz_actual VARBINARY(32)
     , core_count VARBINARY(4)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id)
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE disk_metrics(
 	, used_bytes VARBINARY(32)
 	, percent VARBINARY(16)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
 );
 
@@ -63,7 +63,7 @@ CREATE TABLE disk_io_metrics (
     , time_read_in_milli VARBINARY(8)
     , time_write_in_milli VARBINARY(8)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
 );
 
@@ -81,7 +81,7 @@ CREATE TABLE memory_metrics(
 	, swap_byte_in VARBINARY (8)
 	, swap_byte_out VARBINARY (8)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
 );
 
@@ -98,7 +98,7 @@ CREATE TABLE network_metrics (
 	, packet_receive_drop VARBINARY(12)
 	, packet_send_drop VARBINARY(12)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
 );
 
@@ -124,7 +124,7 @@ CREATE TABLE processes_metrics (
 	, io_write_bytes VARBINARY(28)
 	, thread_num VARBINARY(8)
     , nonce VARBINARY(36)
-    , session_key VARBINARY(512)
+    , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
 );
 
