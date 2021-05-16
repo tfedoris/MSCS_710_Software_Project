@@ -69,9 +69,15 @@ It will collect data continuously until the user stop the program.
 Every collection will be output to the windows to user to visualize. 
 
 ## UI
-The website is hosted on an Amazon EC2 server using Apache. EC2 server provides a free web service for us to develop the website with flexibility. We do not need to create a web server machine to host the website server. For the user interface, we will be utilized Flask to design the website. Flask is a WSGI (Web Server Gateway Interface) web framework. Using Flask, we developed a model-view-controller architecture for our website. We set up routes that will generate graphs using Plotly. Plotly is an open-source graphing library that can be found [here][1]. We will use this library to display the data that is extracted from the database. The routes will also serve web pages which are HTML files that were generated using Jinja.
+The website is hosted on an AWS EC2 instance, deployed using AWS Amplify. AWS Amplify provides a free web service for us to develop the website with flexibility and automatic deployment through GitHub. We do not need to create a web server
+machine to host the website server. For the user interface, we will be utilizing React and Typescript to design a single page application to visualize the metrics. The application has been integrated with Amazon's authentication services utilizing
+their cognito user pools. Through this service, users can register for an account and have their credentials stored securiely on Amazon's web servers. Once a user has created an account, they will be provided with a Registration ID to be used with the 
+metrics collector application running on their local machine. This registration ID will link their machine with their account so they can view visualized metrics collected from their system. Recharts is an open-source graphing library that powers the 
+data visualization for this application. We will use this library to display the data that is extracted from the database.
 
-[1]: plotly.com/python/
+To get started with creating an account, you can visit the WAR Dashboard web application [here][1].
+
+[1]: wardashboard.com
 
 ## Database
 The database that stores the computer metrics collection from client machines is in MySQL. We choose MySQL for its compatibility with Amazon RDS and Apache web server. 
