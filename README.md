@@ -92,7 +92,7 @@ Build System Video:
 (https://www.youtube.com/watch?v=SpIvcscqmTM)
 
 ## Testing
-Our test approach documennt can be found here:
+Our test approach document can be found here:
 (https://docs.google.com/document/d/1jBDfno7a5ibr6q27d9NrudaH47j9lbALaEbSCyMYlCo/edit?usp=sharing)
 
 In order to run the test suites, please execute the following from the root directory:
