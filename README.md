@@ -80,7 +80,7 @@ To get started with creating an account, you can visit the WAR Dashboard web app
 [1]: wardashboard.com
 
 ## Database
-The database that stores the computer metrics collection from client machines is in MySQL. We choose MySQL for its compatibility with Amazon RDS and AWS's API Gateway that utlizies Lambda Functions.
+The database that stores the computer metrics collection from client machines is in MySQL. We choose MySQL for its compatibility with Amazon RDS and AWS's API Gateway that utlizes Lambda Functions.
 
 ## Pipeline
 The pipeline we are using is a Jenkins server running on a Windows 10 machine EC2 instance. The script for the pipeline can be found in the Jenkinsfile. While it is preferable and possible to run the pipeline script automatically with polling for new commits, at the moment we do it manually since there is only so much processing that can be done on the free tier of our EC2 instance. If we were to upgrade our machine, it would no longer give us the not enough free space error if there are multiple commits occurring at similar times.
