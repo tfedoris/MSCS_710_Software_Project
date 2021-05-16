@@ -18,13 +18,22 @@ import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import React from "react";
 import { useStyles } from "themes/DynamicDrawerTheme";
+import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { Grid } from "@material-ui/core";
 
 interface Props {
   children: any;
+  username: string;
+  signoutButton: any;
   onSelect?: (pageName: string) => void;
 }
 
-export default function Navigation({ children, onSelect }: Props) {
+export default function Navigation({
+  children,
+  onSelect,
+  username,
+  signoutButton,
+}: Props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -70,9 +79,27 @@ export default function Navigation({ children, onSelect }: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h4" noWrap style={{ fontWeight: "bold" }}>
             Windows Analysis Reporting
           </Typography>
+          <div
+            style={{
+              display: "flex",
+              marginLeft: "auto",
+              marginRight: 30,
+            }}
+          >
+            <Grid container spacing={3} alignItems="center">
+              <Grid item xs={6}>
+                <Typography variant="h5" noWrap>
+                  {username}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                {signoutButton}
+              </Grid>
+            </Grid>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -96,7 +123,7 @@ export default function Navigation({ children, onSelect }: Props) {
         </div>
         <Divider />
         <List component="nav">
-          {["Dashboard", "Account"].map((text, index) => (
+          {["Account", "Dashboard"].map((text, index) => (
             <ListItem
               button
               key={text}

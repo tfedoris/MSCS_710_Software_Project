@@ -9,18 +9,18 @@ import awsconfig from "./aws-exports";
 import axios from "axios";
 import shortid from "shortid";
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
+import Dashboard from "layouts/Dashboard";
+import Typography from "@material-ui/core/Typography";
 
 Amplify.configure(awsconfig);
 
 const AuthStateApp: React.FunctionComponent = () => {
-  const [displayedView, setDisplayedView] = React.useState(<div />);
+  const [displayedView, setDisplayedView] = React.useState("Account");
   const classes = useStyles();
 
   const [authState, setAuthState] = React.useState<AuthState>();
   const [user, setUser] = React.useState<any | undefined>();
-  const [registrationId, setRegistrationId] = React.useState(
-    "NO REGISTRATION ID FOUND"
-  );
+  const [registrationId, setRegistrationId] = React.useState("[LOADING...]");
 
   React.useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData: any) => {
@@ -38,8 +38,9 @@ const AuthStateApp: React.FunctionComponent = () => {
         )
         .then(async (response) => {
           if (response.data.success) {
+            console.log(response.data.data);
             setRegistrationId(response.data.data.registration_id);
-          } else {
+          } else if (response.data.success === false) {
             await axios
               .post(
                 "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-registration-info",
@@ -52,33 +53,66 @@ const AuthStateApp: React.FunctionComponent = () => {
         });
     }
 
-    if (authState === AuthState.SignedIn && user) {
+    if (user && registrationId === "[LOADING...]") {
       fetchRegistrationId();
     }
-  }, [user, authState]);
+  }, [user, registrationId]);
 
   const handleSidebarSelect = (pageName: string): void => {
-    switch (pageName) {
-      case "Dashboard":
-        setDisplayedView(<h1>Dashboard</h1>);
-        break;
-      case "Account":
-        setDisplayedView(<h1>Account</h1>);
-        break;
-      default:
-        setDisplayedView(<div />);
-    }
+    setDisplayedView(pageName);
   };
 
   return authState === AuthState.SignedIn && user ? (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        <Navigation onSelect={handleSidebarSelect}>
-          <div className="App">
-            <h1>Hello, {user.username}</h1>
-            <h2>Registration ID: {registrationId}</h2>
-            <AmplifySignOut />
-          </div>
+        <Navigation
+          onSelect={handleSidebarSelect}
+          username={user.username}
+          signoutButton={<AmplifySignOut />}
+        >
+          {
+            {
+              Dashboard: <Dashboard />,
+              Account: (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "80vh",
+                  }}
+                >
+                  <Typography variant="h1">Hello, {user.username}</Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="h2"
+                      style={{
+                        textDecorationLine: "underline",
+                      }}
+                    >{`Registration ID: `}</Typography>
+                    <Typography
+                      variant="h2"
+                      style={{
+                        whiteSpace: "break-spaces",
+                        fontWeight: "bold",
+                        color: "#FF9900",
+                      }}
+                    >
+                      {` ${registrationId}`}
+                    </Typography>
+                  </div>
+                </div>
+              ),
+            }[displayedView]
+          }
         </Navigation>
       </div>
     </div>
