@@ -34,7 +34,7 @@ class MemoryMetrics(Collector):
             "swap_free": swap_mem.used,
             "swap_used": swap_mem.free,
             "swap_percent": swap_mem.percent,
-            "swap_byte_int": swap_mem.sin,
+            "swap_byte_in": swap_mem.sin,
             "swap_byte_out": swap_mem.sout,
         }
         self.metrics_df = self.metrics_df.append(memory_metrics, ignore_index=True)

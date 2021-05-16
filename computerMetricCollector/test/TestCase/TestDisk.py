@@ -33,11 +33,11 @@ class DiskTest(unittest.TestCase):
 
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
-            self.assertLess(int(rec["Free"]), int(rec["Total"]))
-            self.assertGreater(int(rec["Free"]), 0)
-            self.assertLess(int(rec["Used"]), int(rec["Total"]))
-            self.assertGreater(int(rec["Used"]), 0)
-            self.assertIsInstance(rec["Percent"], float)
+            self.assertLess(int(rec["free_bytes"]), int(rec["total_bytes"]))
+            self.assertGreater(int(rec["free_bytes"]), 0)
+            self.assertLess(int(rec["used_bytes"]), int(rec["total_bytes"]))
+            self.assertGreater(int(rec["used_bytes"]), 0)
+            self.assertIsInstance(rec["percent"], float)
 
     def test_encryption(self):
         raw_metrics_df = self.metrics_df

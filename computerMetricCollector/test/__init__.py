@@ -15,7 +15,7 @@ from computerMetricCollector.test.TestCase.LoggerTest import set_logger
 
 
 class TestMiscellaneous(unittest.TestCase):
-    if getattr(sys, 'frozen', True):
+    if getattr(sys, 'frozen', False):
         root_dir = os.path.dirname(os.path.dirname(sys.executable))
     else:
         root_dir = os.path.dirname(__file__)
@@ -33,8 +33,7 @@ class TestMiscellaneous(unittest.TestCase):
         bits = 2048
         key = RSA.generate(bits)
         encrypt_key = key.publickey().export_key()
-        dir_name = os.path.dirname(os.path.dirname(__file__))
-        encrypt_key_file = dir_name + TestMiscellaneous.settings.get("encryption_key_file")
+        encrypt_key_file = self.root_dir + TestMiscellaneous.settings.get("encryption_key_file")
         public_key = read_key(encrypt_key_file)
         self.assertEqual(len(encrypt_key), len(public_key))
 

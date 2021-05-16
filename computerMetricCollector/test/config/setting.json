@@ -1,14 +1,21 @@
 {
   "date_time_format": "%Y-%m-%d %H:%M:%S",
-  "local_store_dir": "/local_data/",
+  "local_store_dir": "\\local_data\\",
   "registration_id": "",
   "to_store_local": true,
-  "encryption_key_file": "/crypto/ppk/public.pem",
-  "decryption_key_file": "/crypto/ppk/private.pem",
+  "encryption_key_file": "\\crypto\\ppk\\public.pem",
+  "decryption_key_file": "\\crypto\\ppk\\private.pem",
   "collectors": {
     "ComputerMetrics": {
       "url": "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-client-machine",
       "metrics_to_encrypt": [
+        "machine_name",
+        "system_name",
+        "version",
+        "machine_type"
+      ],
+      "metrics_to_match": [
+        "machine_id",
         "machine_name",
         "system_name",
         "version",
@@ -36,6 +43,15 @@
         "hz_actual",
         "core_count"
       ],
+      "metrics_to_match": [
+        "machine_id",
+        "brand",
+        "vendor",
+        "architecture",
+        "bits",
+        "hz_advertise",
+        "hz_actual"
+      ],
       "metrics": [
         "machine_id",
         "entry_time",
@@ -59,6 +75,11 @@
         "used_bytes",
         "percent"
       ],
+      "metrics_to_match": [
+        "machine_id",
+        "disk_name",
+        "total_bytes"
+      ],
       "metrics": [
         "machine_id",
         "entry_time",
@@ -81,6 +102,10 @@
         "bytes_write",
         "time_read_in_milli",
         "time_write_in_milli"
+      ],
+      "metrics_to_match": [
+        "machine_id",
+        "disk_name"
       ],
       "metrics": [
         "machine_id",
@@ -109,6 +134,10 @@
         "swap_percent",
         "swap_byte_in",
         "swap_byte_out"
+      ],
+      "metrics_to_match": [
+        "machine_id",
+        "memory_total"
       ],
       "metrics": [
         "machine_id",
@@ -139,6 +168,10 @@
         "packet_receive",
         "packet_receive_drop",
         "packet_send_drop"
+      ],
+      "metrics_to_match": [
+        "machine_id",
+        "network_interface"
       ],
       "metrics": [
         "machine_id",
@@ -177,6 +210,8 @@
         "io_write_count",
         "io_write_bytes",
         "thread_num"
+      ],
+      "metrics_to_match": [
       ],
       "metrics": [
         "machine_id",
