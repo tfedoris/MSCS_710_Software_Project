@@ -75,9 +75,8 @@ their cognito user pools. Through this service, users can register for an accoun
 metrics collector application running on their local machine. This registration ID will link their machine with their account so they can view visualized metrics collected from their system. Recharts is an open-source graphing library that powers the 
 data visualization for this application. We will use this library to display the data that is extracted from the database.
 
-To get started with creating an account, you can visit the WAR Dashboard web application [here][1].
-
-[1]: wardashboard.com
+To get started with creating an account, you can visit the WAR Dashboard web application here:
+(wardashboard.com)
 
 ## Database
 The database that stores the computer metrics collection from client machines is in MySQL. We choose MySQL for its compatibility with Amazon RDS and AWS's API Gateway that utlizes Lambda Functions.
