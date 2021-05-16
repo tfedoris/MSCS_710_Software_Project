@@ -38,6 +38,7 @@ class MemoryMetrics(Collector):
             "swap_byte_out": swap_mem.sout,
         }
         self.metrics_df = self.metrics_df.append(memory_metrics, ignore_index=True)
+        self.metrics_df.fillna(0)
         self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for memory metrics")
         self.is_fetched = True
