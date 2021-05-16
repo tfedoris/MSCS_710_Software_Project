@@ -26,8 +26,17 @@ pipeline{
                     '''
                 echo 'python and dependencies installed'
                 echo 'running python script'
-                bat 'C:\\python38\\python.exe -m computerMetricCollector.__init__ -t True'
+                //bat 'C:\\python38\\python.exe -m computerMetricCollector.__init__ -t True -rid _VOzg0QP6'
                 echo 'program finished'
+            }
+        }
+        stage('Create and run executable') {
+            steps {
+                bat '''dir
+                    C:\\python38\\scripts\\pyinstaller.exe --onefile --name ComputerMetricsCollector computerMetricCollector\\__init__.py
+                    dir
+                    computerMetricCollector\\dist\\ComputerMetricsCollector.exe -t True -rid _VOzg0QP6
+                    '''
             }
         }
         stage('Run test cases') {
