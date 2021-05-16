@@ -61,7 +61,7 @@ exports.handler = async (event) => {
     event.version,
     event.machine_type,
     event.nonce,
-    event.session_id,
+    event.session_key,
   ]);
   response.success = results.affectedRows > 0 ? true : false;
   response.data = results;

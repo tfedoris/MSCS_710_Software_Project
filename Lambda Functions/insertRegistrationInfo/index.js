@@ -3,10 +3,10 @@ const axios = require("axios");
 // Require and initialize outside of your main handler
 const mysql = require("serverless-mysql")({
   config: {
-    host: "wardatabase.cm9i2tottiif.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "12345678",
-    database: "waruserinfo",
+    host: process.env.ENDPOINT,
+    user: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+    database: process.env.SECONDARY_DB_NAME,
   },
 });
 
@@ -52,7 +52,7 @@ exports.handler = async (event) => {
   if (!gotKeyPair) return response;
 
   // Set query string
-  const query = "REPLACE INTO registration_info VALUES (?, ?, ?, ?)";
+  const query = "INSERT INTO registration_info VALUES (?, ?, ?, ?)";
 
   // Run your query
   let results = await mysql.query(query, [

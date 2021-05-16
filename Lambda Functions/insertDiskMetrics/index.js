@@ -3,10 +3,10 @@ const axios = require("axios");
 // Require and initialize outside of your main handler
 const mysql = require("serverless-mysql")({
   config: {
-    host: "wardatabase.cm9i2tottiif.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "12345678",
-    database: "warproject",
+    host: process.env.ENDPOINT,
+    user: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+    database: process.env.PRIMARY_DB_NAME,
   },
 });
 
@@ -62,7 +62,7 @@ exports.handler = async (event) => {
     event.used_bytes,
     event.percent,
     event.nonce,
-    event.session_id,
+    event.session_key,
   ]);
   response.success = results.affectedRows > 0 ? true : false;
   response.data = results;
