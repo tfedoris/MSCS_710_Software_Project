@@ -11,8 +11,8 @@ def decrypt_data(dataframe, col_to_decrypt, key):
     private_key = RSA.import_key(key)
     cipher_rsa = PKCS1_OAEP.new(private_key)
     for idx, row in dataframe.iterrows():
-        encrypted_key = bytes.fromhex(row["SessionKey"])
-        nonce = bytes.fromhex(row["Nonce"])
+        encrypted_key = bytes.fromhex(row["session_key"])
+        nonce = bytes.fromhex(row["nonce"])
         session_key = cipher_rsa.decrypt(encrypted_key)
         cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
         for col in col_to_decrypt:

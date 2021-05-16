@@ -33,18 +33,18 @@ class DiskIOTest(unittest.TestCase):
 
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
-            self.assertIsInstance(int(rec["CountRead"]), int)
-            self.assertIsInstance(int(rec["CountWrite"]), int)
-            self.assertIsInstance(int(rec["BytesRead"]), int)
-            self.assertIsInstance(int(rec["BytesWrite"]), int)
-            self.assertIsInstance(int(rec["TimeReadInMilli"]), int)
-            self.assertIsInstance(int(rec["TimeWriteInMilli"]), int)
-            self.assertGreaterEqual(int(rec["CountRead"]), 0)
-            self.assertGreaterEqual(int(rec["CountWrite"]), 0)
-            self.assertGreaterEqual(int(rec["BytesRead"]), 0)
-            self.assertGreaterEqual(int(rec["BytesWrite"]), 0)
-            self.assertGreaterEqual(int(rec["TimeReadInMilli"]), 0)
-            self.assertGreaterEqual(int(rec["TimeWriteInMilli"]), 0)
+            self.assertIsInstance(int(rec["count_read"]), int)
+            self.assertIsInstance(int(rec["count_write"]), int)
+            self.assertIsInstance(int(rec["bytes_read"]), int)
+            self.assertIsInstance(int(rec["bytes_write"]), int)
+            self.assertIsInstance(int(rec["time_read_in_milli"]), int)
+            self.assertIsInstance(int(rec["time_write_in_milli"]), int)
+            self.assertGreaterEqual(int(rec["count_read"]), 0)
+            self.assertGreaterEqual(int(rec["count_write"]), 0)
+            self.assertGreaterEqual(int(rec["bytes_read"]), 0)
+            self.assertGreaterEqual(int(rec["bytes_write"]), 0)
+            self.assertGreaterEqual(int(rec["time_read_in_milli"]), 0)
+            self.assertGreaterEqual(int(rec["time_write_in_milli"]), 0)
 
     def test_encryption(self):
         raw_metrics_df = self.metrics_df

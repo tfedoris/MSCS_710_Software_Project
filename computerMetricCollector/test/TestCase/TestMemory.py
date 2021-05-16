@@ -19,7 +19,7 @@ class MemoryTest(unittest.TestCase):
         self.date_format = self.settings.get("date_time_format")
         self.meta = self.settings.get("collectors").get("MemoryMetrics")
         self.collector = MemoryMetrics(self.logger, get_computer_id(self.logger), self.meta.get("metrics"),
-                                    self.meta.get("metrics_to_encrypt"), self.date_format, self.meta.get("url"))
+                                       self.meta.get("metrics_to_encrypt"), self.date_format, self.meta.get("url"))
         self.collector.fetch_metrics()
         self.metrics_df = self.collector.get_metrics_df()
         self.sample_df = pd.read_csv(self.root_dir + "/sample_data/MemoryMetrics.csv",
@@ -33,14 +33,14 @@ class MemoryTest(unittest.TestCase):
 
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
-            self.assertLess(int(rec["MemoryAvailable"]), int(rec["MemoryTotal"]))
-            self.assertLess(int(rec["MemoryUsed"]), int(rec["MemoryTotal"]))
-            self.assertLess(int(rec["SwapUsed"]), int(rec["SwapTotal"]))
-            self.assertLess(int(rec["SwapFree"]), int(rec["SwapTotal"]))
-            self.assertGreaterEqual(int(rec["SwapBytesIn"]), 0)
-            self.assertGreaterEqual(int(rec["SwapBytesOut"]), 0)
-            self.assertIsInstance(rec["MemoryUsedPercent"], float)
-            self.assertIsInstance(rec["SwapPercent"], float)
+            self.assertLess(int(rec["memory_available"]), int(rec["memory_total"]))
+            self.assertLess(int(rec["memory_used"]), int(rec["memory_total"]))
+            self.assertLess(int(rec["swap_used"]), int(rec["swap_total"]))
+            self.assertLess(int(rec["swap_free"]), int(rec["swap_total"]))
+            self.assertGreaterEqual(int(rec["swap_byte_in"]), 0)
+            self.assertGreaterEqual(int(rec["swap_byte_out"]), 0)
+            self.assertIsInstance(rec["memory_used_percent"], float)
+            self.assertIsInstance(rec["swap_percent"], float)
 
     def test_encryption(self):
         raw_metrics_df = self.metrics_df

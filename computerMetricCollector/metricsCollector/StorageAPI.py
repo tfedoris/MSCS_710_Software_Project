@@ -50,9 +50,10 @@ def store_to_database(collector, reg_id):
         collector.logger.info("Skipping collector " + type(collector).__name__)
 
 
-def register_machine(reg_url, reg_id, machine_id, datetime):
+def register_machine(logger, reg_url, reg_id, machine_id, datetime):
     """
     This function post a record that associated the user account with the host machine
+    :param logger: the logger instance for writing the state of the software
     :param reg_url: URL of the API to register the record that map the user and the host machine
     :param reg_id: Registration id that represents the user
     :param machine_id: Machine id of the host machine
@@ -64,5 +65,15 @@ def register_machine(reg_url, reg_id, machine_id, datetime):
         "machine_id": machine_id,
         "last_updated_time": datetime
     }
+    logger.info("Start registering user machine on to the database")
     response = requests.post(reg_url, json=data_json)
+    response_text = response.text
+    if response.status_code != 200 or "success" not in response_text.lower():
+        logger.error("Fail to register user machine")
+        logger.error("Attempt storing metrics data again")
+        response = requests.post(reg_url, json=data_json)
+        response_text = response.text
+        if response.status_code != 200 or "success" not in response_text.lower():
+            logger.error("Fail to register user machine the second time.")
+    logger.info("End registering user machine on to the database")
     return response

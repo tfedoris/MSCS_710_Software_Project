@@ -26,15 +26,15 @@ class ComTest(unittest.TestCase):
 
     def test_com_collector(self):
         match_com_df = self.metrics_df.filter(items=self.meta.get("metrics_to_match"), axis=1)
-        sample_df = self.sample_df.drop(["EntryDatetime", "Nonce", "SessionKey"], axis=1)
+        sample_df = self.sample_df.drop(["entry_time", "nonce", "session_key"], axis=1)
         pd.testing.assert_frame_equal(match_com_df, sample_df)
 
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
-            self.assertRegex(rec["MachineID"], r"^[a-zA-Z0-9-]*$")
-            self.assertRegex(rec["MachineName"], r"^[a-zA-Z0-9-]*$")
-            self.assertRegex(rec["System"], r"^[a-zA-Z]*$")
-            self.assertRegex(rec["Version"], r"^[a-zA-Z0-9.]*$")
+            self.assertRegex(rec["machine_id"], r"^[a-zA-Z0-9-]*$")
+            self.assertRegex(rec["machine_name"], r"^[a-zA-Z0-9-]*$")
+            self.assertRegex(rec["system_name"], r"^[a-zA-Z]*$")
+            self.assertRegex(rec["version"], r"^[a-zA-Z0-9.]*$")
 
     def test_encryption(self):
         raw_metrics_df = self.metrics_df

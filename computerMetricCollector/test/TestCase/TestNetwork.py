@@ -33,14 +33,14 @@ class NetworkTest(unittest.TestCase):
 
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
-            self.assertGreaterEqual(int(rec["ByteSend"]), 0)
-            self.assertGreaterEqual(int(rec["ByteReceived"]), 0)
-            self.assertGreaterEqual(int(rec["ErrorByteReceived"]), 0)
-            self.assertGreaterEqual(int(rec["ErrorByteSend"]), 0)
-            self.assertGreaterEqual(int(rec["PacketSend"]), 0)
-            self.assertGreaterEqual(int(rec["PacketReceived"]), 0)
-            self.assertGreaterEqual(int(rec["PacketReceivedDrop"]), 0)
-            self.assertGreaterEqual(int(rec["PacketSendDrop"]), 0)
+            self.assertGreaterEqual(int(rec["bytes_send"]), 0)
+            self.assertGreaterEqual(int(rec["bytes_receive"]), 0)
+            self.assertGreaterEqual(int(rec["error_bytes_receive"]), 0)
+            self.assertGreaterEqual(int(rec["error_bytes_send"]), 0)
+            self.assertGreaterEqual(int(rec["packet_sent"]), 0)
+            self.assertGreaterEqual(int(rec["packet_receive"]), 0)
+            self.assertGreaterEqual(int(rec["packet_receive_drop"]), 0)
+            self.assertGreaterEqual(int(rec["packet_send_drop"]), 0)
 
     def test_encryption(self):
         raw_metrics_df = self.metrics_df

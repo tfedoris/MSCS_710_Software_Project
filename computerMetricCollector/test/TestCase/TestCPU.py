@@ -35,13 +35,13 @@ class CPUTest(unittest.TestCase):
 
     def test_metrics_type(self):
         for idx, rec in self.metrics_df.iterrows():
-            self.assertRegex(rec["Brand"], r"^[a-zA-Z0-9-()#@. ]*$")
-            self.assertRegex(rec["Vendor"], r"^[a-zA-Z0-9-_ ]*$")
-            self.assertRegex(rec["Arch"], r"^[a-zA-Z0-9_]*$")
-            self.assertGreater(rec["Bits"], 0)
-            self.assertGreater(rec["HZAdvertise"], 0)
-            self.assertGreater(rec["HZActual"], 0)
-            self.assertGreater(rec["Count"], 0)
+            self.assertRegex(rec["brand"], r"^[a-zA-Z0-9-()#@. ]*$")
+            self.assertRegex(rec["vendor"], r"^[a-zA-Z0-9-_ ]*$")
+            self.assertRegex(rec["architecture"], r"^[a-zA-Z0-9_]*$")
+            self.assertGreater(rec["bits"], 0)
+            self.assertGreater(rec["hz_advertise"], 0)
+            self.assertGreater(rec["hz_actual"], 0)
+            self.assertGreater(rec["core_count"], 0)
 
     def test_encryption(self):
         raw_metrics_df = self.metrics_df
