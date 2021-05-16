@@ -58,7 +58,7 @@ Pyinstaller will create an executable named `ComputerMetricsCollector.exe` in `c
 After starting the collector, the spawned window will prompt the user for registration ID that is associated with their account.
 > User need to register a account in (https://www.wardashboard.com/) to obtain a registration ID
 
-Once the script is runnnning, you should be able to view your computer metrics here
+Once the script is running, you should be able to view your computer metrics here
 (https://www.wardashboard.com/)
 
 ## Computer Metric Collector
@@ -83,6 +83,8 @@ To get started with creating an account, you can visit the WAR Dashboard web app
 The database that stores the computer metrics collection from client machines is in MySQL. We choose MySQL for its compatibility with Amazon RDS and Apache web server. 
 
 ## Pipeline
+The pipeline we are using is a Jenkins server running on a Windows 10 machine EC2 instance. The script for the pipeline can be found in the Jenkinsfile. While it is preferable and possible to run the pipeline script automatically with polling for new commits, at the moment we do it manually since there is only so much processing that can be done on the free tier of our EC2 instance. If we were to upgrade our machine, it would no longer give us the not enough free space error if there are multiple commits occurring at similar times.
+
 The build system can be accessed here:
 (http://52.27.174.67:8080/)
 
