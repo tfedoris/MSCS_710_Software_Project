@@ -1,5 +1,6 @@
 # MSCS710 - WAR (Windows Analysis Reporting)
 > A computer metrics collector and data compiler for Windows machines using Python.
+> All components are subject to change as the project continues.
 
 ## Table of contents
 * [General info](#general-info)
