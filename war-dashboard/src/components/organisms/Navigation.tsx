@@ -79,7 +79,7 @@ export default function Navigation({
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h4" noWrap style={{ fontWeight: "bold" }}>
             Windows Analysis Reporting
           </Typography>
           <div

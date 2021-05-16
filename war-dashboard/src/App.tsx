@@ -38,6 +38,7 @@ const AuthStateApp: React.FunctionComponent = () => {
         )
         .then(async (response) => {
           if (response.data.success) {
+            console.log(response.data.data);
             setRegistrationId(response.data.data.registration_id);
           } else if (response.data.success === false) {
             await axios
