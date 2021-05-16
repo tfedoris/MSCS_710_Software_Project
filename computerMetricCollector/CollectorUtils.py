@@ -81,9 +81,9 @@ def persist_database(logger, config, collectors):
     """
     reg_id = config.get("registration_id")
     register_url = config.get("register_url")
-    now = datetime.now().strftime(config.get("date_time_format")),
+    now = datetime.now().strftime(config.get("date_time_format"))
     machine_id = collectors[0].machine_id
-    register_machine(register_url, reg_id, machine_id, now)
+    register_machine(logger, register_url, reg_id, machine_id, now)
     if reg_id is not None and reg_id != "":
         for collector in collectors:
             store_to_database(collector, reg_id)

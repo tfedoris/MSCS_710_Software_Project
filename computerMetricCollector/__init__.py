@@ -46,6 +46,7 @@ if __name__ == "__main__":
     log_file = root_dir + "\\log\\" + settings.get("log_file")
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
                         settings.get("log_backup_cnt"))
+    logger.debug("Root directory: " + root_dir)
     logger.info("Create logger instance")
     logger.debug("Testing mode: " + str(is_testing))
     logger.info("Extract metadata from configuration to start collecting metrics")
