@@ -10,6 +10,7 @@ import axios from "axios";
 import shortid from "shortid";
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 import Dashboard from "layouts/Dashboard";
+import Typography from "@material-ui/core/Typography";
 
 Amplify.configure(awsconfig);
 
@@ -51,13 +52,10 @@ const AuthStateApp: React.FunctionComponent = () => {
         });
     }
 
-    if (
-      user &&
-      (authState === AuthState.SignedIn || registrationId === "[LOADING...]")
-    ) {
+    if (user && registrationId === "[LOADING...]") {
       fetchRegistrationId();
     }
-  }, [user, authState, registrationId]);
+  }, [user, registrationId]);
 
   const handleSidebarSelect = (pageName: string): void => {
     setDisplayedView(pageName);
@@ -66,16 +64,51 @@ const AuthStateApp: React.FunctionComponent = () => {
   return authState === AuthState.SignedIn && user ? (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        <Navigation onSelect={handleSidebarSelect}>
+        <Navigation
+          onSelect={handleSidebarSelect}
+          username={user.username}
+          signoutButton={<AmplifySignOut />}
+        >
           {
             {
               Dashboard: <Dashboard />,
               Account: (
-                <React.Fragment>
-                  <h1>Hello, {user.username}</h1>
-                  <h2>Registration ID: {registrationId}</h2>
-                  <AmplifySignOut />
-                </React.Fragment>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "80vh",
+                  }}
+                >
+                  <Typography variant="h1">Hello, {user.username}</Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="h2"
+                      style={{
+                        textDecorationLine: "underline",
+                      }}
+                    >{`Registration ID: `}</Typography>
+                    <Typography
+                      variant="h2"
+                      style={{
+                        whiteSpace: "break-spaces",
+                        fontWeight: "bold",
+                        color: "#FF9900",
+                      }}
+                    >
+                      {` ${registrationId}`}
+                    </Typography>
+                  </div>
+                </div>
               ),
             }[displayedView]
           }
