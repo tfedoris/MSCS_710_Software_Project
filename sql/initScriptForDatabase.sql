@@ -109,7 +109,7 @@ CREATE TABLE processes_metrics (
 	, name VARBINARY(256)
 	, start_time VARBINARY(48)
 	, start_user VARBINARY(384)
-	, status VARCHAR(16)
+	, process_status VARCHAR(16)
 	, cpu_user_time VARBINARY(48)
 	, cpu_kernel_time VARBINARY(48)
 	, cpu_percent VARBINARY(16)

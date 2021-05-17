@@ -152,7 +152,7 @@
         "name",
         "start_time",
         "start_user",
-        "status",
+        "process_status",
         "cpu_user_time",
         "cpu_kernel_time",
         "cpu_percent",
