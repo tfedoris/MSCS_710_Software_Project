@@ -72,9 +72,7 @@
     "DiskIOMetrics": {
       "url": "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-disk-io-metrics",
       "metrics_to_encrypt": [
-        "disk_name",
-        "time_read_in_milli",
-        "time_write_in_milli"
+        "disk_name"
       ],
       "metrics": [
         "machine_id",
@@ -141,9 +139,11 @@
         "start_user",
         "cpu_user_time",
         "cpu_kernel_time",
+        "cpu_percent",
         "memory_page_fault",
         "io_read_count",
-        "io_write_count"
+        "io_write_count",
+        "thread_num"
       ],
       "metrics": [
         "machine_id",
