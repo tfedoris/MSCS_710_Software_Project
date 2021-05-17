@@ -37,15 +37,18 @@ def store_to_database(collector, reg_id):
         metrics_df = collector.get_metrics_df()
         metrics_df["registration_id"] = reg_id
         post_data = loads(metrics_df.to_json(orient="records"))
-        for json in post_data:
+        collector.logger.info("Start storing " + type(collector).__name__)
+        for idx, json in enumerate(post_data):
             response = requests.post(collector.remote_url, json=json)
-            if response.status_code != 200:
-                collector.logger.error("Fail to store " + type(collector).__name__)
+            response_text = response.text
+            if response.status_code != 200 or "success" not in response_text.lower():
+                collector.logger.error("Fail to store " + type(collector).__name__ + " record " + str(idx))
                 collector.logger.error("Attempt storing metrics data again")
                 response = requests.post(collector.remote_url, json=json)
-                if response is not None and response.status_code == 200:
-                    collector.logger.error("Fail to store " + type(collector).__name__)
-        collector.logger.info("Stored " + type(collector).__name__ + " successfully")
+                response_text = response.text
+                if response.status_code == 200 or "success" not in response_text.lower():
+                    collector.logger.error("Second attempt fail")
+        collector.logger.info("End storing " + type(collector).__name__)
     else:
         collector.logger.info("Skipping collector " + type(collector).__name__)
 

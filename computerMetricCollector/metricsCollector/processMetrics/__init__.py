@@ -39,7 +39,7 @@ class ProcessMetrics(Collector):
                     "name": process.name(),
                     "start_time": process.create_time(),
                     "start_user": process.username(),
-                    "status": process.status(),
+                    "process_status": process.status(),
                     "cpu_user_time": cpu_times.user,
                     "cpu_kernel_time": cpu_times.system,
                     "cpu_percent": process.cpu_percent(cpu_collect_int),
