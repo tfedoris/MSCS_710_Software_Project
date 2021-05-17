@@ -31,9 +31,9 @@ CREATE TABLE cpu_metrics (
     , vendor VARBINARY(64)
     , architecture VARBINARY(36)
     , bits VARBINARY(4)
-    , hz_advertise VARBINARY(32)
-    , hz_actual VARBINARY(32)
-    , core_count VARBINARY(4)
+    , hz_advertise BIGINT
+    , hz_actual BIGINT
+    , core_count SMALLINT
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id)
@@ -43,10 +43,10 @@ CREATE TABLE disk_metrics(
 	machine_id VARCHAR(40)
     , entry_time DATETIME
 	, disk_name VARBINARY(16)
-	, total_bytes VARBINARY(32)
-	, free_bytes VARBINARY(32)
-	, used_bytes VARBINARY(32)
-	, percent VARBINARY(16)
+	, total_bytes BIGINT
+	, free_bytes BIGINT
+	, used_bytes BIGINT
+	, percent DOUBLE
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
@@ -56,12 +56,12 @@ CREATE TABLE disk_io_metrics (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
     , disk_name VARBINARY(16)
-    , count_read VARBINARY(16)
-    , count_write VARBINARY(16)
-    , bytes_read VARBINARY(192)
-    , bytes_write VARBINARY(192)
-    , time_read_in_milli VARBINARY(8)
-    , time_write_in_milli VARBINARY(8)
+    , count_read INTEGER
+    , count_write INTEGER
+    , bytes_read BIGINT
+    , bytes_write BIGINT
+    , time_read_in_milli VARBINARY(24)
+    , time_write_in_milli VARBINARY(24)
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
@@ -70,14 +70,14 @@ CREATE TABLE disk_io_metrics (
 CREATE TABLE memory_metrics(
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-	, memory_total VARBINARY (32)
-	, memory_available VARBINARY (32)
-	, memory_used VARBINARY (32)
-	, memory_user_percent VARBINARY (16)
-	, swap_total VARBINARY (32)
-	, swap_free VARBINARY (32)
-	, swap_used VARBINARY (32)
-	, swap_percent VARBINARY (16)
+	, memory_total BIGINT
+	, memory_available BIGINT
+	, memory_used BIGINT
+	, memory_user_percent FLOAT
+	, swap_total BIGINT
+	, swap_free BIGINT
+	, swap_used BIGINT
+	, swap_percent FLOAT
 	, swap_byte_in VARBINARY (8)
 	, swap_byte_out VARBINARY (8)
     , nonce VARBINARY(36)
@@ -89,14 +89,14 @@ CREATE TABLE network_metrics (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
 	, network_interface VARBINARY(256)
-	, bytes_send VARBINARY(24)
-	, bytes_receive VARBINARY(24)
-	, error_bytes_receive VARBINARY(24)
-	, error_bytes_send VARBINARY(24)
-	, packet_sent VARBINARY(16)
-	, packet_receive VARBINARY(16)
-	, packet_receive_drop VARBINARY(12)
-	, packet_send_drop VARBINARY(12)
+	, bytes_send BIGINT
+	, bytes_receive BIGINT
+	, error_bytes_receive BIGINT
+	, error_bytes_send BIGINT
+	, packet_sent INTEGER
+	, packet_receive INTEGER
+	, packet_receive_drop INTEGER
+	, packet_send_drop INTEGER
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
@@ -109,19 +109,19 @@ CREATE TABLE processes_metrics (
 	, name VARBINARY(256)
 	, start_time VARBINARY(48)
 	, start_user VARBINARY(384)
-	, status VARBINARY(24)
+	, status VARCHAR(16)
 	, cpu_user_time VARBINARY(48)
 	, cpu_kernel_time VARBINARY(48)
 	, cpu_percent VARBINARY(16)
-	, memory_percent_used_byte VARBINARY(64)
-	, memory_physical_used_byte VARBINARY(28)
-	, memory_virtual_bsed_byte VARBINARY(28)
-	, memory_unique_used_byte VARBINARY(28)
+	, memory_percent_used_byte BIGINT
+	, memory_physical_used_byte BIGINT
+	, memory_virtual_bsed_byte BIGINT
+	, memory_unique_used_byte BIGINT
 	, memory_page_fault VARBINARY(24)
 	, io_read_count VARBINARY(24)
-	, io_read_bytes VARBINARY(28)
+	, io_read_bytes BIGINT
 	, io_write_count VARBINARY(24)
-	, io_write_bytes VARBINARY(28)
+	, io_write_bytes BIGINT
 	, thread_num VARBINARY(8)
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
@@ -132,6 +132,5 @@ CREATE TABLE map_user_machine (
   user_id varchar(40) NOT NULL
   , machine_id varchar(40) NOT NULL
   , last_update_time datetime DEFAULT NULL
-  , PRIMARY KEY (user_id,machine_id)
-  , CONSTRAINT map_user_machine_id FOREIGN KEY (machine_id) REFERENCES client_machine (machine_id)
+  , PRIMARY KEY (user_id, machine_id)
 );
