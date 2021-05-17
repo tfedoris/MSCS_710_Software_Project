@@ -60,8 +60,8 @@ CREATE TABLE disk_io_metrics (
     , count_write INTEGER
     , bytes_read BIGINT
     , bytes_write BIGINT
-    , time_read_in_milli VARBINARY(24)
-    , time_write_in_milli VARBINARY(24)
+    , time_read_in_milli INTEGER
+    , time_write_in_milli INTEGER
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
@@ -78,8 +78,8 @@ CREATE TABLE memory_metrics(
 	, swap_free BIGINT
 	, swap_used BIGINT
 	, swap_percent FLOAT
-	, swap_byte_in VARBINARY (8)
-	, swap_byte_out VARBINARY (8)
+	, swap_byte_in BIGINT
+	, swap_byte_out BIGINT
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)
