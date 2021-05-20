@@ -55,6 +55,9 @@ def lambda_handler(event, context):
 
     dataframe = pd.read_sql(query, connection, parse_dates=["entry_time"])
 
+    print(dataframe.to_json(
+        orient="records", date_format="iso"))
+
     dataframe = decrypt_data(dataframe, pkey)
 
     response_object = {}
@@ -81,6 +84,8 @@ def decrypt_data(dataframe, key):
         for col, val in row.items():
             if not isinstance(val, bytearray) or col in ("nonce", "session_key"):
                 continue
+            print(col)
+            print(val.decode())
             cipher_text = bytes.fromhex(val.decode())
             data = cipher_aes.decrypt(cipher_text)
             row[col] = data.decode("utf-8")

@@ -61,7 +61,7 @@ exports.handler = async (event) => {
     event.name,
     event.start_time,
     event.start_user,
-    event.status,
+    event.process_status,
     event.cpu_user_time,
     event.cpu_kernel_time,
     event.cpu_percent,
