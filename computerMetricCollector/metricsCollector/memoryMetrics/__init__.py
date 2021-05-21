@@ -6,8 +6,8 @@ from computerMetricCollector.metricsCollector import Collector
 
 class MemoryMetrics(Collector):
     def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
-        self.is_fetched = False
-        self.to_stored = False
+        self.is_stored = False
+        self.is_stored_locally = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -41,8 +41,6 @@ class MemoryMetrics(Collector):
         self.metrics_df.fillna(0)
         self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for memory metrics")
-        self.is_fetched = True
-        self.to_stored = True
 
     def get_metrics_df(self):
         """
@@ -57,5 +55,7 @@ class MemoryMetrics(Collector):
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
+        self.logger.info("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
-        self.is_fetched = False
+        self.is_stored = False
+        self.is_stored_locally = False

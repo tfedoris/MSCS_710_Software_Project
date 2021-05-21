@@ -6,8 +6,8 @@ from computerMetricCollector.metricsCollector import Collector
 
 class CPUMetrics(Collector):
     def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
-        self.is_fetched = False
-        self.to_stored = False
+        self.is_stored = False
+        self.is_stored_locally = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -20,27 +20,21 @@ class CPUMetrics(Collector):
         This function fetch the metrics to be store in the database
         :return:
         """
-        self.logger.info("Is CPU metrics fetched: " + str(self.is_fetched))
-        if not self.is_fetched:
-            self.logger.info("Fetch for CPU metrics")
-            info = cpuinfo.get_cpu_info()
-            metrics_rec = {
-                "machine_id": self.machine_id,
-                "entry_time": datetime.now().strftime(self.datetime_format),
-                "brand": info.get("brand_raw"),
-                "vendor": info.get("vendor_id_raw"),
-                "architecture": info.get("arch"),
-                "bits": info.get("bits"),
-                "hz_advertise": info.get("hz_advertised")[0],
-                "hz_actual": info.get("hz_actual")[0],
-                "core_count": info.get("count")
-            }
-            self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
-            self.metrics_df = self.metrics_df.reset_index(drop=True)
-            self.is_fetched = True
-            self.to_stored = True
-        else:
-            self.logger.info("No fetch for CPU metrics")
+        self.logger.info("Fetch for CPU metrics")
+        info = cpuinfo.get_cpu_info()
+        metrics_rec = {
+            "machine_id": self.machine_id,
+            "entry_time": datetime.now().strftime(self.datetime_format),
+            "brand": info.get("brand_raw"),
+            "vendor": info.get("vendor_id_raw"),
+            "architecture": info.get("arch"),
+            "bits": info.get("bits"),
+            "hz_advertise": info.get("hz_advertised")[0],
+            "hz_actual": info.get("hz_actual")[0],
+            "core_count": info.get("count")
+        }
+        self.metrics_df = self.metrics_df.append(metrics_rec, ignore_index=True)
+        self.metrics_df = self.metrics_df.reset_index(drop=True)
 
     def get_metrics_df(self):
         """
@@ -55,5 +49,7 @@ class CPUMetrics(Collector):
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
+        self.logger.info("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
-        self.is_fetched = False
+        self.is_stored = False
+        self.is_stored_locally = False

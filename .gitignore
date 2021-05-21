@@ -6,4 +6,6 @@
 /computerMetricCollector/log/MetricCollector.log
 /computerMetricCollector/build/*
 /computerMetricCollector/dist/*
+/build/*
+/ComputerMetricsCollector.spec
 **/__pycache__

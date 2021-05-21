@@ -6,8 +6,8 @@ from computerMetricCollector.metricsCollector import Collector
 
 class NetworkMetrics(Collector):
     def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
-        self.is_fetch = False
-        self.to_stored = False
+        self.is_stored = False
+        self.is_stored_locally = False
         self.logger = logger
         self.machine_id = machine_id,
         if type(self.machine_id) == tuple:
@@ -43,8 +43,6 @@ class NetworkMetrics(Collector):
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
             self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for network metrics")
-        self.is_fetch = True
-        self.to_stored = True
 
     def get_metrics_df(self):
         """
@@ -59,5 +57,7 @@ class NetworkMetrics(Collector):
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
+        self.logger.info("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
-        self.is_fetched = False
+        self.is_stored = False
+        self.is_stored_locally = False

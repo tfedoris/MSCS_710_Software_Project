@@ -6,8 +6,8 @@ from computerMetricCollector.metricsCollector import Collector
 
 class DiskMetrics(Collector):
     def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
-        self.is_fetched = False
-        self.to_stored = False
+        self.is_stored = False
+        self.is_stored_locally = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -40,8 +40,6 @@ class DiskMetrics(Collector):
             else:
                 self.logger.debug("Avoid fetching desk: " + disk.device + " with mount option: " + disk.opts)
         self.logger.info("End fetching for disk metrics")
-        self.is_fetched = True
-        self.to_stored = True
 
     def get_metrics_df(self):
         """
@@ -56,14 +54,16 @@ class DiskMetrics(Collector):
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
+        self.logger("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
-        self.is_fetched = False
+        self.is_stored = False
+        self.is_stored_locally = False
 
 
 class DiskIOMetrics(Collector):
     def __init__(self, logger, machine_id, metrics, metrics_to_encrypt, datetime_format, url):
-        self.is_fetched = False
-        self.to_stored = True
+        self.is_stored = False
+        self.is_stored_locally = False
         self.logger = logger
         self.machine_id = machine_id
         self.datetime_format = datetime_format
@@ -95,8 +95,6 @@ class DiskIOMetrics(Collector):
             self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
             self.metrics_df = self.metrics_df.reset_index(drop=True)
         self.logger.info("End fetching for disk io metrics")
-        self.is_fetched = True
-        self.to_stored = True
 
     def get_metrics_df(self):
         """
@@ -111,5 +109,7 @@ class DiskIOMetrics(Collector):
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
+        self.logger.info("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
-        self.is_fetched = False
+        self.is_stored = False
+        self.is_stored_locally = False
