@@ -14,7 +14,7 @@ def import_config(root_path):
     if os.path.exists(full_file_path):
         with open(file=full_file_path) as f:
             settings = json.load(f)
+        settings["root_dir"] = root_path
     else:
         print("Settings file can not be found: " + full_file_path)
-    settings["root_dir"] = root_path
     return settings
