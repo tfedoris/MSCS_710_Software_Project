@@ -55,7 +55,7 @@ const AuthStateApp: React.FunctionComponent = () => {
         });
     }
 
-    if (user && registrationId === "[LOADING ID...]") {
+    if (user && registrationId === "[LOADING...]") {
       fetchRegistrationId();
     }
   }, [user, registrationId]);
