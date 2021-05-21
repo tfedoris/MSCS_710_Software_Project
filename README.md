@@ -35,26 +35,32 @@ https://youtu.be/s8xK9idr6kA
  1) panda==1.2.3
  1) pyinstaller==4.3
 
-## How to Run
-In order to start up war, please execute the following from the root directory:
+## How to Run Computer Metric Collector on Client side
 
-Install dependent libraries from requirements.txt
+In order to start up Computer Metric Collector, please execute the following from the root directory:
+1) Download or Clone the repository
+```
+git clone https://github.com/tfedoris/MSCS_710_Software_Project.git
+```
+1) Launch the command line terminal
+1) Move to the Computer Metrics Collector
+1) Install dependent libraries from requirements.txt
 ```
 pip3 install -r computerMetricCollector/requirements.txt
-```
 
-Run from python shell
+Choose a one of the method to start the collector
+```
+1) Run from python shell
 ```
 python computerMetricCollector/__init__.py
 ```
-If you only want the script to run onnce for testing purposes, execute the following:
+1) If you only want the script to run onnce for testing purposes, execute the following:
 ```
 python -m computerMetricCollector.__init__ -t True
 ```
-
-Create executable to run the Computer Metrics Collector
-1) Open a command line terminal in the project
-1) Create the executable with pyinstaller
+1) Create executable to run the Computer Metrics Collector
+    1) Open a command line terminal in the project
+    1) Create the executable with pyinstaller
 ```
 pyinstaller --onefile --name ComputerMetricsCollector --dis
 tpath ./computerMetricCollector/dist computerMetricCollector\__init__.py
