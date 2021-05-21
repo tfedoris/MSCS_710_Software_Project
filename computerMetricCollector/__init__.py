@@ -12,6 +12,7 @@ from computerMetricCollector.crypto import get_key
 
 
 if __name__ == "__main__":
+    print("Start Computer Metric Collector.")
     # Set path to load settings
     if getattr(sys, 'frozen', False):
         # If the application is run as a bundle, the PyInstaller bootloader
@@ -31,17 +32,29 @@ if __name__ == "__main__":
                         help="String value represent registration id of the user. If not pass as arguement the " +
                              "program will ask for it.",
                         default=None)
+    parser.add_argument("-l", "--local_store", required=False,
+                        help="Boolean value to determine whether or not to store the performance data locally",
+                        default=None)
     args = parser.parse_args()
     is_testing = args.test
     reg_id = args.registration_id
-    settings = import_config(root_dir)
-    if reg_id is None:
-        reg_id = input("Input your registration ID: ")
-    settings["registration_id"] = reg_id
+    is_local_store = args.local_store
 
+    settings = import_config(root_dir)
     # If not settings is provide
     if len(settings.keys()) == 0:
         sys.exit(1)
+
+    if reg_id is None:
+        reg_id = input("Input your registration ID: ")
+    settings["registration_id"] = reg_id
+    if is_local_store is None:
+        is_local_store = input("Store metrics locally as well (enter \"True\" or \"False\"): ")
+    if is_local_store.lower() == "true":
+        is_local_store = True
+    else:
+        is_local_store = False
+    settings["to_store_local"] = is_local_store
 
     log_file = root_dir + "\\log\\" + settings.get("log_file")
     logger = get_logger(log_file, settings.get("log_level"), settings.get("log_rotate_time"),
@@ -81,8 +94,6 @@ if __name__ == "__main__":
             if encryption_key is not None:
                 logger.info("Encryption key file is found")
                 collect_metrics(logger, settings, encryption_key, collectors)
-                for c in collectors:
-                    c.reset_metrics_df()
                 print("Finish collection " + str(collected_counter))
                 logger.info("Finish collection " + str(collected_counter))
                 collected_counter = collected_counter + 1
@@ -103,3 +114,4 @@ if __name__ == "__main__":
             logger.info("Reload settings")
             settings = import_config(root_dir)
             settings["registration_id"] = reg_id
+            settings["to_store_local"] = is_local_store

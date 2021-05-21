@@ -15,10 +15,10 @@ DROP TABLE IF EXISTS client_machine;
 CREATE TABLE client_machine (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-    , machine_name VARBINARY(128)
-    , system_name VARBINARY(32)
-    , version VARBINARY(32)
-    , machine_type VARBINARY(16)
+    , machine_name VARCHAR(128)
+    , system_name VARCHAR(32)
+    , version VARCHAR(32)
+    , machine_type VARCHAR(16)
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id)
@@ -27,10 +27,10 @@ CREATE TABLE client_machine (
 CREATE TABLE cpu_metrics (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-    , brand VARBINARY(128)
-    , vendor VARBINARY(64)
-    , architecture VARBINARY(36)
-    , bits VARBINARY(4)
+    , brand VARCHAR(128)
+    , vendor VARCHAR(64)
+    , architecture VARCHAR(36)
+    , bits INTEGER
     , hz_advertise BIGINT
     , hz_actual BIGINT
     , core_count SMALLINT
@@ -42,7 +42,7 @@ CREATE TABLE cpu_metrics (
 CREATE TABLE disk_metrics(
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-	, disk_name VARBINARY(16)
+	, disk_name VARCHAR(16)
 	, total_bytes BIGINT
 	, free_bytes BIGINT
 	, used_bytes BIGINT
@@ -55,7 +55,7 @@ CREATE TABLE disk_metrics(
 CREATE TABLE disk_io_metrics (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-    , disk_name VARBINARY(16)
+    , disk_name VARCHAR(16)
     , count_read INTEGER
     , count_write INTEGER
     , bytes_read BIGINT
@@ -88,7 +88,7 @@ CREATE TABLE memory_metrics(
 CREATE TABLE network_metrics (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-	, network_interface VARBINARY(256)
+	, network_interface VARCHAR(64)
 	, bytes_send BIGINT
 	, bytes_receive BIGINT
 	, error_bytes_receive BIGINT
@@ -105,24 +105,24 @@ CREATE TABLE network_metrics (
 CREATE TABLE processes_metrics (
 	machine_id VARCHAR(40)
     , entry_time DATETIME
-	, pid VARBINARY(16)
-	, name VARBINARY(256)
-	, start_time VARBINARY(48)
-	, start_user VARBINARY(384)
+	, pid INTEGER(16)
+	, name VARCHAR(256)
+	, start_time LONG
+	, start_user VARCHAR(64)
 	, process_status VARCHAR(16)
-	, cpu_user_time VARBINARY(48)
-	, cpu_kernel_time VARBINARY(48)
-	, cpu_percent VARBINARY(16)
+	, cpu_user_time DOUBLE
+	, cpu_kernel_time DOUBLE
+	, cpu_percent DOUBLE
 	, memory_percent_used_byte BIGINT
 	, memory_physical_used_byte BIGINT
 	, memory_virtual_bsed_byte BIGINT
 	, memory_unique_used_byte BIGINT
-	, memory_page_fault VARBINARY(24)
-	, io_read_count VARBINARY(24)
+	, memory_page_fault BIGINT
+	, io_read_count INTEGER
 	, io_read_bytes BIGINT
-	, io_write_count VARBINARY(24)
+	, io_write_count INTEGER
 	, io_write_bytes BIGINT
-	, thread_num VARBINARY(8)
+	, thread_num INTEGER
     , nonce VARBINARY(36)
     , session_key VARBINARY(1024)
     , primary key (machine_id, nonce)

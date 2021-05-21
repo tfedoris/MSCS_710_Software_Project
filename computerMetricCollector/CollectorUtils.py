@@ -56,7 +56,7 @@ def init_collector(logger, collectors_meta, collector_name, machine_id, datetime
     return collector_instance
 
 
-def persist_local(logger, file_path, collector):
+def persist_local(logger, file_path, collectors):
     """
     This function prepare to store the collected data frames to local directory
     :param logger: the logger instance for writing the state of the software
@@ -64,13 +64,14 @@ def persist_local(logger, file_path, collector):
     :param collector: collector with the data frame to store
     :return:
     """
-    logger.info("Begin storing " + type(collector).__name__)
-    csv_name = file_path + type(collector).__name__ + ".csv"
-    store_local(collector, csv_name)
-    logger.info("End storing " + type(collector).__name__)
+    logger.info("Begin storing performance data locally.")
+    for c in collectors:
+        csv_name = file_path + type(c).__name__ + ".csv"
+        store_local(c, csv_name)
+    logger.info("end storing performance data locally.")
 
 
-def persist_database(logger, config, collectors):
+def persist_database(logger, config, encrypt_key, collectors):
     """
     THis function prepare to store each collector in the list of collectors to the remote database based on the
     configured values
@@ -90,6 +91,13 @@ def persist_database(logger, config, collectors):
     else:
         logger.error("Missing register key")
         logger.error("Registration ID: " + str(reg_id))
+
+
+def reset_collectors(logger, collectors):
+    logger.info("Reset fetched and persisted collector to prepare for next round of collection")
+    for c in collectors:
+        if c.is_stored and c.is_stored_locally:
+            c.reset_metrics_df()
 
 
 def create_computer_collector(logger, collectors_meta, datetime_format):
@@ -120,25 +128,26 @@ def collect_metrics(logger, settings, encrypt_key, collectors):
     :return:
     """
     try:
-        logger.info("Begin fetching metrics data from other collects and encrypting the collected metrics")
-        print("Start fetching and encrypting metrics data")
+        logger.info("Begin fetching metrics data from other collects")
+        print("Start fetching metrics data")
         for c in collectors:
             c.fetch_metrics()
-            encrypt_data(c, encrypt_key)
-        print("End fetching and encrypting metrics data")
-        logger.info("End fetching and encrypting metrics data")
+        print("End fetching metrics data")
+        logger.info("End fetching metrics data")
         logger.info("Begin persisting fetched metrics")
         logger.debug("To store metrics on local: " + str(settings["to_store_local"]))
+        # Store a copy of metrics data if the user want them.
         if settings["to_store_local"]:
             print("Start storing metrics data to local data directory")
-            for c in collectors:
-                persist_local(logger, settings.get("root_dir") + settings["local_store_dir"], c)
+            persist_local(logger, settings.get("root_dir") + settings["local_store_dir"], collectors)
             print("End storing metrics data to local data directory")
-        else:
-            print("Start storing metrics data to remote database")
-            persist_database(logger, settings, collectors)
-            print("End storing metrics data to remote database")
+
+        print("Start storing metrics data to remote database")
+        persist_database(logger, settings, encrypt_key, collectors)
+        print("End storing metrics data to remote database")
         logger.info("Finish persisting fetched metrics")
+
+        reset_collectors(logger, collectors)
     except AccessDenied as ad:
         logger.error("Access denied for fetch data from psutil library")
         logger.error(ad)

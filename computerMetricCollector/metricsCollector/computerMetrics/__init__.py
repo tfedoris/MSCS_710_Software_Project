@@ -30,8 +30,8 @@ class ComputerMetrics:
         :param datetime_format: date format to parse datetime to string
         :param url: URL of api to store the computer metrics data
         """
-        self.is_fetched = False
-        self.to_stored = False
+        self.is_stored = False
+        self.is_stored_locally = False
         self.logger = logger
         self.metrics_to_encrypt = metrics_to_encrypt
         self.metrics_df = pd.DataFrame(columns=metrics)
@@ -44,24 +44,19 @@ class ComputerMetrics:
         This function fetch the metrics to be store in the database
         :return:
         """
-        self.logger.info("Is computer metrics fetched: " + str(self.is_fetched))
-        if not self.is_fetched:
-            self.logger.info("Fetch for computer metrics")
-            machine_info = platform.uname()
-            metrics = {
-                "machine_id": self.machine_id,
-                "entry_time": datetime.now().strftime(self.datetime_format),
-                "machine_name": machine_info.node,
-                "system_name": machine_info.system,
-                "version": machine_info.version,
-                "machine_type": machine_info.machine
-            }
-            self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
-            self.metrics_df = self.metrics_df.reset_index(drop=True)
-            self.is_fetched = True
-            self.to_stored = True
-        else:
-            self.logger.info("No fetch for computer metrics")
+        self.logger.info("Fetch for computer metrics")
+        machine_info = platform.uname()
+        metrics = {
+            "machine_id": self.machine_id,
+            "entry_time": datetime.now().strftime(self.datetime_format),
+            "machine_name": machine_info.node,
+            "system_name": machine_info.system,
+            "version": machine_info.version,
+            "machine_type": machine_info.machine
+        }
+        self.metrics_df = self.metrics_df.append(metrics, ignore_index=True)
+        self.metrics_df = self.metrics_df.reset_index(drop=True)
+        self.logger.info("No fetch for computer metrics")
 
     def get_metrics_df(self):
         """
@@ -76,5 +71,7 @@ class ComputerMetrics:
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
+        self.logger.info("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
-        self.is_fetched = False
+        self.is_stored = False
+        self.is_stored_locally = False
