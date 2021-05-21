@@ -1,29 +1,126 @@
 import Navigation from "components/organisms/Navigation";
 import React from "react";
 import { useStyles } from "themes/DynamicDrawerTheme";
+import "./App.css";
+import Amplify from "aws-amplify";
+import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+import awsconfig from "./aws-exports";
+import axios from "axios";
+import shortid from "shortid";
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
+import Dashboard from "layouts/Dashboard";
+import Typography from "@material-ui/core/Typography";
 
-const App = (): JSX.Element => {
-  const [displayedView, setDisplayedView] = React.useState(<div />);
+Amplify.configure(awsconfig);
+
+// trigger deployment
+
+const AuthStateApp: React.FunctionComponent = () => {
+  const [displayedView, setDisplayedView] = React.useState("Account");
   const classes = useStyles();
 
-  const handleSidebarSelect = (pageName: string): void => {
-    switch (pageName) {
-      case "Dashboard":
-        setDisplayedView(<h1>Dashboard</h1>);
-        break;
-      case "Account":
-        setDisplayedView(<h1>Account</h1>);
-        break;
-      default:
-        setDisplayedView(<div />);
+  const [authState, setAuthState] = React.useState<AuthState>();
+  const [user, setUser] = React.useState<any | undefined>();
+  const [registrationId, setRegistrationId] = React.useState("[LOADING...]");
+
+  React.useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData: any) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
+  });
+
+  React.useEffect(() => {
+    async function fetchRegistrationId() {
+      await axios
+        .post(
+          "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-registration-id",
+          { user_id: user.username }
+        )
+        .then(async (response) => {
+          if (response.data.success) {
+            console.log(response.data.data);
+            setRegistrationId(response.data.data.registration_id);
+          } else if (response.data.success === false) {
+            await axios
+              .post(
+                "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/insert-registration-info",
+                { user_id: user.username, registration_id: shortid.generate() }
+              )
+              .then((insertResponse) => {
+                console.log(insertResponse);
+              });
+          }
+        });
     }
+
+    if (user && registrationId === "[LOADING ID...]") {
+      fetchRegistrationId();
+    }
+  }, [user, registrationId]);
+
+  const handleSidebarSelect = (pageName: string): void => {
+    setDisplayedView(pageName);
   };
 
-  return (
+  return authState === AuthState.SignedIn && user ? (
     <div style={{ textAlign: "center" }}>
-      <div className={classes.root}></div>
+      <div className={classes.root}>
+        <Navigation
+          onSelect={handleSidebarSelect}
+          username={user.username}
+          signoutButton={<AmplifySignOut />}
+        >
+          {
+            {
+              Dashboard: <Dashboard />,
+              Account: (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "80vh",
+                  }}
+                >
+                  <Typography variant="h1">Hello, {user.username}</Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="h2"
+                      style={{
+                        textDecorationLine: "underline",
+                      }}
+                    >{`Registration ID: `}</Typography>
+                    <Typography
+                      variant="h2"
+                      style={{
+                        whiteSpace: "break-spaces",
+                        fontWeight: "bold",
+                        color: "#FF9900",
+                      }}
+                    >
+                      {` ${registrationId}`}
+                    </Typography>
+                  </div>
+                </div>
+              ),
+            }[displayedView]
+          }
+        </Navigation>
+      </div>
     </div>
+  ) : (
+    <AmplifyAuthenticator />
   );
 };
 
-export default App;
+export default AuthStateApp;
