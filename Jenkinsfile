@@ -26,7 +26,7 @@ pipeline{
                     '''
                 echo 'python and dependencies installed'
                 echo 'running python script'
-                bat 'C:\\python38\\python.exe -m computerMetricCollector.__init__ -l True -t True -rid goavnL_1r'
+                bat 'C:\\python38\\python.exe -m computerMetricCollector.__init__ -l False -t True -rid goavnL_1r'
                 echo 'program finished'
             }
         }
