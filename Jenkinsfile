@@ -32,9 +32,8 @@ pipeline{
         }
         stage('Create and run executable') {
             steps {
-                bat '''cd computerMetricCollector
-                    C:\\python38\\scripts\\pyinstaller.exe --onefile --name ComputerMetricsCollector __init__.py
-                    dist\\ComputerMetricsCollector.exe -t True -rid _VOzg0QP6
+                bat '''
+                    C:\\python38\\scripts\\pyinstaller.exe --onefile --name ComputerMetricsCollector --distpath ./computerMetricCollector/dist computerMetricCollector\__init__.py
                     '''
             }
         }
