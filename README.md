@@ -53,14 +53,11 @@ python -m computerMetricCollector.__init__ -t True
 ```
 
 Create executable to run the Computer Metrics Collector
-1) Open a command line terminal
-1) Go to the computerMetricCollector folder
-```
-cd computerMetricCollector
-```
+1) Open a command line terminal in the project
 1) Create the executable with pyinstaller
 ```
-pyinstaller --onefile --name ComputerMetricsCollector __init__.py
+pyinstaller --onefile --name ComputerMetricsCollector --dis
+tpath ./computerMetricCollector/dist computerMetricCollector\__init__.py
 ```
 Pyinstaller will create an executable named `ComputerMetricsCollector.exe` in `computerMetricCollector/dist/` folder.
 
