@@ -1,6 +1,6 @@
 {
   "auth": {
-    "wardashboardccd644d5": {
+    "wardashboard": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
