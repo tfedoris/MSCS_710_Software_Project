@@ -1,22 +1,27 @@
 {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "wardas7858bece",
+    "resourceNameTruncated": "wardas05c9ef54",
     "userPoolName": "wardashboard",
     "autoVerifiedAttributes": [
-        "email"
+        "phone_number"
     ],
     "mfaConfiguration": "ON",
     "mfaTypes": [
         "SMS Text Message"
     ],
-    "smsAuthenticationMessage": "Your login code for the WAR Dashboard is {####}.",
-    "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "WAR Dashboard verification code.",
+    "smsAuthenticationMessage": "Your WAR Dashboard login code is {####}",
+    "smsVerificationMessage": "Forgot password code: {####}",
+    "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [],
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Numbers",
+        "Requires Symbols",
+        "Requires Uppercase"
+    ],
     "requiredAttributes": [
         "preferred_username"
     ],
@@ -24,9 +29,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "wardas7858bece_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "wardas05c9ef54_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "7858bece",
+    "sharedId": "05c9ef54",
     "resourceName": "wardashboard",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
