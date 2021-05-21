@@ -50,7 +50,7 @@ export default function Dashboard({}: Props): ReactElement {
       <Grid container spacing={4} alignItems="center" justify="center">
         <Grid item xs={12}>
           <Paper
-            style={{ padding: 10, width: "50%", display: "center" }}
+            style={{ padding: 10, width: "50%", display: "inline-block" }}
             elevation={5}
           >
             <Typography variant="h5" noWrap>
