@@ -11,9 +11,9 @@ pipeline{
         stage('End-to-end test'){
             steps{
                 echo 'installing python and dependencies'
-                powershell '''ls
-                    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"))
-                    '''
+                //powershell '''ls
+                 //   Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"))
+                  //  '''
                 bat '''C:\\ProgramData\\chocolatey\\bin\\choco feature enable -n allowGlobalConfirmation
                     C:\\ProgramData\\chocolatey\\bin\\choco.exe install python --version=3.8.0
                     C:\\python38\\scripts\\pip.exe install --upgrade pip
@@ -32,8 +32,9 @@ pipeline{
         }
         stage('Create and run executable') {
             steps {
-                bat '''
-                    C:\\python38\\scripts\\pyinstaller.exe --onefile --name ComputerMetricsCollector --distpath ./computerMetricCollector/dist computerMetricCollector\__init__.py
+                bat '''cd computerMetricCollector
+                    C:\\python38\\scripts\\pyinstaller.exe --onefile --name ComputerMetricsCollector __init__.py
+                    dist\\ComputerMetricsCollector.exe -l False -t True -rid goavnL_1r
                     '''
             }
         }
