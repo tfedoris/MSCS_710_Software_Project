@@ -14,8 +14,6 @@ import Typography from "@material-ui/core/Typography";
 
 Amplify.configure(awsconfig);
 
-// Trigger build
-
 const AuthStateApp: React.FunctionComponent = () => {
   const [displayedView, setDisplayedView] = React.useState("Account");
   const classes = useStyles();
