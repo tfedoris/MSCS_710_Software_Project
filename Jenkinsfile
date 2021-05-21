@@ -11,9 +11,9 @@ pipeline{
         stage('End-to-end test'){
             steps{
                 echo 'installing python and dependencies'
-                //powershell '''ls
-                 //   Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"))
-                  //  '''
+                powershell '''ls
+                    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"))
+                    '''
                 bat '''C:\\ProgramData\\chocolatey\\bin\\choco feature enable -n allowGlobalConfirmation
                     C:\\ProgramData\\chocolatey\\bin\\choco.exe install python --version=3.8.0
                     C:\\python38\\scripts\\pip.exe install --upgrade pip
