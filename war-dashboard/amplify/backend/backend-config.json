@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "mscs710softwareprojea3dd47ba": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

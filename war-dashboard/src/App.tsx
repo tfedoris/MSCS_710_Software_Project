@@ -5,14 +5,14 @@ import "./App.css";
 import Amplify from "aws-amplify";
 import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
-// import awsconfig from "./aws-exports";
+import awsconfig from "./aws-exports";
 import axios from "axios";
 import shortid from "shortid";
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 import Dashboard from "layouts/Dashboard";
 import Typography from "@material-ui/core/Typography";
 
-// Amplify.configure(awsconfig);
+Amplify.configure(awsconfig);
 
 const AuthStateApp: React.FunctionComponent = () => {
   const [displayedView, setDisplayedView] = React.useState("Account");
@@ -62,11 +62,10 @@ const AuthStateApp: React.FunctionComponent = () => {
     setDisplayedView(pageName);
   };
 
-  // return authState === AuthState.SignedIn && user ? (
-  return (
+  return authState === AuthState.SignedIn && user ? (
     <div style={{ textAlign: "center" }}>
       <div className={classes.root}>
-        {/* <Navigation
+        <Navigation
           onSelect={handleSidebarSelect}
           username={user.username}
           signoutButton={<AmplifySignOut />}
@@ -114,13 +113,12 @@ const AuthStateApp: React.FunctionComponent = () => {
               ),
             }[displayedView]
           }
-        </Navigation> */}
+        </Navigation>
       </div>
     </div>
+  ) : (
+    <AmplifyAuthenticator />
   );
-  // ) : (
-  //   <AmplifyAuthenticator />
-  // );
 };
 
 export default AuthStateApp;
