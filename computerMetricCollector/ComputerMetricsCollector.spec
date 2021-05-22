@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['__init__.py'],
-             pathex=['C:\\Users\\Admin\\Desktop\\CompSci\\MSCS_SoftwareProject\\MSCS_710_Software_Project\\computerMetricCollector'],
+             pathex=['C:\\Users\\Tyler Fedoris\\Documents\\Marist\\Spring 2021\\Project\\repos\\MSCS_710_Software_Project\\computerMetricCollector'],
              binaries=[],
              datas=[],
              hiddenimports=[],

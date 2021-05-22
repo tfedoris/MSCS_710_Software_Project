@@ -168,10 +168,56 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get Private Key
 URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-private-key
+Method: POST
+Input: 
+{
+  registration_id
+  machine_id
+}
+
+Operation: Get User Machine Info
+URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-user-machine-info
+Method: POST
+Input: 
+{
+  registration_id
+  machine_id
+}
+
+Operation: Get User CPU Utilization
+URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-user-cpu-utilization
+Method: POST
+Input: 
+{
+  registration_id
+  machine_id
+}
+
+Operation: Get User Memory Utilization
+URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-user-memory-utilization
+Method: POST
+Input: 
+{
+  registration_id
+  machine_id
+}
+
+Operation: Get Data for Processes Table
+URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-data-for-processes-table
+Method: POST
+Input: 
+{
+  registration_id
+  machine_id
+}
+
+Operation: Get Client Machines
+URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-client-machines
 Method: POST
 Input: 
 {

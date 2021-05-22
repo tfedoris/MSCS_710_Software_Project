@@ -1,88 +1,221 @@
-import { Grid, Paper } from "@material-ui/core";
-import axios from "axios";
-import React, { ReactElement, PureComponent } from "react";
+import DataFilter from "components/atoms/DataFilter";
+import MachineSelector from "components/atoms/MachineSelector";
+import React, { ReactElement } from "react";
 import { useStyles } from "themes/DynamicDrawerTheme";
-import Typography from "@material-ui/core/Typography";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import SimpleLineChart from "components/organisms/SimpleLineChart";
-import SimpleLineChart2 from "components/organisms/SimpleLineChart2";
+import SyncIcon from "@material-ui/icons/Sync";
+import { Grid, IconButton, Slide, Typography } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+import { Endpoint } from "utilities/API";
+import RefreshButton from "components/atoms/RefreshButton";
+import moment from "moment";
+import CPUMetricsPieChart from "components/organisms/CPUMetricsPieChart";
+import MemoryMetricsPieChart from "components/organisms/MemoryMetricsPieChart";
+import ProcessesMetricsTable from "components/organisms/ProcessesMetricsTable";
+import { Fade } from "@material-ui/core";
 
-interface Props {}
+const KB = 0.001;
+const MB = 1e-6;
 
-export default function Dashboard({}: Props): ReactElement {
-  const [machineName, setMachineName] = React.useState("");
+interface Props {
+  registrationId: string;
+}
 
-  React.useEffect(() => {
-    async function fetchClientMachineInfo() {
-      await axios
-        .post(
-          "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-data",
-          { registration_id: "dCxPn_X3m", table_name: "client_machine" }
-        )
-        .then((response) => {
-          const json_data = JSON.parse(response.data.data);
-          if (response.data.success) {
-            setMachineName(json_data[0].machine_name);
-          }
-        });
-    }
+export default function Dashboard(props: Props): ReactElement {
+  const classes = useStyles();
 
-    fetchClientMachineInfo();
+  const [selectedMachineId, setSelectedMachineId] = React.useState("");
+  const [refresh, toggleRefresh] = React.useState(false);
+
+  const [machineInfo, setMachineInfo] = React.useState({} as any);
+  const [cpuMetrics, setCpuMetrics] = React.useState([] as any);
+  const [memoryMetrics, setMemoryMetrics] = React.useState([] as any);
+  const [processesData, setProcessesData] = React.useState([] as any);
+  const [filteredProcessesData, setFilteredProcessesData] = React.useState(
+    [] as any
+  );
+
+  const [selectedTimeframe, setSelectedTimeframe] = React.useState({
+    start: moment().format(),
+    end: moment().format(),
   });
 
+  const handleTimeframeChange = (timeframe: any) => {
+    setSelectedTimeframe(timeframe);
+  };
+
+  React.useEffect(() => {
+    var isCancelled = false;
+
+    const fetchData = async () => {
+      const machineInfoRequest = axios.post(Endpoint.MachineInfo, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
+      const cpuMetricsRequest = axios.post(Endpoint.CPUUtilization, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
+      const memoryMetricsRequest = axios.post(Endpoint.MemoryUtilization, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
+      const processesDataRequest = axios.post(Endpoint.ProcessesData, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
+
+      await axios
+        .all([
+          machineInfoRequest,
+          cpuMetricsRequest,
+          memoryMetricsRequest,
+          processesDataRequest,
+        ])
+        .then(
+          axios.spread(function (
+            machineInfoResponse,
+            cpuMetricsResponse,
+            memoryMetricsResponse,
+            processesDataResponse
+          ) {
+            if (!isCancelled) {
+              setMachineInfo(machineInfoResponse.data.data[0] || {});
+              setCpuMetrics(cpuMetricsResponse.data.data || []);
+              console.log("CPU Metrics: ", cpuMetricsResponse.data.data);
+              setMemoryMetrics(memoryMetricsResponse.data.data || []);
+              setProcessesData(processesDataResponse.data.data);
+            }
+          })
+        );
+    };
+
+    if (props.registrationId !== "[LOADING...]" && selectedMachineId !== "") {
+      fetchData();
+    }
+
+    return () => {
+      isCancelled = true;
+      return;
+    };
+  }, [props.registrationId, selectedMachineId]);
+
+  React.useEffect(() => {
+    const filtered = processesData.filter((data: any) => {
+      return moment(data.entry_time).isBetween(
+        selectedTimeframe.start,
+        selectedTimeframe.end
+      );
+    });
+    console.log(filtered);
+
+    const summed = Object.values(
+      filtered.reduce((a: any, curr: any) => {
+        if (!a[curr.name]) a[curr.name] = Object.assign({}, curr);
+        else {
+          a[curr.name].cpu_percent += curr.cpu_percent;
+          a[curr.name].memory_physical_used_byte +=
+            curr.memory_physical_used_byte;
+          a[curr.name].memory_virtual_bsed_byte +=
+            curr.memory_virtual_bsed_byte;
+          a[curr.name].io_read_count += curr.io_read_count;
+          a[curr.name].io_read_bytes += curr.io_read_bytes;
+          a[curr.name].io_write_count += curr.io_write_count;
+          a[curr.name].io_write_bytes += curr.io_write_bytes;
+          a[curr.name].thread_num += curr.thread_num;
+        }
+        return a;
+      }, {})
+    );
+    console.log(summed);
+
+    console.log(machineInfo);
+
+    const averaged = summed.map((entry: any) => {
+      var averagedObj = Object.assign({}, entry);
+      const count = filtered.filter(
+        (obj: any) => obj.name === entry.name
+      ).length;
+      averagedObj.cpu_percent =
+        entry.cpu_percent / count / machineInfo.core_count;
+      console.log(machineInfo.core_count);
+      averagedObj.memory_physical_used_byte =
+        (entry.memory_physical_used_byte / count) * MB;
+      averagedObj.memory_virtual_bsed_byte =
+        (entry.memory_virtual_bsed_byte / count) * MB;
+      averagedObj.io_read_count = entry.io_read_count / count;
+      averagedObj.io_read_bytes = (entry.io_read_bytes / count) * MB;
+      averagedObj.io_write_count = entry.io_write_count / count;
+      averagedObj.io_write_bytes = (entry.io_write_bytes / count) * MB;
+      averagedObj.thread_num = entry.thread_num / count;
+      return averagedObj;
+    });
+    console.log("Averaged: ", averaged);
+
+    setFilteredProcessesData(averaged);
+  }, [processesData, selectedTimeframe, machineInfo]);
+
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Grid container spacing={4} alignItems="center" justify="center">
-        <Grid item xs={12}>
-          <Paper
-            style={{ padding: 10, width: "50%", display: "center" }}
-            elevation={5}
+    <>
+      <div className={classes.drawerHeader}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <MachineSelector
+              registrationId={props.registrationId}
+              onChange={(value: string) => {
+                setSelectedMachineId(value);
+              }}
+            />
+          </Grid>
+          <Grid item xs={5}>
+            <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
+          </Grid>
+          <Grid item xs={1}>
+            <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
+          </Grid>
+          <Slide
+            direction="right"
+            in={filteredProcessesData.length > 0}
+            mountOnEnter
+            unmountOnExit
           >
-            <Typography variant="h5" noWrap>
-              {machineName}
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper
-            style={{
-              padding: 10,
-              display: "inline-block",
-            }}
-            elevation={5}
+            <Grid item xs={6}>
+              <div style={{ paddingBottom: 10 }}>
+                <Typography variant="h5">CPU Utilization</Typography>
+              </div>
+              <div style={{ height: 700 }}>
+                <CPUMetricsPieChart data={filteredProcessesData} />
+              </div>
+            </Grid>
+          </Slide>
+          <Slide
+            direction="left"
+            in={filteredProcessesData.length > 0}
+            mountOnEnter
+            unmountOnExit
           >
-            <Typography>Memory Utilization</Typography>
-            <SimpleLineChart />
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper
-            style={{
-              padding: 10,
-              display: "inline-block",
-            }}
-            elevation={5}
+            <Grid item xs={6}>
+              <div style={{ paddingBottom: 10 }}>
+                <Typography variant="h5">Memory Utilization</Typography>
+              </div>
+              <div style={{ height: 700 }}>
+                <MemoryMetricsPieChart data={filteredProcessesData} />
+              </div>
+            </Grid>
+          </Slide>
+          <Slide
+            direction="up"
+            in={filteredProcessesData.length > 0}
+            mountOnEnter
+            unmountOnExit
           >
-            <Typography>CPU Utilization</Typography>
-            <SimpleLineChart2 />
-          </Paper>
+            <Grid xs={12}>
+              <ProcessesMetricsTable rows={filteredProcessesData} />
+            </Grid>
+          </Slide>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 }
