@@ -54,7 +54,9 @@ Choose a one of the method to start the collector
 ```
 python computerMetricCollector/__init__.py
 ```
+
 1) If you only want the script to run onnce for testing purposes, execute the following:
+
 ```
 python -m computerMetricCollector.__init__ -t True
 ```
