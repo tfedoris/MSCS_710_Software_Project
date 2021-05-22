@@ -112,5 +112,14 @@ Videos of the tests can be seen here:
 https://www.youtube.com/watch?v=ZYbLcZmTDVA "Part 1"
 https://www.youtube.com/watch?v=bn93DpB0jCU "Part 2"
 
+## Deployment
+The ComputerMetricsCollector.exe created in the instructions on how to run the program is the final deliverable to be given to users.
+It can be distributed a number of ways so long as the users can download the file.
+The users have to do the following steps:
+ 1) Download ComputerMetricsCollector.exe
+ 2) Register on https://www.wardashboard.com/
+ 3) Run ComputerMetricsCollector.exe using the registration code given on https://www.wardashboard.com/ under the "Account" tab
+ 4) Look at the metrics on https://www.wardashboard.com/ under the "Dashboard" tab
+
 ## Credits
 Windows Analysis Reporting created by Timothy Hoang, Tyler Fedoris, and Yi Lin
