@@ -23,7 +23,6 @@ import { Grid } from "@material-ui/core";
 
 interface Props {
   children: any;
-  themeButton: any;
   username: string;
   signoutButton: any;
   onSelect?: (pageName: string) => void;
@@ -32,7 +31,6 @@ interface Props {
 export default function Navigation({
   children,
   onSelect,
-  themeButton,
   username,
   signoutButton,
 }: Props) {
@@ -97,15 +95,12 @@ export default function Navigation({
               alignItems="center"
               justify="space-between"
             >
-              <Grid item xs={4}>
-                {themeButton}
-              </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6}>
                 <Typography variant="h5" noWrap>
                   {username}
                 </Typography>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6}>
                 {signoutButton}
               </Grid>
             </Grid>

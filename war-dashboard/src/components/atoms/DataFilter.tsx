@@ -35,12 +35,16 @@ export default function DataFilter({ onChange, refresh }: Props): ReactElement {
   const [lastDay, setLastDay] = React.useState(
     moment().subtract(24, "hours").format()
   );
+  const [lastWeek, setLastWeek] = React.useState(
+    moment().subtract(7, "days").format()
+  );
 
   React.useEffect(() => {
     setNow(moment().format());
     setLastMinute(moment().subtract(60, "seconds").format());
     setLastHour(moment().subtract(60, "minutes").format());
     setLastDay(moment().subtract(24, "hours").format());
+    setLastWeek(moment().subtract(7, "days").format());
   }, [refresh]);
 
   React.useEffect(() => {
@@ -72,6 +76,9 @@ export default function DataFilter({ onChange, refresh }: Props): ReactElement {
       case "day":
         onChange({ start: lastDay, end: now });
         break;
+      case "week":
+        onChange({ start: lastWeek, end: now });
+        break;
       default:
     }
   };
@@ -94,6 +101,7 @@ export default function DataFilter({ onChange, refresh }: Props): ReactElement {
       <MenuItem value={"minute"}>Last 60 Seconds</MenuItem>
       <MenuItem value={"hour"}>Last 60 Minutes</MenuItem>
       <MenuItem value={"day"}>Last 24 Hours</MenuItem>
+      <MenuItem value={"week"}>Last 7 Days</MenuItem>
     </TextField>
   );
 }

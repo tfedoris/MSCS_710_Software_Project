@@ -10,6 +10,8 @@ import axios from "axios";
 import { Endpoint } from "utilities/API";
 import RefreshButton from "components/atoms/RefreshButton";
 import moment from "moment";
+import CPUMetricsPieChart from "components/organisms/CPUMetricsPieChart";
+import MemoryMetricsPieChart from "components/organisms/MemoryMetricsPieChart";
 import ProcessesMetricsTable from "components/organisms/ProcessesMetricsTable";
 
 const KB = 0.001;
@@ -80,6 +82,7 @@ export default function Dashboard(props: Props): ReactElement {
             if (!isCancelled) {
               setMachineInfo(machineInfoResponse.data.data[0] || {});
               setCpuMetrics(cpuMetricsResponse.data.data || []);
+              console.log("CPU Metrics: ", cpuMetricsResponse.data.data);
               setMemoryMetrics(memoryMetricsResponse.data.data || []);
               setProcessesData(processesDataResponse.data.data);
             }
@@ -165,7 +168,15 @@ export default function Dashboard(props: Props): ReactElement {
         <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
       </div>
       <div>
-        <ProcessesMetricsTable rows={filteredProcessesData || []} />
+        <div style={{ height: 400 }}>
+          <CPUMetricsPieChart data={filteredProcessesData} />
+        </div>
+        <div style={{ height: 400 }}>
+          <MemoryMetricsPieChart data={filteredProcessesData} />
+        </div>
+      </div>
+      <div>
+        <ProcessesMetricsTable rows={filteredProcessesData} />
       </div>
     </>
   );

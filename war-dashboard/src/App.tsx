@@ -91,17 +91,6 @@ const AuthStateApp: React.FunctionComponent = () => {
         <div className={classes.root}>
           <Navigation
             onSelect={handleSidebarSelect}
-            themeButton={
-              <Tooltip title="Toggle Theme">
-                <IconButton onClick={() => setDarkMode(!darkMode)}>
-                  {darkMode ? (
-                    <LightIcon style={{ color: "white" }} />
-                  ) : (
-                    <DarkIcon style={{ color: "white" }} />
-                  )}
-                </IconButton>
-              </Tooltip>
-            }
             username={user.username}
             signoutButton={<AmplifySignOut />}
           >
