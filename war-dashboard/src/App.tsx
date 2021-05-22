@@ -68,11 +68,10 @@ const AuthStateApp: React.FunctionComponent = () => {
         });
     }
 
-    if (user && registrationId === "[LOADING...]") {
+    if (user) {
       fetchRegistrationId();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, authState]);
+  }, [registrationId, user]);
 
   const handleSidebarSelect = (pageName: string): void => {
     setDisplayedView(pageName);

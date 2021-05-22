@@ -53,13 +53,13 @@ exports.handler = async (event) => {
 
   // Set query string
   const query =
-    "SELECT machine_id " +
-    "FROM client_machine AS A " +
+    "SELECT machine_id, machine_name " +
+    "FROM client_machine " +
     "LEFT JOIN map_user_machine USING(machine_id) " +
     "WHERE user_id = ? " +
     "UNION " +
-    "SELECT machine_id " +
-    "FROM cpu_metrics AS A " +
+    "SELECT machine_id, machine_name " +
+    "FROM client_machine " +
     "RIGHT JOIN map_user_machine USING(machine_id) " +
     "WHERE user_id = ? ";
 
