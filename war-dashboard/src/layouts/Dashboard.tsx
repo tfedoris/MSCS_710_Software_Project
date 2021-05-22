@@ -160,7 +160,7 @@ export default function Dashboard(props: Props): ReactElement {
     <>
       <div className={classes.drawerHeader}>
         <Grid container spacing={3}>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <MachineSelector
               registrationId={props.registrationId}
               onChange={(value: string) => {
@@ -168,10 +168,10 @@ export default function Dashboard(props: Props): ReactElement {
               }}
             />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={10} lg={5}>
             <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2} lg={1}>
             <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
           </Grid>
           <Slide
@@ -180,7 +180,7 @@ export default function Dashboard(props: Props): ReactElement {
             mountOnEnter
             unmountOnExit
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} lg={6}>
               <div style={{ paddingBottom: 10 }}>
                 <Typography variant="h5">CPU Utilization</Typography>
               </div>
@@ -195,7 +195,7 @@ export default function Dashboard(props: Props): ReactElement {
             mountOnEnter
             unmountOnExit
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} lg={6}>
               <div style={{ paddingBottom: 10 }}>
                 <Typography variant="h5">Memory Utilization</Typography>
               </div>
@@ -210,7 +210,7 @@ export default function Dashboard(props: Props): ReactElement {
             mountOnEnter
             unmountOnExit
           >
-            <Grid xs={12}>
+            <Grid lg={12}>
               <ProcessesMetricsTable rows={filteredProcessesData} />
             </Grid>
           </Slide>
