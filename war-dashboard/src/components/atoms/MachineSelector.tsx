@@ -53,14 +53,16 @@ export default function FulfillmentCenterSelector({
     };
 
     fetchData();
-    const elements = items.map((item: any) => {
-      return (
-        <MenuItem key={item.machine_id} value={item.machine_id}>
-          {item.machine_name}
-        </MenuItem>
-      );
-    });
-    setMappedRows(elements);
+    if (items) {
+      const elements = items.map((item: any) => {
+        return (
+          <MenuItem key={item.machine_id} value={item.machine_id}>
+            {item.machine_name}
+          </MenuItem>
+        );
+      });
+      setMappedRows(elements);
+    }
 
     return () => {
       isCancelled = true;
