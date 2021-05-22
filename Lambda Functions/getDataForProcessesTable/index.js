@@ -53,12 +53,12 @@ exports.handler = async (event) => {
 
   // Set query string
   const query =
-    "SELECT entry_time, pid, name, process_status, memory_physical_used_byte, memory_virtual_bsed_byte, io_read_count, io_read_bytes, io_write_count, io_write_bytes, thread_num " +
+    "SELECT entry_time, pid, name, process_status, cpu_percent, memory_physical_used_byte, memory_virtual_bsed_byte, io_read_count, io_read_bytes, io_write_count, io_write_bytes, thread_num " +
     "FROM processes_metrics " +
     "LEFT JOIN map_user_machine USING(machine_id) " +
     "WHERE user_id = ? " +
     "UNION " +
-    "SELECT entry_time, pid, name, process_status, memory_physical_used_byte, memory_virtual_bsed_byte, io_read_count, io_read_bytes, io_write_count, io_write_bytes, thread_num " +
+    "SELECT entry_time, pid, name, process_status, cpu_percent, memory_physical_used_byte, memory_virtual_bsed_byte, io_read_count, io_read_bytes, io_write_count, io_write_bytes, thread_num " +
     "FROM processes_metrics " +
     "RIGHT JOIN map_user_machine USING(machine_id) " +
     "WHERE user_id = ?";
