@@ -117,7 +117,7 @@ https://www.youtube.com/watch?v=bn93DpB0jCU "Part 2"
 The ComputerMetricsCollector.exe created in the instructions on how to run the program is the final deliverable to be given to users but it must stay in the same file structure.
 It can be distributed a number of ways so long as the users can download the folder.
 The users have to do the following steps:
- 1) Download folder from distribution site chosen. Example is found here: 
+ 1) Download folder from distribution site chosen. Example is found here: https://www.dropbox.com/sh/c3ihjkq7pe6laqe/AAA0A27P93v_egKAR4ijDW6ea?dl=0
  2) Register on https://www.wardashboard.com/
  3) Run ComputerMetricsCollector.exe using the registration code given on https://www.wardashboard.com/ under the "Account" tab
  4) Look at the metrics on https://www.wardashboard.com/ under the "Dashboard" tab
