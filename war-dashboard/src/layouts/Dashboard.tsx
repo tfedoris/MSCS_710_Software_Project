@@ -25,10 +25,16 @@ export default function Dashboard(props: Props): ReactElement {
   const iconButtonClasses = iconButtonStyles();
 
   const [selectedMachineId, setSelectedMachineId] = React.useState("");
+  const [refresh, toggleRefresh] = React.useState(false);
   const [rotate, toggleRotate] = React.useState(false);
+
+  const handleTimeframeChange = (timeframe: Object) => {
+    console.log(timeframe);
+  };
+
   return (
     <div className={classes.drawerHeader}>
-      <DataFilter />
+      <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
       <MachineSelector
         registrationId={props.registrationId}
         onChange={(value: string) => {
@@ -38,7 +44,10 @@ export default function Dashboard(props: Props): ReactElement {
       <Tooltip title="Refresh Data">
         <IconButton
           onMouseDown={() => toggleRotate(!rotate)}
-          onMouseUp={() => toggleRotate(!rotate)}
+          onMouseUp={() => {
+            toggleRotate(!rotate);
+            toggleRefresh(!refresh);
+          }}
         >
           <SyncIcon
             className={

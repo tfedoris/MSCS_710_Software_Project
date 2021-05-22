@@ -4,7 +4,10 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { ReactElement } from "react";
 import moment from "moment";
 
-type Props = TextFieldProps;
+interface Props {
+  onChange: (timeframe: Object) => void;
+  refresh: boolean;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,41 +21,59 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function DataFilter({
-  label = "Filter Data",
-  fullWidth = true,
-  InputLabelProps,
-  disabled = false,
-  onChange,
-  ...props
-}: Props): ReactElement {
+export default function DataFilter({ onChange, refresh }: Props): ReactElement {
   const classes = useStyles();
 
   const [selectedValue, setSelectedValue] = React.useState("");
-  const [now, setNow] = React.useState(moment());
+  const [now, setNow] = React.useState(moment().format());
   const [lastMinute, setLastMinute] = React.useState(
-    now.subtract(60, "seconds").toString()
+    moment().subtract(60, "seconds").format()
   );
   const [lastHour, setLastHour] = React.useState(
-    now.subtract(60, "minutes").toString()
+    moment().subtract(60, "minutes").format()
   );
   const [lastDay, setLastDay] = React.useState(
-    now.subtract(24, "hours").toString()
+    moment().subtract(24, "hours").format()
   );
 
   React.useEffect(() => {
-    setNow(moment());
-  }, []);
+    setNow(moment().format());
+    setLastMinute(moment().subtract(60, "seconds").format());
+    setLastHour(moment().subtract(60, "minutes").format());
+    setLastDay(moment().subtract(24, "hours").format());
+  }, [refresh]);
 
   React.useEffect(() => {
-    setLastMinute(now.subtract(60, "seconds").toString());
-    setLastHour(now.subtract(60, "minutes").toString());
-    setLastDay(now.subtract(24, "hours").toString());
-  }, [now]);
+    switch (selectedValue) {
+      case "minute":
+        onChange({ start: lastMinute, end: now });
+        break;
+      case "hour":
+        onChange({ start: lastHour, end: now });
+        break;
+      case "day":
+        onChange({ start: lastDay, end: now });
+        break;
+      default:
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastMinute, lastHour, lastDay]);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedValue(event.target.value as string);
-    console.log(event.target.value as string);
+    switch (event.target.value) {
+      case "minute":
+        onChange({ start: lastMinute, end: now });
+        break;
+      case "hour":
+        onChange({ start: lastHour, end: now });
+        break;
+      case "day":
+        onChange({ start: lastDay, end: now });
+        break;
+      default:
+    }
   };
 
   return (
@@ -62,19 +83,17 @@ export default function DataFilter({
       onChange={handleChange}
       className={classes.textField}
       style={{ textAlign: "left" }}
-      disabled={disabled}
       variant="outlined"
-      label={label}
+      label="Timeframe"
       required={false}
       fullWidth={true}
       InputLabelProps={{
         className: classes.input,
-        ...InputLabelProps,
       }}
     >
-      <MenuItem value={lastMinute}>Last 60 Seconds</MenuItem>
-      <MenuItem value={lastHour}>Last 60 Minutes</MenuItem>
-      <MenuItem value={lastDay}>Last 24 Hours</MenuItem>
+      <MenuItem value={"minute"}>Last 60 Seconds</MenuItem>
+      <MenuItem value={"hour"}>Last 60 Minutes</MenuItem>
+      <MenuItem value={"day"}>Last 24 Hours</MenuItem>
     </TextField>
   );
 }
