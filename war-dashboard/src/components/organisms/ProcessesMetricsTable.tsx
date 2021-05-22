@@ -299,7 +299,7 @@ interface Props {
 }
 
 export default function InventoryTable({
-  title = `Processes Metrics`,
+  title = `Detailed Processes Metrics`,
   ...props
 }: Props) {
   const classes = useStyles();
