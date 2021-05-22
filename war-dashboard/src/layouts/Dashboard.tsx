@@ -184,7 +184,7 @@ export default function Dashboard(props: Props): ReactElement {
               <div style={{ paddingBottom: 10 }}>
                 <Typography variant="h5">CPU Utilization</Typography>
               </div>
-              <div style={{ height: 700 }}>
+              <div style={{ height: 400 }}>
                 <CPUMetricsPieChart data={filteredProcessesData} />
               </div>
             </Grid>
@@ -199,7 +199,7 @@ export default function Dashboard(props: Props): ReactElement {
               <div style={{ paddingBottom: 10 }}>
                 <Typography variant="h5">Memory Utilization</Typography>
               </div>
-              <div style={{ height: 700 }}>
+              <div style={{ height: 400 }}>
                 <MemoryMetricsPieChart data={filteredProcessesData} />
               </div>
             </Grid>
