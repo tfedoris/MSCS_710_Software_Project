@@ -26,7 +26,9 @@ const AuthStateApp: React.FunctionComponent = () => {
   const [authState, setAuthState] = React.useState<AuthState>();
   const [user, setUser] = React.useState<any | undefined>();
   const [registrationId, setRegistrationId] = React.useState("[LOADING...]");
-  const [darkMode, setDarkMode] = React.useState(false);
+  const [darkMode, setDarkMode] = React.useState(
+    localStorage.getItem("dark-mode") === "true"
+  );
   const [refresh, toggleRefresh] = React.useState(false);
 
   const theme = React.useMemo(
@@ -45,6 +47,10 @@ const AuthStateApp: React.FunctionComponent = () => {
       setUser(authData);
     });
   });
+
+  React.useEffect(() => {
+    localStorage.setItem("dark-mode", darkMode.toString());
+  }, [darkMode]);
 
   React.useEffect(() => {
     async function fetchRegistrationId() {
