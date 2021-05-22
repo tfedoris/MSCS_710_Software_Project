@@ -47,9 +47,9 @@ git clone https://github.com/tfedoris/MSCS_710_Software_Project.git
 1) Install dependent libraries from requirements.txt
 ```
 pip3 install -r computerMetricCollector/requirements.txt
+```
 
 Choose a one of the method to start the collector
-```
 1) Run from python shell
 ```
 python computerMetricCollector/__init__.py
