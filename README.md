@@ -47,14 +47,16 @@ git clone https://github.com/tfedoris/MSCS_710_Software_Project.git
 1) Install dependent libraries from requirements.txt
 ```
 pip3 install -r computerMetricCollector/requirements.txt
+```
 
 Choose a one of the method to start the collector
-```
 1) Run from python shell
 ```
 python computerMetricCollector/__init__.py
 ```
+
 1) If you only want the script to run onnce for testing purposes, execute the following:
+
 ```
 python -m computerMetricCollector.__init__ -t True
 ```
@@ -62,8 +64,7 @@ python -m computerMetricCollector.__init__ -t True
     1) Open a command line terminal in the project
     1) Create the executable with pyinstaller
 ```
-pyinstaller --onefile --name ComputerMetricsCollector --dis
-tpath ./computerMetricCollector/dist computerMetricCollector\__init__.py
+pyinstaller --onefile --name ComputerMetricsCollector --distpath ./computerMetricCollector/dist computerMetricCollector\__init__.py
 ```
 Pyinstaller will create an executable named `ComputerMetricsCollector.exe` in `computerMetricCollector/dist/` folder.
 
