@@ -54,7 +54,7 @@ class DiskMetrics(Collector):
         This function resets the metrics data frame and enable the instance to fetch again
         :return:
         """
-        self.logger("Reset in memory dataframe for collector " + type(self).__name__)
+        self.logger.info("Reset in memory dataframe for collector " + type(self).__name__)
         self.metrics_df = pd.DataFrame(columns=self.metrics_df.columns)
         self.is_stored = False
         self.is_stored_locally = False
