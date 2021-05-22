@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { IconButton, Tooltip } from "@material-ui/core";
+import RefreshButton from "components/atoms/RefreshButton";
 
 Amplify.configure(awsconfig);
 
@@ -26,6 +27,7 @@ const AuthStateApp: React.FunctionComponent = () => {
   const [user, setUser] = React.useState<any | undefined>();
   const [registrationId, setRegistrationId] = React.useState("[LOADING...]");
   const [darkMode, setDarkMode] = React.useState(false);
+  const [refresh, toggleRefresh] = React.useState(false);
 
   const theme = React.useMemo(
     () =>
@@ -71,7 +73,7 @@ const AuthStateApp: React.FunctionComponent = () => {
     if (user) {
       fetchRegistrationId();
     }
-  }, [registrationId, user]);
+  }, [registrationId, user, refresh]);
 
   const handleSidebarSelect = (pageName: string): void => {
     setDisplayedView(pageName);
@@ -135,6 +137,9 @@ const AuthStateApp: React.FunctionComponent = () => {
                       >
                         {` ${registrationId}`}
                       </Typography>
+                      <RefreshButton
+                        onToggleRefresh={() => toggleRefresh(!refresh)}
+                      />
                     </div>
                   </div>
                 ),

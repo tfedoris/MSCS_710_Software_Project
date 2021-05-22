@@ -8,27 +8,19 @@ import { Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { Endpoint } from "utilities/API";
+import RefreshButton from "components/atoms/RefreshButton";
 
 interface Props {
   registrationId: string;
 }
 
-const iconButtonStyles = makeStyles((theme) => ({
-  default: {
-    transform: "scaleX(1)",
-  },
-  rotated: {
-    transform: "scaleX(-1)",
-  },
-}));
-
 export default function Dashboard(props: Props): ReactElement {
   const classes = useStyles();
-  const iconButtonClasses = iconButtonStyles();
 
   const [selectedMachineId, setSelectedMachineId] = React.useState("");
   const [refresh, toggleRefresh] = React.useState(false);
-  const [rotate, toggleRotate] = React.useState(false);
+
+  const [processesData, setProcessesData] = React.useState([] as any);
 
   const handleTimeframeChange = (timeframe: Object) => {
     console.log(timeframe);
@@ -43,7 +35,7 @@ export default function Dashboard(props: Props): ReactElement {
 
       await axios.all([processesDataRequest]).then(
         axios.spread(function (processesDataResponse) {
-          console.log(processesDataResponse);
+          console.log(processesDataResponse.data.data);
         })
       );
     };
@@ -62,21 +54,7 @@ export default function Dashboard(props: Props): ReactElement {
           setSelectedMachineId(value);
         }}
       />
-      <Tooltip title="Refresh Data">
-        <IconButton
-          onMouseDown={() => toggleRotate(!rotate)}
-          onMouseUp={() => {
-            toggleRotate(!rotate);
-            toggleRefresh(!refresh);
-          }}
-        >
-          <SyncIcon
-            className={
-              rotate ? iconButtonClasses.rotated : iconButtonClasses.default
-            }
-          />
-        </IconButton>
-      </Tooltip>
+      <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
     </div>
   );
 }
