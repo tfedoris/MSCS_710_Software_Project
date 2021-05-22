@@ -3,6 +3,7 @@ export enum Endpoint {
   CPUUtilization = "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-user-cpu-utilization",
   MemoryUtilization = "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-user-memory-utilization",
   ProcessesData = "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-data-for-processes-table",
+  ClientMachines = "https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-client-machines",
 }
 
 export interface ProcessesData {

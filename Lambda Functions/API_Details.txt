@@ -168,6 +168,7 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get Private Key
@@ -176,6 +177,7 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get User Machine Info
@@ -184,6 +186,7 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get User CPU Utilization
@@ -192,6 +195,7 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get User Memory Utilization
@@ -200,6 +204,7 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get Data for Processes Table
@@ -208,6 +213,7 @@ Method: POST
 Input: 
 {
   registration_id
+  machine_id
 }
 
 Operation: Get Client Machines
