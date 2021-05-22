@@ -10,6 +10,7 @@
 * [UI](#ui)
 * [Pipeline](#pipeline)
 * [Testing](#testing)
+* [Deployment](#deployment)
 
 ## General Info
 WAR is a software service that gathers system resource utilization information on multiple host machines and to persist on a centralized database. The purpose of WAR is to allow the users to visualize the system resource utilization of their machines.
