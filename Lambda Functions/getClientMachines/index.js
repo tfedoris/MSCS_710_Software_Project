@@ -53,23 +53,18 @@ exports.handler = async (event) => {
 
   // Set query string
   const query =
-    "SELECT entry_time, name, memory_physical_used_byte " +
-    "FROM processes_metrics " +
+    "SELECT machine_id " +
+    "FROM client_machine AS A " +
     "LEFT JOIN map_user_machine USING(machine_id) " +
-    "WHERE user_id = ? AND memory_physical_used_byte > 0 AND machine_id = ? " +
+    "WHERE user_id = ? " +
     "UNION " +
-    "SELECT entry_time, name, memory_physical_used_byte " +
-    "FROM processes_metrics " +
+    "SELECT machine_id " +
+    "FROM cpu_metrics AS A " +
     "RIGHT JOIN map_user_machine USING(machine_id) " +
-    "WHERE user_id = ? AND memory_physical_used_byte > 0 AND machine_id = ?";
+    "WHERE user_id = ? ";
 
   // Run your query
-  let results = await mysql.query(query, [
-    user_id,
-    event.machine_id,
-    user_id,
-    event.machine_id,
-  ]);
+  let results = await mysql.query(query, [user_id, user_id]);
   response.success = results.length > 0 ? true : false;
   response.data = results.length > 0 ? results : {};
 

@@ -209,3 +209,11 @@ Input:
 {
   registration_id
 }
+
+Operation: Get Client Machines
+URL: https://ytp3g6j58c.execute-api.us-east-2.amazonaws.com/test/get-client-machines
+Method: POST
+Input: 
+{
+  registration_id
+}

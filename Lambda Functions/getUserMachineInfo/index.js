@@ -58,17 +58,22 @@ exports.handler = async (event) => {
     "LEFT JOIN memory_metrics USING(machine_id) " +
     "LEFT JOIN client_machine USING(machine_id) " +
     "LEFT JOIN map_user_machine USING(machine_id) " +
-    "WHERE user_id = ? " +
+    "WHERE user_id = ? AND machine_id = ? " +
     "UNION " +
     "SELECT A.entry_time, machine_name, system_name, version, machine_type, brand, hz_actual, core_count, memory_total " +
     "FROM cpu_metrics AS A " +
     "RIGHT JOIN memory_metrics USING(machine_id) " +
     "RIGHT JOIN client_machine USING(machine_id) " +
     "RIGHT JOIN map_user_machine USING(machine_id) " +
-    "WHERE user_id = ?";
+    "WHERE user_id = ? AND machine_id = ? ";
 
   // Run your query
-  let results = await mysql.query(query, [user_id, user_id]);
+  let results = await mysql.query(query, [
+    user_id,
+    event.machine_id,
+    user_id,
+    event.machine_id,
+  ]);
   response.success = results.length > 0 ? true : false;
   response.data = results.length > 0 ? results : {};
 
