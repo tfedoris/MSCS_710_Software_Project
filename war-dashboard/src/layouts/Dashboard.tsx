@@ -6,6 +6,8 @@ import SyncIcon from "@material-ui/icons/Sync";
 import { IconButton } from "@material-ui/core";
 import { Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+import { Endpoint } from "utilities/API";
 
 interface Props {
   registrationId: string;
@@ -31,6 +33,25 @@ export default function Dashboard(props: Props): ReactElement {
   const handleTimeframeChange = (timeframe: Object) => {
     console.log(timeframe);
   };
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const processesDataRequest = axios.post(Endpoint.ProcessesData, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
+
+      await axios.all([processesDataRequest]).then(
+        axios.spread(function (processesDataResponse) {
+          console.log(processesDataResponse);
+        })
+      );
+    };
+
+    if (props.registrationId !== "[LOADING...]" && selectedMachineId !== "") {
+      fetchData();
+    }
+  }, [props.registrationId, selectedMachineId]);
 
   return (
     <div className={classes.drawerHeader}>
