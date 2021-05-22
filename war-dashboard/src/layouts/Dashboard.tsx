@@ -9,6 +9,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { Endpoint } from "utilities/API";
 import RefreshButton from "components/atoms/RefreshButton";
+import moment from "moment";
+import ProcessesMetricsTable from "components/organisms/ProcessesMetricsTable";
+
+const KB = 0.001;
+const MB = 1e-6;
 
 interface Props {
   registrationId: string;
@@ -20,22 +25,40 @@ export default function Dashboard(props: Props): ReactElement {
   const [selectedMachineId, setSelectedMachineId] = React.useState("");
   const [refresh, toggleRefresh] = React.useState(false);
 
+  const [machineInfo, setMachineInfo] = React.useState({} as any);
   const [processesData, setProcessesData] = React.useState([] as any);
+  const [filteredProcessesData, setFilteredProcessesData] = React.useState(
+    [] as any
+  );
 
-  const handleTimeframeChange = (timeframe: Object) => {
-    console.log(timeframe);
+  const [selectedTimeframe, setSelectedTimeframe] = React.useState({
+    start: moment().format(),
+    end: moment().format(),
+  });
+
+  const handleTimeframeChange = (timeframe: any) => {
+    setSelectedTimeframe(timeframe);
   };
 
   React.useEffect(() => {
+    var isCancelled = false;
+
     const fetchData = async () => {
+      const machineInfoRequest = axios.post(Endpoint.MachineInfo, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
       const processesDataRequest = axios.post(Endpoint.ProcessesData, {
         registration_id: props.registrationId,
         machine_id: selectedMachineId,
       });
 
-      await axios.all([processesDataRequest]).then(
-        axios.spread(function (processesDataResponse) {
-          console.log(processesDataResponse.data.data);
+      await axios.all([machineInfoRequest, processesDataRequest]).then(
+        axios.spread(function (machineInfoResponse, processesDataResponse) {
+          if (!isCancelled) {
+            setMachineInfo(machineInfoResponse.data.data[0] || {});
+            setProcessesData(processesDataResponse.data.data);
+          }
         })
       );
     };
@@ -43,18 +66,83 @@ export default function Dashboard(props: Props): ReactElement {
     if (props.registrationId !== "[LOADING...]" && selectedMachineId !== "") {
       fetchData();
     }
+
+    return () => {
+      isCancelled = true;
+      return;
+    };
   }, [props.registrationId, selectedMachineId]);
 
+  React.useEffect(() => {
+    const filtered = processesData.filter((data: any) => {
+      return moment(data.entry_time).isBetween(
+        selectedTimeframe.start,
+        selectedTimeframe.end
+      );
+    });
+    console.log(filtered);
+
+    const summed = Object.values(
+      filtered.reduce((a: any, curr: any) => {
+        if (!a[curr.name]) a[curr.name] = Object.assign({}, curr);
+        else {
+          a[curr.name].cpu_percent += curr.cpu_percent;
+          a[curr.name].memory_physical_used_byte +=
+            curr.memory_physical_used_byte;
+          a[curr.name].memory_virtual_bsed_byte +=
+            curr.memory_virtual_bsed_byte;
+          a[curr.name].io_read_count += curr.io_read_count;
+          a[curr.name].io_read_bytes += curr.io_read_bytes;
+          a[curr.name].io_write_count += curr.io_write_count;
+          a[curr.name].io_write_bytes += curr.io_write_bytes;
+          a[curr.name].thread_num += curr.thread_num;
+        }
+        return a;
+      }, {})
+    );
+    console.log(summed);
+
+    console.log(machineInfo);
+
+    const averaged = summed.map((entry: any) => {
+      var averagedObj = Object.assign({}, entry);
+      const count = filtered.filter(
+        (obj: any) => obj.name === entry.name
+      ).length;
+      averagedObj.cpu_percent =
+        entry.cpu_percent / count / machineInfo.core_count;
+      console.log(machineInfo.core_count);
+      averagedObj.memory_physical_used_byte =
+        (entry.memory_physical_used_byte / count) * MB;
+      averagedObj.memory_virtual_bsed_byte =
+        (entry.memory_virtual_bsed_byte / count) * MB;
+      averagedObj.io_read_count = entry.io_read_count / count;
+      averagedObj.io_read_bytes = (entry.io_read_bytes / count) * MB;
+      averagedObj.io_write_count = entry.io_write_count / count;
+      averagedObj.io_write_bytes = (entry.io_write_bytes / count) * MB;
+      averagedObj.thread_num = entry.thread_num / count;
+      return averagedObj;
+    });
+    console.log("Averaged: ", averaged);
+
+    setFilteredProcessesData(averaged);
+  }, [processesData, selectedTimeframe, machineInfo]);
+
   return (
-    <div className={classes.drawerHeader}>
-      <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
-      <MachineSelector
-        registrationId={props.registrationId}
-        onChange={(value: string) => {
-          setSelectedMachineId(value);
-        }}
-      />
-      <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
-    </div>
+    <>
+      <div className={classes.drawerHeader}>
+        <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
+        <MachineSelector
+          registrationId={props.registrationId}
+          onChange={(value: string) => {
+            setSelectedMachineId(value);
+          }}
+        />
+        <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
+      </div>
+      <div>
+        <ProcessesMetricsTable rows={filteredProcessesData || []} />
+      </div>
+    </>
   );
 }

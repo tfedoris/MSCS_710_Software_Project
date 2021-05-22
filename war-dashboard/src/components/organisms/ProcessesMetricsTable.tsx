@@ -95,68 +95,68 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   {
-    id: "pid",
-    alignRight: true,
-    disablePadding: false,
-    label: "PID",
-  },
-  {
     id: "name",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "Name",
   },
   {
+    id: "pid",
+    alignRight: false,
+    disablePadding: false,
+    label: "PID",
+  },
+  {
     id: "process_status",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "Status",
   },
   {
     id: "cpu_percent",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "CPU % (avg across all cores)",
   },
   {
     id: "memory_physical_used_byte",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "Memory Used (MB)",
   },
   {
     id: "memory_virtual_bsed_byte",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "Virtual Memory Used (MB)",
   },
   {
     id: "io_read_count",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "I/O Read Count",
   },
   {
     id: "io_read_bytes",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "I/O Read (KB)",
   },
   {
     id: "io_write_count",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "I/O Write Count",
   },
   {
     id: "io_write_bytes",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "I/O Write (KB)",
   },
   {
     id: "thread_num",
-    alignRight: true,
+    alignRight: false,
     disablePadding: false,
     label: "Threads",
   },
@@ -251,11 +251,6 @@ const EnhancedTableToolbar = ({ title }: EnhancedTableToolbarProps) => {
       >
         {title}
       </Typography>
-      <Tooltip title="Filter Inventory">
-        <IconButton aria-label="filter-inventory" onClick={handleClick}>
-          <FilterListIcon />
-        </IconButton>
-      </Tooltip>
     </Toolbar>
   );
 };
@@ -304,7 +299,6 @@ interface Props {
 }
 
 export default function InventoryTable({
-  rows,
   title = `Processes Metrics`,
   ...props
 }: Props) {
@@ -314,6 +308,11 @@ export default function InventoryTable({
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = React.useState(props.rows);
+
+  React.useEffect(() => {
+    setRows(props.rows);
+  }, [props.rows]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -367,19 +366,20 @@ export default function InventoryTable({
                   return (
                     <TableRow hover tabIndex={-1} key={row.pid}>
                       <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="right">{row.process_status}</TableCell>
-                      <TableCell align="right">{row.cpu_percent}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="left">{row.pid}</TableCell>
+                      <TableCell align="left">{row.process_status}</TableCell>
+                      <TableCell align="left">{row.cpu_percent}</TableCell>
+                      <TableCell align="left">
                         {row.memory_physical_used_byte}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="left">
                         {row.memory_virtual_bsed_byte}
                       </TableCell>
-                      <TableCell align="right">{row.io_read_count}</TableCell>
-                      <TableCell align="right">{row.io_read_bytes}</TableCell>
-                      <TableCell align="right">{row.io_write_count}</TableCell>
-                      <TableCell align="right">{row.io_write_bytes}</TableCell>
-                      <TableCell align="right">{row.thread_num}</TableCell>
+                      <TableCell align="left">{row.io_read_count}</TableCell>
+                      <TableCell align="left">{row.io_read_bytes}</TableCell>
+                      <TableCell align="left">{row.io_write_count}</TableCell>
+                      <TableCell align="left">{row.io_write_bytes}</TableCell>
+                      <TableCell align="left">{row.thread_num}</TableCell>
                     </TableRow>
                   );
                 })}
