@@ -23,6 +23,7 @@ import { Grid } from "@material-ui/core";
 
 interface Props {
   children: any;
+  themeButton: any;
   username: string;
   signoutButton: any;
   onSelect?: (pageName: string) => void;
@@ -31,12 +32,13 @@ interface Props {
 export default function Navigation({
   children,
   onSelect,
+  themeButton,
   username,
   signoutButton,
 }: Props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (
@@ -86,16 +88,24 @@ export default function Navigation({
             style={{
               display: "flex",
               marginLeft: "auto",
-              marginRight: 30,
+              marginRight: 50,
             }}
           >
-            <Grid container spacing={3} alignItems="center">
-              <Grid item xs={6}>
+            <Grid
+              container
+              spacing={3}
+              alignItems="center"
+              justify="space-between"
+            >
+              <Grid item xs={4}>
+                {themeButton}
+              </Grid>
+              <Grid item xs={4}>
                 <Typography variant="h5" noWrap>
                   {username}
                 </Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 {signoutButton}
               </Grid>
             </Grid>
