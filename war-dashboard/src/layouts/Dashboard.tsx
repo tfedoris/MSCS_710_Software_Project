@@ -3,7 +3,7 @@ import MachineSelector from "components/atoms/MachineSelector";
 import React, { ReactElement } from "react";
 import { useStyles } from "themes/DynamicDrawerTheme";
 import SyncIcon from "@material-ui/icons/Sync";
-import { IconButton } from "@material-ui/core";
+import { Grid, IconButton, Slide, Typography } from "@material-ui/core";
 import { Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
@@ -13,6 +13,7 @@ import moment from "moment";
 import CPUMetricsPieChart from "components/organisms/CPUMetricsPieChart";
 import MemoryMetricsPieChart from "components/organisms/MemoryMetricsPieChart";
 import ProcessesMetricsTable from "components/organisms/ProcessesMetricsTable";
+import { Fade } from "@material-ui/core";
 
 const KB = 0.001;
 const MB = 1e-6;
@@ -158,25 +159,62 @@ export default function Dashboard(props: Props): ReactElement {
   return (
     <>
       <div className={classes.drawerHeader}>
-        <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
-        <MachineSelector
-          registrationId={props.registrationId}
-          onChange={(value: string) => {
-            setSelectedMachineId(value);
-          }}
-        />
-        <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
-      </div>
-      <div>
-        <div style={{ height: 400 }}>
-          <CPUMetricsPieChart data={filteredProcessesData} />
-        </div>
-        <div style={{ height: 400 }}>
-          <MemoryMetricsPieChart data={filteredProcessesData} />
-        </div>
-      </div>
-      <div>
-        <ProcessesMetricsTable rows={filteredProcessesData} />
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <MachineSelector
+              registrationId={props.registrationId}
+              onChange={(value: string) => {
+                setSelectedMachineId(value);
+              }}
+            />
+          </Grid>
+          <Grid item xs={5}>
+            <DataFilter refresh={refresh} onChange={handleTimeframeChange} />
+          </Grid>
+          <Grid item xs={1}>
+            <RefreshButton onToggleRefresh={() => toggleRefresh(!refresh)} />
+          </Grid>
+          <Slide
+            direction="right"
+            in={filteredProcessesData.length > 0}
+            mountOnEnter
+            unmountOnExit
+          >
+            <Grid item xs={6}>
+              <div style={{ paddingBottom: 10 }}>
+                <Typography variant="h5">CPU Utilization</Typography>
+              </div>
+              <div style={{ height: 700 }}>
+                <CPUMetricsPieChart data={filteredProcessesData} />
+              </div>
+            </Grid>
+          </Slide>
+          <Slide
+            direction="left"
+            in={filteredProcessesData.length > 0}
+            mountOnEnter
+            unmountOnExit
+          >
+            <Grid item xs={6}>
+              <div style={{ paddingBottom: 10 }}>
+                <Typography variant="h5">Memory Utilization</Typography>
+              </div>
+              <div style={{ height: 700 }}>
+                <MemoryMetricsPieChart data={filteredProcessesData} />
+              </div>
+            </Grid>
+          </Slide>
+          <Slide
+            direction="up"
+            in={filteredProcessesData.length > 0}
+            mountOnEnter
+            unmountOnExit
+          >
+            <Grid xs={12}>
+              <ProcessesMetricsTable rows={filteredProcessesData} />
+            </Grid>
+          </Slide>
+        </Grid>
       </div>
     </>
   );
