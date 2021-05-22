@@ -26,6 +26,8 @@ export default function Dashboard(props: Props): ReactElement {
   const [refresh, toggleRefresh] = React.useState(false);
 
   const [machineInfo, setMachineInfo] = React.useState({} as any);
+  const [cpuMetrics, setCpuMetrics] = React.useState([] as any);
+  const [memoryMetrics, setMemoryMetrics] = React.useState([] as any);
   const [processesData, setProcessesData] = React.useState([] as any);
   const [filteredProcessesData, setFilteredProcessesData] = React.useState(
     [] as any
@@ -48,19 +50,41 @@ export default function Dashboard(props: Props): ReactElement {
         registration_id: props.registrationId,
         machine_id: selectedMachineId,
       });
+      const cpuMetricsRequest = axios.post(Endpoint.CPUUtilization, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
+      const memoryMetricsRequest = axios.post(Endpoint.MemoryUtilization, {
+        registration_id: props.registrationId,
+        machine_id: selectedMachineId,
+      });
       const processesDataRequest = axios.post(Endpoint.ProcessesData, {
         registration_id: props.registrationId,
         machine_id: selectedMachineId,
       });
 
-      await axios.all([machineInfoRequest, processesDataRequest]).then(
-        axios.spread(function (machineInfoResponse, processesDataResponse) {
-          if (!isCancelled) {
-            setMachineInfo(machineInfoResponse.data.data[0] || {});
-            setProcessesData(processesDataResponse.data.data);
-          }
-        })
-      );
+      await axios
+        .all([
+          machineInfoRequest,
+          cpuMetricsRequest,
+          memoryMetricsRequest,
+          processesDataRequest,
+        ])
+        .then(
+          axios.spread(function (
+            machineInfoResponse,
+            cpuMetricsResponse,
+            memoryMetricsResponse,
+            processesDataResponse
+          ) {
+            if (!isCancelled) {
+              setMachineInfo(machineInfoResponse.data.data[0] || {});
+              setCpuMetrics(cpuMetricsResponse.data.data || []);
+              setMemoryMetrics(memoryMetricsResponse.data.data || []);
+              setProcessesData(processesDataResponse.data.data);
+            }
+          })
+        );
     };
 
     if (props.registrationId !== "[LOADING...]" && selectedMachineId !== "") {
