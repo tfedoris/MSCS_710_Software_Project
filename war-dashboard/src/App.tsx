@@ -96,7 +96,7 @@ const AuthStateApp: React.FunctionComponent = () => {
           >
             {
               {
-                Dashboard: <Dashboard registrationId={registrationId} />,
+                Dashboard: <Dashboard user_id={user.username} />,
                 Account: (
                   <div
                     style={{

@@ -299,7 +299,7 @@ interface Props {
 }
 
 export default function InventoryTable({
-  title = `Detailed Processes Metrics`,
+  title = `Detailed Processes Metrics (average over time)`,
   ...props
 }: Props) {
   const classes = useStyles();
@@ -368,18 +368,30 @@ export default function InventoryTable({
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">{row.pid}</TableCell>
                       <TableCell align="left">{row.process_status}</TableCell>
-                      <TableCell align="left">{row.cpu_percent}</TableCell>
                       <TableCell align="left">
-                        {row.memory_physical_used_byte}
+                        {row.cpu_percent.toFixed(2)}
                       </TableCell>
                       <TableCell align="left">
-                        {row.memory_virtual_bsed_byte}
+                        {row.memory_physical_used_byte.toFixed(2)}
                       </TableCell>
-                      <TableCell align="left">{row.io_read_count}</TableCell>
-                      <TableCell align="left">{row.io_read_bytes}</TableCell>
-                      <TableCell align="left">{row.io_write_count}</TableCell>
-                      <TableCell align="left">{row.io_write_bytes}</TableCell>
-                      <TableCell align="left">{row.thread_num}</TableCell>
+                      <TableCell align="left">
+                        {row.memory_virtual_bsed_byte.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.io_read_count.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.io_read_bytes.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.io_write_count.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.io_write_bytes.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.thread_num.toFixed(2)}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
