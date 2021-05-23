@@ -36,7 +36,7 @@ https://youtu.be/s8xK9idr6kA
  1) panda==1.2.3
  1) pyinstaller==4.3
 
-## How to Run Computer Metric Collector on Client side
+## How to Run
 
 In order to start up Computer Metric Collector, please execute the following from the root directory:
 1) Download or Clone the repository
