@@ -96,7 +96,8 @@ def persist_database(logger, config, encrypt_key, collectors):
 def reset_collectors(logger, collectors):
     logger.info("Reset fetched and persisted collector to prepare for next round of collection")
     for c in collectors:
-        if c.is_stored and c.is_stored_locally:
+        if c.is_stored:
+            logger.debug("Reset " + type(c).__name__)
             c.reset_metrics_df()
 
 
