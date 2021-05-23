@@ -80,7 +80,8 @@ export default function Dashboard(props: Props): ReactElement {
   }, [props.user_id, selectedMachineId]);
 
   React.useEffect(() => {
-    const filtered = processesData.filter((data: any) => {
+    if (!processesData) return;
+    const filtered = processesData?.filter((data: any) => {
       const date = moment(data.entry_time).utc().format("YYYY-MM-DDTHH:mm:ss");
       console.log(
         `${selectedTimeframe.start} <= ${date} <= ${
