@@ -35,9 +35,13 @@ export default function Dashboard(props: Props): ReactElement {
   );
 
   const [selectedTimeframe, setSelectedTimeframe] = React.useState({
-    start: moment().format(),
-    end: moment().format(),
+    start: moment().format("YYYY-MM-DDTHH:mm:ss"),
+    end: moment().format("YYYY-MM-DDTHH:mm:ss"),
   });
+
+  React.useEffect(() => {
+    console.log("Timeframe: ", selectedTimeframe);
+  }, [selectedTimeframe]);
 
   const handleTimeframeChange = (timeframe: any) => {
     setSelectedTimeframe(timeframe);
@@ -76,9 +80,17 @@ export default function Dashboard(props: Props): ReactElement {
   }, [props.user_id, selectedMachineId]);
 
   React.useEffect(() => {
-    if (!processesData) return;
     const filtered = processesData.filter((data: any) => {
-      return moment(data.entry_time).isBetween(
+      const date = moment(data.entry_time).utc().format("YYYY-MM-DDTHH:mm:ss");
+      console.log(
+        `${selectedTimeframe.start} <= ${date} <= ${
+          selectedTimeframe.end
+        }: ${moment(date).isBetween(
+          selectedTimeframe.start,
+          selectedTimeframe.end
+        )}`
+      );
+      return moment(date).isBetween(
         selectedTimeframe.start,
         selectedTimeframe.end
       );

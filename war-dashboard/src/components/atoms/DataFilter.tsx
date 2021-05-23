@@ -25,26 +25,28 @@ export default function DataFilter({ onChange, refresh }: Props): ReactElement {
   const classes = useStyles();
 
   const [selectedValue, setSelectedValue] = React.useState("");
-  const [now, setNow] = React.useState(moment().format());
+  const [now, setNow] = React.useState(moment().format("YYYY-MM-DDTHH:mm:ss"));
   const [lastMinute, setLastMinute] = React.useState(
-    moment().subtract(60, "seconds").format()
+    moment().subtract(5, "minutes").format("YYYY-MM-DDTHH:mm:ss")
   );
   const [lastHour, setLastHour] = React.useState(
-    moment().subtract(60, "minutes").format()
+    moment().subtract(60, "minutes").format("YYYY-MM-DDTHH:mm:ss")
   );
   const [lastDay, setLastDay] = React.useState(
-    moment().subtract(24, "hours").format()
+    moment().subtract(24, "hours").format("YYYY-MM-DDTHH:mm:ss")
   );
   const [lastWeek, setLastWeek] = React.useState(
-    moment().subtract(7, "days").format()
+    moment().subtract(7, "days").format("YYYY-MM-DDTHH:mm:ss")
   );
 
   React.useEffect(() => {
-    setNow(moment().format());
-    setLastMinute(moment().subtract(60, "seconds").format());
-    setLastHour(moment().subtract(60, "minutes").format());
-    setLastDay(moment().subtract(24, "hours").format());
-    setLastWeek(moment().subtract(7, "days").format());
+    setNow(moment().format("YYYY-MM-DDTHH:mm:ss"));
+    setLastMinute(
+      moment().subtract(5, "minutes").format("YYYY-MM-DDTHH:mm:ss")
+    );
+    setLastHour(moment().subtract(60, "minutes").format("YYYY-MM-DDTHH:mm:ss"));
+    setLastDay(moment().subtract(24, "hours").format("YYYY-MM-DDTHH:mm:ss"));
+    setLastWeek(moment().subtract(7, "days").format("YYYY-MM-DDTHH:mm:ss"));
   }, [refresh]);
 
   React.useEffect(() => {
@@ -57,6 +59,9 @@ export default function DataFilter({ onChange, refresh }: Props): ReactElement {
         break;
       case "day":
         onChange({ start: lastDay, end: now });
+        break;
+      case "week":
+        onChange({ start: lastWeek, end: now });
         break;
       default:
     }
@@ -98,7 +103,7 @@ export default function DataFilter({ onChange, refresh }: Props): ReactElement {
         className: classes.input,
       }}
     >
-      <MenuItem value={"minute"}>Last 60 Seconds</MenuItem>
+      <MenuItem value={"minute"}>Last 5 minutes</MenuItem>
       <MenuItem value={"hour"}>Last 60 Minutes</MenuItem>
       <MenuItem value={"day"}>Last 24 Hours</MenuItem>
       <MenuItem value={"week"}>Last 7 Days</MenuItem>
