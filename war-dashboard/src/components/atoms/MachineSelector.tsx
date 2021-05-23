@@ -42,7 +42,8 @@ export default function FulfillmentCenterSelector({
     const fetchData = async () => {
       axios.post(Endpoint.ClientMachines, { user_id: userId }).then(
         (response) => {
-          if (!isCancelled) setItems(response.data.data);
+          if (!isCancelled && response.data.success)
+            setItems(response.data.data);
         },
         (error) => {
           console.log(error.response.status);
@@ -51,7 +52,7 @@ export default function FulfillmentCenterSelector({
     };
 
     fetchData();
-    if (items) {
+    if (items.length > 0) {
       const elements = items.map((item: any) => {
         return (
           <MenuItem key={item.machine_id} value={item.machine_id}>
