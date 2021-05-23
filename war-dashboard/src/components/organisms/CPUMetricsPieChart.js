@@ -17,6 +17,7 @@ const CPUMetricsPieChart = (props) => {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
+    console.log("CPU DATA:", props.data);
     const filteredData = props.data.filter((entry) => {
       return entry.cpu_percent > 0;
     });

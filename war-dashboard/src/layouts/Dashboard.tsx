@@ -19,7 +19,7 @@ const KB = 0.001;
 const MB = 1e-6;
 
 interface Props {
-  registrationId: string;
+  user_id: string;
 }
 
 export default function Dashboard(props: Props): ReactElement {
@@ -29,8 +29,6 @@ export default function Dashboard(props: Props): ReactElement {
   const [refresh, toggleRefresh] = React.useState(false);
 
   const [machineInfo, setMachineInfo] = React.useState({} as any);
-  const [cpuMetrics, setCpuMetrics] = React.useState([] as any);
-  const [memoryMetrics, setMemoryMetrics] = React.useState([] as any);
   const [processesData, setProcessesData] = React.useState([] as any);
   const [filteredProcessesData, setFilteredProcessesData] = React.useState(
     [] as any
@@ -50,48 +48,24 @@ export default function Dashboard(props: Props): ReactElement {
 
     const fetchData = async () => {
       const machineInfoRequest = axios.post(Endpoint.MachineInfo, {
-        registration_id: props.registrationId,
-        machine_id: selectedMachineId,
-      });
-      const cpuMetricsRequest = axios.post(Endpoint.CPUUtilization, {
-        registration_id: props.registrationId,
-        machine_id: selectedMachineId,
-      });
-      const memoryMetricsRequest = axios.post(Endpoint.MemoryUtilization, {
-        registration_id: props.registrationId,
+        user_id: props.user_id,
         machine_id: selectedMachineId,
       });
       const processesDataRequest = axios.post(Endpoint.ProcessesData, {
-        registration_id: props.registrationId,
+        user_id: props.user_id,
         machine_id: selectedMachineId,
       });
-
-      await axios
-        .all([
-          machineInfoRequest,
-          cpuMetricsRequest,
-          memoryMetricsRequest,
-          processesDataRequest,
-        ])
-        .then(
-          axios.spread(function (
-            machineInfoResponse,
-            cpuMetricsResponse,
-            memoryMetricsResponse,
-            processesDataResponse
-          ) {
-            if (!isCancelled) {
-              setMachineInfo(machineInfoResponse.data.data[0] || {});
-              setCpuMetrics(cpuMetricsResponse.data.data || []);
-              console.log("CPU Metrics: ", cpuMetricsResponse.data.data);
-              setMemoryMetrics(memoryMetricsResponse.data.data || []);
-              setProcessesData(processesDataResponse.data.data);
-            }
-          })
-        );
+      await axios.all([machineInfoRequest, processesDataRequest]).then(
+        axios.spread(function (machineInfoResponse, processesDataResponse) {
+          if (!isCancelled) {
+            setMachineInfo(machineInfoResponse.data.data[0] || {});
+            setProcessesData(processesDataResponse.data.data);
+          }
+        })
+      );
     };
 
-    if (props.registrationId !== "[LOADING...]" && selectedMachineId !== "") {
+    if (props.user_id && selectedMachineId !== "") {
       fetchData();
     }
 
@@ -99,9 +73,10 @@ export default function Dashboard(props: Props): ReactElement {
       isCancelled = true;
       return;
     };
-  }, [props.registrationId, selectedMachineId]);
+  }, [props.user_id, selectedMachineId]);
 
   React.useEffect(() => {
+    if (!processesData) return;
     const filtered = processesData.filter((data: any) => {
       return moment(data.entry_time).isBetween(
         selectedTimeframe.start,
@@ -162,7 +137,7 @@ export default function Dashboard(props: Props): ReactElement {
         <Grid container spacing={3}>
           <Grid item xs={12} lg={6}>
             <MachineSelector
-              registrationId={props.registrationId}
+              userId={props.user_id}
               onChange={(value: string) => {
                 setSelectedMachineId(value);
               }}
@@ -210,7 +185,7 @@ export default function Dashboard(props: Props): ReactElement {
             mountOnEnter
             unmountOnExit
           >
-            <Grid lg={12}>
+            <Grid item lg={12}>
               <ProcessesMetricsTable rows={filteredProcessesData} />
             </Grid>
           </Slide>
