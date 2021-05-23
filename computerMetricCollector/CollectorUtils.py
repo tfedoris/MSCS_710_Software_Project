@@ -93,10 +93,14 @@ def persist_database(logger, config, encrypt_key, collectors):
         logger.error("Registration ID: " + str(reg_id))
 
 
-def reset_collectors(logger, collectors):
+def reset_collectors(logger, collectors, to_local_store):
     logger.info("Reset fetched and persisted collector to prepare for next round of collection")
     for c in collectors:
-        if c.is_stored:
+        if to_local_store:
+            condition = c.is_stored and c.is_stored_locally
+        else:
+            condition = c.is_stored
+        if condition:
             logger.debug("Reset " + type(c).__name__)
             c.reset_metrics_df()
 
@@ -148,7 +152,7 @@ def collect_metrics(logger, settings, encrypt_key, collectors):
         print("End storing metrics data to remote database")
         logger.info("Finish persisting fetched metrics")
 
-        reset_collectors(logger, collectors)
+        reset_collectors(logger, collectors, settings["to_store_local"])
     except AccessDenied as ad:
         logger.error("Access denied for fetch data from psutil library")
         logger.error(ad)
