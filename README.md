@@ -6,7 +6,7 @@
 * [General info](#general-info)
 * [Requirements](#requirements)
 * [How to run](#how-to-run)
-* [Metric Collector](#metric-collector)
+* [Computer Metric Collector](#computer-metric-collector)
 * [UI](#ui)
 * [Pipeline](#pipeline)
 * [Testing](#testing)
