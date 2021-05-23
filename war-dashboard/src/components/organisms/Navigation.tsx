@@ -36,7 +36,7 @@ export default function Navigation({
 }: Props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (
@@ -86,10 +86,15 @@ export default function Navigation({
             style={{
               display: "flex",
               marginLeft: "auto",
-              marginRight: 30,
+              marginRight: 50,
             }}
           >
-            <Grid container spacing={3} alignItems="center">
+            <Grid
+              container
+              spacing={3}
+              alignItems="center"
+              justify="space-between"
+            >
               <Grid item xs={6}>
                 <Typography variant="h5" noWrap>
                   {username}

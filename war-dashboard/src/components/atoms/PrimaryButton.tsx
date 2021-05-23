@@ -2,12 +2,14 @@ import React from "react";
 
 import Button from "@material-ui/core/Button";
 
-interface IProps_PrimaryButton {
+interface Props {
   title: string;
   disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick?: () => void;
   type?: "button" | "submit" | "reset" | undefined;
   style?: React.CSSProperties | undefined;
+  preventRender?: boolean;
+  color?: "primary" | "inherit" | "secondary" | "default" | undefined;
 }
 
 const PrimaryButton = ({
@@ -16,18 +18,21 @@ const PrimaryButton = ({
   onClick,
   type,
   style,
-}: IProps_PrimaryButton) => (
-  <Button
-    variant="contained"
-    color="primary"
-    disabled={disabled}
-    onClick={onClick}
-    size="medium"
-    type={type}
-    style={style}
-  >
-    {title}
-  </Button>
-);
+  preventRender = false,
+  color = "primary",
+}: Props) =>
+  preventRender ? null : (
+    <Button
+      variant="contained"
+      color={color}
+      disabled={disabled}
+      onClick={onClick}
+      size="medium"
+      type={type}
+      style={style}
+    >
+      {title}
+    </Button>
+  );
 
 export default PrimaryButton;

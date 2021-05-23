@@ -9,3 +9,4 @@
 /build/*
 /ComputerMetricsCollector.spec
 **/__pycache__
+computerMetricCollector/dis/ComputerMetricsCollector.exe
