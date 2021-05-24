@@ -28,9 +28,10 @@ def get_key(logger, reg_id, url):
             fail = False
         else:
             print("Fail to get public key using registration id: " + reg_id)
-            print("Attempt to fetch public key again.")
             logger.error(res_json)
             attempt = attempt + 1
+            if attempt < 2:
+                print("Attempt to fetch public key again.")
     return public_key
 
 

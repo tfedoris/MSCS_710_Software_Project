@@ -43,9 +43,11 @@ if __name__ == "__main__":
     settings = import_config(root_dir)
     # If not settings is provide
     if len(settings.keys()) == 0:
+        print("No settings is provide")
+        input("Press any key to exit...")
         sys.exit(1)
 
-    if reg_id is None:
+    while reg_id is None:
         reg_id = input("Input your registration ID: ")
     settings["registration_id"] = reg_id
     if is_local_store is None:
@@ -83,15 +85,16 @@ if __name__ == "__main__":
 
     if True not in to_collect:
         logger.error("No collector found. Please ensure metrics collector code exist.")
+        print("No collector define to collect. Please contact the developer for help.")
+        input("Press any key to exit...")
         sys.exit(1)
     else:
         collected_counter = 1
         encryption_key = get_key(logger, settings.get("registration_id"), settings.get("public_key_url"))
-        while True:
-            print("Start collection " + str(collected_counter))
-            logger.info("Start collection " + str(collected_counter))
-
-            if encryption_key is not None:
+        if encryption_key is not None:
+            while True:
+                print("Start collection " + str(collected_counter))
+                logger.info("Start collection " + str(collected_counter))
                 logger.info("Encryption key file is found")
                 collect_metrics(logger, settings, encryption_key, collectors)
                 print("Finish collection " + str(collected_counter))
@@ -100,18 +103,22 @@ if __name__ == "__main__":
 
                 if is_testing:
                     logger.info("Test run finish. The program will terminate")
+                    print("Test finish")
+                    input("Press any key to exit...")
                     sys.exit(0)
 
                 logger.debug("Begin sleeping for " + str(settings.get("sleep_time_sec")) + " second(s)")
                 next_collect_time = datetime.now() + timedelta(seconds=settings.get("sleep_time_sec"))
                 print("Next collection time " + next_collect_time.strftime(datetime_format))
                 sleep(settings.get("sleep_time_sec"))
-            else:
-                logger.error("Fail to fetch public key with registration id " + settings.get("registration_id"))
-                logger.error("Please provide correct registration id.")
-                sys.exit(1)
-            # Reload settings for the next run
-            logger.info("Reload settings")
-            settings = import_config(root_dir)
-            settings["registration_id"] = reg_id
-            settings["to_store_local"] = is_local_store
+                # Reload settings for the next run
+                logger.info("Reload settings")
+                settings = import_config(root_dir)
+                settings["registration_id"] = reg_id
+                settings["to_store_local"] = is_local_store
+
+        else:
+            logger.error("Fail to fetch public key with registration id " + settings.get("registration_id"))
+            logger.error("Please provide correct registration id.")
+            input("Press any key to exit...")
+            sys.exit(1)
