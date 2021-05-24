@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  registrationId: string;
+  userId: string;
   onChange: (value: string) => void;
 }
 
 export default function FulfillmentCenterSelector({
-  registrationId,
+  userId,
   onChange,
 }: Props): ReactElement {
   const [items, setItems] = React.useState([] as any);
@@ -40,20 +40,19 @@ export default function FulfillmentCenterSelector({
     let isCancelled = false;
 
     const fetchData = async () => {
-      axios
-        .post(Endpoint.ClientMachines, { registration_id: registrationId })
-        .then(
-          (response) => {
-            if (!isCancelled) setItems(response.data.data);
-          },
-          (error) => {
-            console.log(error.response.status);
-          }
-        );
+      axios.post(Endpoint.ClientMachines, { user_id: userId }).then(
+        (response) => {
+          if (!isCancelled && response.data.success)
+            setItems(response.data.data);
+        },
+        (error) => {
+          console.log(error.response.status);
+        }
+      );
     };
 
     fetchData();
-    if (items) {
+    if (items.length > 0) {
       const elements = items.map((item: any) => {
         return (
           <MenuItem key={item.machine_id} value={item.machine_id}>
@@ -68,7 +67,7 @@ export default function FulfillmentCenterSelector({
       isCancelled = true;
       return;
     };
-  }, [items, registrationId]);
+  }, [items, userId]);
 
   const classes = useStyles();
   return (
