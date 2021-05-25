@@ -26,7 +26,7 @@ const CPUMetricsPieChart = (props) => {
         return {
           id: entry.name,
           label: entry.name,
-          value: entry.cpu_percent,
+          value: entry.cpu_percent.toFixed(2),
         };
       })
     );
