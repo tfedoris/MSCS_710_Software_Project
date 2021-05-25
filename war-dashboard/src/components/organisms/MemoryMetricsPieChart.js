@@ -13,7 +13,7 @@ const MemoryMetricsPieChart = (props) => {
         return {
           id: entry.name,
           label: entry.name,
-          value: entry.memory_physical_used_byte,
+          value: entry.memory_physical_used_byte.toFixed(2),
         };
       })
     );
